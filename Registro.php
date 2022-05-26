@@ -12,7 +12,13 @@
         <section class = "form-register">
             <h4>Formulario Registro</h4>
             Nombres
-            <input class = "controls" type = "text" name = "nombres" id = "nombres" placeholder = "Nombres">
+            <input class = "controls" type = "text" name = "nombres" id = "nombres" placeholder = "Nombres" value = "<?php
+            if(isset($_POST['nombres'])){
+                $nombres = $_POST['nombres'];
+                echo trim($nombres);
+            }
+            ?>
+            ">
             Apellidos
             <input class = "controls" type = "text" name = "apellidos" id = "apellidos" placeholder = "Apellidos">
             Rut
