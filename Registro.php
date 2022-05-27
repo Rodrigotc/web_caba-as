@@ -1,5 +1,4 @@
-<?php 
-$ExpresionRegularRut="/^[0-9]+-[0-9kK]{1}$/";
+<?php
  //Definir variables
  $nombres = ComprobarPost("nombres");
  $apellidos = ComprobarPost("apellidos");
@@ -58,7 +57,7 @@ $ExpresionRegularRut="/^[0-9]+-[0-9kK]{1}$/";
                     if($nombres == "" || $apellidos == "" || $rut == "" || $correo == "" || $contrasena == ""){
                         array_push($errores, "Debe rellenar todos los datos");
                     }
-                    if(preg_match($ExpresionRegularRut,$rut)==0){
+                    if((preg_match("/^[0-9]+-[0-9kK]{1}$/",$rut)==0) && $rut != ""){
                         array_push($errores, "Debe ingresar un rut valido");
                     }
                    
