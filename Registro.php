@@ -1,3 +1,23 @@
+<?php 
+$ExpresionRegularRut="/^[0-9]+-[0-9kK]{1}$/";
+ //Definir variables
+ $nombres = ComprobarPost("nombres");
+ $apellidos = ComprobarPost("apellidos");
+ $rut = ComprobarPost("rut");
+ $correo = ComprobarPost("correo");
+ $contrasena = ComprobarPost("contrasena");
+
+ //Validar campos
+ function ComprobarPost($campo){
+    $resultado="";
+    if(isset($_POST[$campo])){
+        $resultado = trim($_POST[$campo]);
+    }
+    return $resultado;
+}
+ 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,25 +32,19 @@
         <section class = "form-register">
             <h4>Formulario Registro</h4>
             Nombres
-            <input class = "controls" type = "text" name = "nombres" id = "nombres" placeholder = "Nombres" value = "<?php
-            if(isset($_POST['nombres'])){
-                $nombres = $_POST['nombres'];
-                echo trim($nombres);
-            }
-            ?>
-            ">
+            <input class = "controls" type = "text" name = "nombres" id = "nombres" placeholder = "Nombres" value = "<?php echo $nombres;?>">
             Apellidos
-            <input class = "controls" type = "text" name = "apellidos" id = "apellidos" placeholder = "Apellidos">
+            <input class = "controls" type = "text" name = "apellidos" id = "apellidos" placeholder = "Apellidos" value = "<?php echo $apellidos;?>">
             Rut
-            <input class = "controls" type = "text" name = "rut" id = "rut" placeholder = "12345678-9">
+            <input class = "controls" type = "text" name = "rut" id = "rut" placeholder = "12345678-9" value = "<?php echo $rut;?>">
             Correo
-            <input class = "controls" type = "email" name = "correo" id = "correo" placeholder = "correo@dominio.com">
+            <input class = "controls" type = "text" name = "correo" id = "correo" placeholder = "correo@dominio.com" value = "<?php echo $correo;?>">
             Contraseña
-            <input class = "controls" type = "password" name = "contrasena" id = "contrasena" placeholder = "Contraseña">
+            <input class = "controls" type = "password" name = "contrasena" id = "contrasena" placeholder = "Contraseña" value = "<?php echo $contrasena;?>">
             <input class = "boton" type = "submit" value = "Registrar">
             <?php
                 if(isset($_POST['nombres'])){
-                    //Recivir datos
+                    //Recibir datos
                     $nombres = $_POST['nombres'];
                     $apellidos = $_POST['apellidos'];
                     $rut = $_POST['rut'];
@@ -41,13 +55,19 @@
                     $errores = array();
 
                     //Verificación de errores
-                    if($nombres == ""){
-                        array_push($errores, "Ingresar sus nombres.");
+                    if($nombres == "" || $apellidos == "" || $rut == "" || $correo == "" || $contrasena == ""){
+                        array_push($errores, "Debe rellenar todos los datos");
                     }
+                    if(preg_match($ExpresionRegularRut,$rut)==0){
+                        array_push($errores, "Debe ingresar un rut valido");
+                    }
+                   
 
                     //Comprobar si existen errores
                     if(count($errores) > 0){
-                        echo "Hay errores";
+                        foreach ($errores as $i => $value) {
+                            echo $value."</br>";
+                        }                        
                         //https://www.youtube.com/watch?v=uhjAJ3pFBrA&t=359s
                     }
 
