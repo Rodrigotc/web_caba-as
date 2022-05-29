@@ -1,21 +1,19 @@
 <?php
- //Definir variables
- $nombres = ComprobarPost("nombres");
- $apellidos = ComprobarPost("apellidos");
- $rut = ComprobarPost("rut");
- $correo = ComprobarPost("correo");
- $contrasena = ComprobarPost("contrasena");
+//Definir variables
+$nombres = ComprobarPost("nombres");
+$apellidos = ComprobarPost("apellidos");
+$rut = ComprobarPost("rut");
+$correo = ComprobarPost("correo");
+$contrasena = ComprobarPost("contrasena");
 
- //Validar campos
- function ComprobarPost($campo){
+//Validar campos
+function ComprobarPost($campo){
     $resultado="";
     if(isset($_POST[$campo])){
         $resultado = trim($_POST[$campo]);
     }
     return $resultado;
 }
- 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,31 +41,39 @@
             <input class = "boton" type = "submit" value = "Registrar">
             <?php
                 if(isset($_POST['nombres'])){
-                    //Recibir datos
+                //Recibir datos
                     $nombres = $_POST['nombres'];
                     $apellidos = $_POST['apellidos'];
                     $rut = $_POST['rut'];
                     $correo = $_POST['correo'];
                     $contrasena = $_POST['contrasena'];
 
-                    //Arreglo
+                //Arreglo
                     $errores = array();
 
-                    //Verificación de errores
+                 //Verificación de errores
+                    //Campos vacíos
                     if($nombres == "" || $apellidos == "" || $rut == "" || $correo == "" || $contrasena == ""){
-                        array_push($errores, "Debe rellenar todos los datos");
+                        array_push($errores, "Debe rellenar todos los datos.");
                     }
-                    if((preg_match("/^[0-9]+-[0-9kK]{1}$/",$rut)==0) && $rut != ""){
-                        array_push($errores, "Debe ingresar un rut valido");
+                    //Rut
+                    if((preg_match("/^[0-9]+-[0-9kK]{1}$/",$rut)==0) && ($rut != "")){
+                        array_push($errores, "Debe ingresar un rut válido.");
                     }
-                   
+                    //Correo
+                   if((!filter_var($correo,FILTER_VALIDATE_EMAIL)) && ($correo != "")){
+                       array_push($errores,"Debe ingresar un correo válido.");
+                    }
 
-                    //Comprobar si existen errores
+                //imprimir errores si existen
                     if(count($errores) > 0){
                         foreach ($errores as $i => $value) {
                             echo $value."</br>";
                         }                        
-                        //https://www.youtube.com/watch?v=uhjAJ3pFBrA&t=359s
+                       
+                    }else{
+                        include ("conection.php");
+
                     }
 
                 }
