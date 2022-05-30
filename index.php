@@ -8,11 +8,9 @@
     <title>Web cabañas</title>
 </head>
 <body>
-    <nav><h1>Barra superior</h1></nav>
-    <div><h3>TODO</h3></div>
-    <h2>Hola mundo</h2>
-    <h2>cambiazo </h2>
-    <a href="./Registro.php">holaaa</a></br>
+    <h2>Página web </h2>
+    <a href="./Registro.php">Registrar Usuario</a></br>
+    <a href="./InicioSesion.php">Iniciar sesión</a></br>
     <?php
     session_start();
         echo "Sesión actual: ", $_SESSION['nombre'];?></br><?php
