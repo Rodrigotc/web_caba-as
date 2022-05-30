@@ -40,7 +40,7 @@ function ComprobarPost($campo){
             <input class = "controls" type = "password" name = "contrasena" id = "contrasena" placeholder = "Contraseña" value = "<?php echo $contrasena;?>">
             <input class = "boton" type = "submit" value = "Registrar">
             <?php
-                if(isset($_POST['nombres'])){
+                if(isset($_POST['nombres'])){               
                 //Recibir datos
                     $nombres = $_POST['nombres'];
                     $apellidos = $_POST['apellidos'];
@@ -51,7 +51,7 @@ function ComprobarPost($campo){
                 //Arreglo
                     $errores = array();
 
-                 //Verificación de errores
+                //Verificación de errores
                     //Campos vacíos
                     if($nombres == "" || $apellidos == "" || $rut == "" || $correo == "" || $contrasena == ""){
                         array_push($errores, "Debe rellenar todos los datos.");
@@ -64,18 +64,39 @@ function ComprobarPost($campo){
                    if((!filter_var($correo,FILTER_VALIDATE_EMAIL)) && ($correo != "")){
                        array_push($errores,"Debe ingresar un correo válido.");
                     }
+                    //Rut ya existente
+                    include ("conection.php");
+                    $consulta = "SELECT * FROM nuevocabanasdb.persona WHERE rut = '$rut'";
+                    $resultado = mysqli_num_rows(mysqli_query($enlace, $consulta));
+                    if($resultado){
+                        array_push($errores,"Ya existe una cuenta con ese rut.");
+                    }
+                    //Correo ya existente
+                    $consulta = "SELECT * FROM nuevocabanasdb.persona WHERE correo = '$correo'";
+                    $resultado = mysqli_num_rows(mysqli_query($enlace, $consulta));
+                    mysqli_close($enlace);
+                    if($resultado){
+                        array_push($errores,"Ya existe una cuenta con ese correo.");
+                    }
 
-                //imprimir errores si existen
+
+                //Resultado de POST
+                    //Si existen errores
                     if(count($errores) > 0){
                         foreach ($errores as $i => $value) {
                             echo $value."</br>";
                         }                        
-                       
+                    //Si los datos son ingresados correctamente  
                     }else{
                         include ("conection.php");
-
+                        $insertar = "INSERT INTO `nuevocabanasdb`.`persona` (`Nombres`, `Apellidos`, `Correo`, `Contrasena`, `Rut`) VALUES ('$nombres', '$apellidos', '$correo', '$contrasena', '$rut')";
+                        mysqli_query($enlace, $insertar);   
+                        mysqli_close($enlace);
+                        session_start();
+                        $_SESSION['nombre'] = $nombres;
+                        $_SESSION['rut'] = $rut;
+                        header("location:index.php");
                     }
-
                 }
             ?>
         </section>

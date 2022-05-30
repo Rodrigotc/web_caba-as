@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +12,11 @@
     <div><h3>TODO</h3></div>
     <h2>Hola mundo</h2>
     <h2>cambiazo </h2>
-    <a href="./Registro.php">holaaa</a>
+    <a href="./Registro.php">holaaa</a></br>
+    <?php
+    session_start();
+        echo "Sesión actual: ", $_SESSION['nombre'];?></br><?php
+        echo "Rut: ", $_SESSION['rut'];
+    ?>
 </body>
 </html>
