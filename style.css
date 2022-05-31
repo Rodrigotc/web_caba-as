@@ -1,4 +1,4 @@
-*{
+/* *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -43,4 +43,55 @@ body{
     border: none;
     padding: 12px;
     color: white;
+}
+*/
+.navbar-custom {
+    background-color: lightgreen;
+}
+.formulario-busqueda{
+    background-color: blanchedalmond;
+    border-radius: 6px;
+}
+.formulario-bsc{
+    display: flex;
+    padding: 0.5rem;
+}
+.inpt{
+    margin: 1%;
+}
+
+
+.img-logo{
+    width: 5rem;
+    left: 5rem;
+    align-items: center;
+}
+.buscador-inicio{
+    display: block;
+    margin-top: 4rem;
+    background-color: greenyellow;
+    padding: 2rem;
+    height: 20rem;
+}
+.lista-cards{
+    display: flex;
+margin-left: 4rem;
+margin-right: 4rem;
+}
+.card{
+margin: 1rem;
+    padding: 1rem;
+}
+@media screen and (max-width:1080px) {
+    .lista-cards{
+        flex-wrap: wrap;
+    }
+    
+}
+
+.footer{
+    display: block;
+    background-color:aquamarine;
+    width: 100%;
+    height: 10rem;
 }
