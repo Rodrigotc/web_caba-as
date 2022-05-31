@@ -46,33 +46,40 @@ body{
 }
 <<<<<<< HEAD
 */
+
 .navbar-custom {
     background-color: lightgreen;
 }
-.formulario-busqueda{
-    background-color: blanchedalmond;
-    border-radius: 6px;
+.buscador-inicio{   
+    display: flex;
+    margin-top: 4rem;
+    background-color: greenyellow;
+    padding: 2rem;
 }
-.formulario-bsc{
+.formulario-busqueda{
+    margin-top: 5rem;
+    margin-left: 18rem;
+    background-color: rgb(91, 32, 32);
+    border-radius: 10px;
+}
+.formulario{
     display: flex;
     padding: 0.5rem;
 }
 .inpt{
-    margin: 1%;
+    margin: 0.3%;
+    width: 40%;
 }
+legend{
+    font-size: medium;
+}
+
 
 
 .img-logo{
     width: 5rem;
     left: 5rem;
     align-items: center;
-}
-.buscador-inicio{
-    display: block;
-    margin-top: 4rem;
-    background-color: greenyellow;
-    padding: 2rem;
-    height: 20rem;
 }
 .lista-cards{
     display: flex;
