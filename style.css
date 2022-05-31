@@ -44,6 +44,7 @@ body{
     padding: 12px;
     color: white;
 }
+<<<<<<< HEAD
 */
 .navbar-custom {
     background-color: lightgreen;
@@ -94,4 +95,8 @@ margin: 1rem;
     background-color:aquamarine;
     width: 100%;
     height: 10rem;
+=======
+.navbar{ 
+    background-color:aquamarine;
+>>>>>>> 80a84c3b4d21868ccda247c74b77260ab90dd4ad
 }
