@@ -1,24 +1,26 @@
-.navbar-custom {
-    background-color: lightgreen;
-}
+
 .buscador-inicio{   
     display: flex;
     margin-top: 4rem;
+    height: 10rem;
     background-color: greenyellow;
     padding: 2rem;
 }
 .formulario-busqueda{
-    margin-top: 5rem;
+    margin: auto;
+    height: 4rem;
+    width: 70%;
     background-color: rgb(91, 32, 32);
     border-radius: 10px;
 }
 .formulario{
     display: flex;
-    padding: 0.5rem;
+    width: 100%;
+    padding: 0.6rem;
 }
 .inpt{
-    margin: 0.3%;
-    width: 40%;
+    margin: 0.7%;
+    width: 100%;
 }
 legend{
     font-size: medium;
@@ -43,6 +45,11 @@ margin: 1rem;
         flex-wrap: wrap;
     }
     
+}
+
+.articulo2{
+    height: 20rem;
+    background-color: red;
 }
 
 .footer{
