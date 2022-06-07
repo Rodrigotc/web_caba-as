@@ -28,7 +28,7 @@ function ComprobarPost($campo){
             <input class = "controls" type = "text" name = "correo" id = "correo" placeholder = "Correo@dominio.com" value = "<?php echo $correo;?>">
             Contraseña
             <input class = "controls" type = "password" name = "contrasena" id = "contrasena" placeholder = "Contraseña" value = "<?php echo $contrasena;?>">
-            <input class = "boton" type = "submit" value = "Registrar">
+            <input class = "boton" type = "submit" value = "Iniciar sesión">
             <?php
                 if(isset($_POST['correo'])){               
                 //Arreglo
