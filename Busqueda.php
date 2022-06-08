@@ -1,3 +1,15 @@
+<?php
+    session_start();
+    //Comprobar si existe una sesión
+    function ComprobarSesión(){
+        if(isset($_SESSION['nombre'])){
+            return true;
+        }else{
+            return false;
+        }
+    }      
+    ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -40,7 +52,8 @@
                 ?>
                 <button type = "button" class = "btn btn-outline-primary" onclick = "location.href='CerrarSesion.php'")>Cerrar sesión</button>
                 <?php
-            }else{
+            }
+            else{
                 ?>
                 <button type = "button" class = "btn btn-outline-primary" onclick = "location.href='InicioSesion.php'")>Iniciar sesion</button>
                 <button type = "button" class = "btn btn-outline-primary" onclick = "location.href='Registro.php'">Crear cuenta</button>
@@ -63,6 +76,40 @@
       </form>
     </div>
     </div>
+    <main>
+
+
+    <?php
+             include ("conection.php");
+                    $sql = "SELECT `Ciudad`, `Mensaje`, `NroPiezas`, `Estacionamiento`, `Precio` FROM `cabana`";
+                     $resultSet = mysqli_query($enlace, $sql);
+                    mysqli_close($enlace);
+                    while ($row = mysqli_fetch_row($resultSet)) {
+                ?>
+     <div class="card" style="width: 18rem;">
+      <img src="Imagenes/puerto-img.jpg" class="card-img-top" alt="imgcab">
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><?php echo $row[0]; ?></li>
+        </ul>
+        <h5 class="card-title">nombre</h5>
+        <p class="card-text"><?php echo $row[1]; ?></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><?php echo $row[2]; ?></li>
+        <li class="list-group-item"><?php echo $row[3]; ?></li>
+        <li class="list-group-item"><?php echo $row[4]; ?></li>
+      </ul>
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary" type="button">Buscar</button>
+      </div>
+    </div>
+
+    <?php
+            }
+            ?>
+    
+    </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
 </body>

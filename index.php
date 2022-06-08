@@ -66,7 +66,7 @@
     <article>
       <div class="buscador-inicio">
         <div class="formulario-busqueda">
-          <form  class="formulario" action="Busqueda.html" >
+          <form  class="formulario" action="Busqueda.php" >
             <input placeholder="Hola" class="inpt" type="text">
             <input placeholder="Hola" class="inpt" type="text">
             <input placeholder="Hola" class="inpt" type="text">
