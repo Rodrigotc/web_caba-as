@@ -61,7 +61,7 @@ function TransformarON($campo)
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="Index.css">
+    <link rel="stylesheet" href="CSS/Index.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -81,19 +81,19 @@ function TransformarON($campo)
             <option value="Chaitén">Chaitén</option>
             <option value="Chonchi">Chonchi</option>
             <option value="Cochamó">Cochamó</option>
-            <option value="Curaco+de+Vélez">Curaco de Vélez</option>
+            <option value="Curaco de Vélez">Curaco de Vélez</option>
             <option value="Dalcahue">Dalcahue</option>
             <option value="Fresia">Fresia</option>
             <option value="Frutillar">Frutillar</option>
             <option value="Futaleufú">Futaleufú</option>
             <option value="Llanquihue">Llanquihue</option>
-            <option value="Los+Muermos">Los Muermos</option>
+            <option value="Los Muermos">Los Muermos</option>
             <option value="Maullín">Maullín</option>
             <option value="Osorno">Osorno</option>
             <option value="Palena">Palena</option>
-            <option value="Puerto+Montt">Puerto Montt</option>
-            <option value="Puerto+Octay">Puerto Octay</option>
-            <option value="Puerto+Varas">Puerto Varas</option>
+            <option value="Puerto Montt">Puerto Montt</option>
+            <option value="Puerto Octay">Puerto Octay</option>
+            <option value="Puerto Varas">Puerto Varas</option>
             <option value="Puqueldón">Puqueldón</option>
             <option value="Purranque">Purranque</option>
             <option value="Puyehue">Puyehue</option>
@@ -101,9 +101,9 @@ function TransformarON($campo)
             <option value="Quellón">Quellón</option>
             <option value="Quemchi">Quemchi</option>
             <option value="Quinchao">Quinchao</option>
-            <option value="Río+Negro">Río Negro</option>
-            <option value="San+Juan+de+la+Costa">San Juan de la Costa</option>
-            <option value="San+Pablo">San Pablo</option>
+            <option value="Río Negro">Río Negro</option>
+            <option value="San Juan de la Costa">San Juan de la Costa</option>
+            <option value="San Pablo">San Pablo</option>
         </select><br>
         Calle y número<br>
         <input name="Direccion" id="Direccion" placeholder="Dirección de cabaña." value="<?php echo $Direccion; ?>"><br>
@@ -133,8 +133,8 @@ function TransformarON($campo)
     if (isset($_POST['Direccion'])) {
     //Ejecución de programa
         //Crear link de dirección - Leaflet
-        $DireccionValidada=str_replace(" ","+",$_POST["Direccion"]);
-        $Link="https://nominatim.openstreetmap.org/search?city=".$_POST['Ciudad']."&street=".$DireccionValidada."&format=json";  
+        $DireccionValidada=str_replace(" ","+",$Direccion);
+        $Link="https://nominatim.openstreetmap.org/search?city=".str_replace(" ","+",$Ciudad)."&street=".$DireccionValidada."&format=json";  
         $httpOptions = [
             "http"=>[
                 "method"=>"GET",

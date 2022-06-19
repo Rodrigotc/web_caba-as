@@ -5,23 +5,34 @@ session_start();
 //Comprobar si existe una sesión
 function ComprobarSesión()
 {
-  if (isset($_SESSION['nombre'])) {
+  if (isset($_SESSION['nombre'])){
     return true;
   } else {
     return false;
   }
-}
+};
+
+function ComprobarAdmin()
+{
+  $admin = $_SESSION['administrador'];
+  if ($admin == 1){
+    return true;
+  } else {
+    return false;
+  }
+};
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="stylesheet" href="Index.css">
+  <link rel="stylesheet" href="CSS\Index.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-  <title>Web cabañas</title>
+  <title>Cab Lagos</title>
 </head>
 
 <body>
@@ -36,7 +47,7 @@ function ComprobarSesión()
         <!-- Comprobar sesión en barra de navegación -->
         <?php
         if (ComprobarSesión()) {
-        ?>        
+        ?>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link" href="#">Algo por aqui</a>
@@ -50,15 +61,22 @@ function ComprobarSesión()
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="#">a2</a></li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
+                <?php
+                //Botón Página Administrador
+                if (ComprobarAdmin()) {
+                  ?>
+                    <li><a class="dropdown-item" href="PaginaAdministrador.php">Página Administrador</a></li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                  <?php
+                  }
+                ?>
                 <li><a class="dropdown-item" href="#">a3</a></li>
               </ul>
             </li>
           </ul>
-          <button type="button" class="btn btn-outline-primary" onclick = "location.href='Backend/CerrarSesion.php'" )>Cerrar sesión</button>
+          <button type="button" class="btn btn-outline-primary" onclick="location.href='Backend/CerrarSesion.php'" )>Cerrar sesión</button>
         <?php
         } else {
         ?>
@@ -70,12 +88,12 @@ function ComprobarSesión()
       </div>
     </div>
   </nav>
-  
+
   <main>
     <div class="buscador-inicio">
       <div class="formulario-busqueda">
         <form class="formulario" action="">
-          <input placeholder="Hola" class="inpt" type="text">
+          <input placeholder="Holaa" class="inpt" type="text">
           <input placeholder="Hola" class="inpt" type="text">
           <input placeholder="Hola" class="inpt" type="text">
           <input placeholder="Hola" class="inpt" type="datetime-local" name="a" id="">

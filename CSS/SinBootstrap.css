@@ -5,7 +5,7 @@
 }
 
 body{
-    background-image: url('Imagenes/fondo_azul.jpg');
+    background-image: url('../Imagenes/fondo_azul.jpg');
 }
 
 .form-register{
