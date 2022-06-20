@@ -1,0 +1,18 @@
+.btn-Cabana{
+    background-color: rgb(148, 148, 243);
+    color: black;
+    width: 600px;
+    text-decoration: none;
+    padding: 20px;
+    border-radius: 6px;
+    display: block;
+    overflow: hidden;
+    margin: 1em;
+    padding: 1em;
+}
+.img-cabana{
+    float: left;
+}
+.p{
+    text-decoration: none;
+}
