@@ -4,7 +4,7 @@ include("Backend/FuncionesSesion.php");
 
 //Recuperar datos cabana
 include("Backend\conection.php");
-$cabana = mysqli_fetch_array(mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE idCabana = 47"));
+$cabana = mysqli_fetch_array(mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE idCabana = 55"));
 mysqli_close($enlace);
 ?>
 
@@ -21,7 +21,6 @@ mysqli_close($enlace);
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
     <!--Boostrap-->
-    <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <title>Página Cabana</title>
 </head>
@@ -75,8 +74,21 @@ mysqli_close($enlace);
         </div>
     </nav>
 
+    <!--Mostrar mensaje admin-->
+    <?php
+    if($_SESSION['administrador'] == 1 && $cabana['Estado'] == 0){
+    ?>
+    <div>
+        Esta cabaña está es revisión. ¿Desea aprobarla?<br>
+        <input type="button" onclick = "location.href='Backend/PublicarCabana.php'" value = "Publicar">
+        <input type="button" value = "Rechazar">
+    </div>
+    <?php
+    }
+    ?>
+
     <!--Definir Cabaña-->
-    <img class="img-cabana" src=<?php echo "Fotos_Cabanas/" . $cabana["idCabana"] . ".jpg"; ?> width="600" height="400"><br>
+    <img class="img-cabana" src=<?php echo "Fotos_Cabanas/" . $cabana["idCabana"] . ".jpg"; ?> width="600" height="400">
     <?php
     $lat = $cabana["Latitud"];
     $lng = $cabana["Longitud"];
@@ -112,7 +124,7 @@ mysqli_close($enlace);
     Precio por día: $<?php echo ($cabana["Precio"]); ?>
 
     <h2>Descripción</h2>
-    <br><?php echo ($cabana["Descripcion"]); ?>
+    <?php echo ($cabana["Descripcion"]); ?>
 
     <!-- Boostrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

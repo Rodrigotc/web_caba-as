@@ -12,15 +12,16 @@ $Ciudad = ComprobarPost("Ciudad");
 $nroPiezas = ComprobarPost("nroPiezas");
 $Precio = ComprobarPost("Precio");
 $Descripcion = ComprobarPost("Descripcion");
+$Imagen = ComprobarPost("Imagen");
+//Booleanos
 $Wifi = ComprobarCheckbox("Wifi");
 $Estacionamiento = ComprobarCheckbox("Estacionamiento");
 $Quincho = ComprobarCheckbox("Quincho");
 $Piscina = ComprobarCheckbox("Piscina");
 $Bodega = ComprobarCheckbox("Bodega");
-$CalefacciónGas = ComprobarCheckbox("CalefacciónGas");
-$CalefacciónElectrica = ComprobarCheckbox("CalefacciónElectrica");
-$CalefacciónLenta = ComprobarCheckbox("CalefacciónLenta");
-$Imagen = ComprobarPost("Imagen");
+$CalefaccionGas = ComprobarCheckbox("CalefaccionGas");
+$CalefaccionElectrica = ComprobarCheckbox("CalefaccionElectrica");
+$CalefaccionLenta = ComprobarCheckbox("CalefaccionLenta");
 
 //Función - Comprobar POST
 function ComprobarPost($campo)
@@ -168,9 +169,9 @@ function TransformarON($campo)
             <label for=""><input type="checkbox" name="Quincho" id="Quincho" <?php echo $Quincho; ?>>Quincho</label><br>
             <label for=""><input type="checkbox" name="Piscina" id="Piscina" <?php echo $Piscina; ?>>Piscina</label><br>
             <label for=""><input type="checkbox" name="Bodega" id="Bodega" <?php echo $Bodega; ?>>Bodega</label><br>
-            <label for=""><input type="checkbox" name="CalefacciónGas" id="CalefacciónGas" <?php echo $CalefacciónGas; ?>>Calefacción a gas</label><br>
-            <label for=""><input type="checkbox" name="CalefacciónElectrica" id="CalefacciónElectrica" <?php echo $CalefacciónElectrica; ?>>Calefacción eléctrica</label><br>
-            <label for=""><input type="checkbox" name="CalefacciónLenta" id="CalefacciónLenta" <?php echo $CalefacciónLenta; ?>>Combustión lenta</label><br>
+            <label for=""><input type="checkbox" name="CalefaccionGas" id="CalefaccionGas" <?php echo $CalefaccionGas; ?>>Calefacción a gas</label><br>
+            <label for=""><input type="checkbox" name="CalefaccionElectrica" id="CalefaccionElectrica" <?php echo $CalefaccionElectrica; ?>>Calefacción eléctrica</label><br>
+            <label for=""><input type="checkbox" name="CalefaccionLenta" id="CalefaccionLenta" <?php echo $CalefaccionLenta; ?>>Combustión lenta</label><br>
         </section>
         <input type="file" name="Imagen"><br>
         <input type="submit"><br>
@@ -226,10 +227,17 @@ function TransformarON($campo)
         } else {
             //Transformar checkbox
             $Wifi = TransformarON($Wifi);
+            $Estacionamiento = TransformarON($Estacionamiento);
+            $Quincho = TransformarON($Quincho);
+            $Piscina = TransformarON($Piscina);
+            $Bodega = TransformarON($Bodega);
+            $CalefaccionGas = TransformarON($CalefaccionGas);
+            $CalefaccionElectrica = TransformarON($CalefaccionElectrica);
+            $CalefaccionLenta = TransformarON($CalefaccionLenta);
 
             //Insertar cabaña en DB
             include("Backend\conection.php");
-            $insertar = "INSERT INTO `nuevocabanasdb`.`cabana` (`Ciudad`, `Estado`, `Wifi`, `NroPiezas`, `Estacionamiento`, `Precio`, `Descripcion`, `Direccion`, `Latitud`, `Longitud`, `Persona_idPersona`) VALUES ('$Ciudad', '0', '$Wifi', '$nroPiezas', '$Estacionamiento', '$Precio', '$Descripcion' , '$Direccion' , '$lat' , '$lng' , '$idPersona')";
+            $insertar = "INSERT INTO `nuevocabanasdb`.`cabana` (`Ciudad`, `Estado`, `NroPiezas`, `Precio`, `Descripcion`, `Direccion`, `Latitud`, `Longitud`, `Wifi`, `Estacionamiento`, `Quincho`, `Piscina`, `Bodega`, `CalefaccionGas`, `CalefaccionElectrica`, `CombustionLenta`, `Persona_idPersona`) VALUES ('$Ciudad', '0', '$nroPiezas', '$Precio', '$Descripcion', '$Direccion' , '$lat' , '$lng' , '$Wifi' , '$Estacionamiento', '$Quincho', '$Piscina', '$Bodega', ' $CalefaccionGas', '$CalefaccionElectrica', '$CalefaccionLenta', '$idPersona');";
             mysqli_query($enlace, $insertar);
 
             //Recuperar ID de cabaña
