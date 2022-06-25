@@ -23,7 +23,7 @@ mysqli_close($enlace);
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
     <!--Boostrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <title>Página Cabana</title>
+    <title>Página Cabaña</title>
 </head>
 
 <body>
@@ -77,7 +77,7 @@ mysqli_close($enlace);
     if($_SESSION['administrador'] == 1 && $cabana['Estado'] == 0){
     ?>
     <div>
-        Esta cabaña está es revisión. ¿Desea aprobarla?<br>
+        Esta cabaña está en revisión. ¿Desea aprobarla?<br>
         <input type="button" onclick = "location.href='Backend/PublicarCabana.php?id=<?php echo $cabana['idCabana']?>'" value = "Publicar">
         <input type="button" onclick = "location.href='Backend/RechazarCabana.php?id=<?php echo $cabana['idCabana']?>'" value = "Rechazar">
     </div>
@@ -119,7 +119,7 @@ mysqli_close($enlace);
     <h2>Información</h2>
     Ciudad: <?php echo ($cabana["Ciudad"]); ?><br>
     Dirección: <?php echo ($cabana["Direccion"]); ?><br>
-    Precio por día: $<?php echo ($cabana["Precio"]); ?>
+    Precio por día: $<?php echo number_format($cabana["Precio"]); ?>
 
     <h2>Descripción</h2>
     <?php echo ($cabana["Descripcion"]); ?>

@@ -2,6 +2,9 @@
 //Inicializar SESSION y funciones
 include("Backend/FuncionesSesion.php");
 
+//Verificar si hay una sesión iniciada
+include("Backend/VerificarSesionIniciada.php");
+
 //Recuperar cabañas
 include("Backend\conection.php");
 $resultado = mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE Estado = 0");

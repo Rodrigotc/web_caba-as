@@ -3,6 +3,9 @@
 include("Backend/FuncionesSesion.php");
 $idPersona = $_SESSION['id'];
 
+//Verificar si hay una sesión iniciada
+include("Backend/VerificarSesionIniciada.php");
+
 //Almacenamiento buffer de salida (Solución error línea 177)
 ob_start();
 
