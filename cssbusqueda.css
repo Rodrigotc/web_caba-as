@@ -1,0 +1,78 @@
+
+.buscador-inicio{   
+    display: flex;
+    height: 10rem;
+    background-color: rgb(243, 243, 243);
+    padding: 2rem;  
+    
+}
+.formulario-busqueda{
+    margin: auto;
+    height: 4rem;
+    width: 70%;
+    background-color: rgb(0, 0, 0);
+    border-radius: 10px;
+}
+.formulario{
+    display: flex;
+    width: 100%;
+    padding: 0.6rem;
+}
+.inpt{
+    margin: 0.7%;
+    width: 100%;
+}
+legend{
+    font-size: medium;
+}
+
+.img-logo{
+    width: 5rem;
+    left: 5rem;
+    align-items: center;
+}
+
+
+
+/* contenido busqueda.php*/
+.card-bsq{
+   
+    background-color: rgb(31, 15, 15);
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    
+}
+.card{
+    margin: 0.7rem;
+}
+
+.card-bsq-2{
+    background-color: aqua;
+    display: inline-flex;
+    flex-wrap: wrap;
+}
+.container-mapa{
+  display: inline-flex;  
+    background-color: rgb(209, 24, 24);
+    height: 100%;
+    width: 100%;
+    padding: 0.4rem;
+}
+
+@media screen and (max-width:1080px) {
+    .card-cards{
+        flex-wrap: wrap;
+    }
+    .card{
+        width: 16rem;
+    }
+    
+}
+
+/* footer */
+
+
+.img-footer{
+	width: 30%;
+}
