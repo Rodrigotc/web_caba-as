@@ -4,7 +4,8 @@ include("Backend/FuncionesSesion.php");
 
 //Recuperar datos cabana
 include("Backend\conection.php");
-$cabana = mysqli_fetch_array(mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE idCabana = 55"));
+$idCabana = $_GET['idCabana'];
+$cabana = mysqli_fetch_array(mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE idCabana = '$idCabana'"));
 mysqli_close($enlace);
 ?>
 
@@ -27,52 +28,49 @@ mysqli_close($enlace);
 
 <body>
     <!-- NavBar -->
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">CabLagos</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <?php
-                    if (ComprobarSesión()) {
-                    ?>
-                        <!--Sesión Iniciada-->
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="Index.php">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="IngresoCabana.php">Publicar Cabaña</a>
-                        </li>
-                        <?php
-                        if (ComprobarAdmin()) {
-                        ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="PaginaAdministrador.php">Página Administrador</a>
-                            </li>
-                        <?php
-                        }
-                        ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Backend/CerrarSesion.php">Cerrar Sesión</a>
-                        </li>
-                    <?php
-                    } else {
-                    ?>
-                        <!--Sesión Cerrada-->
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="Registro.php">Crear Cuenta</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="InicioSesion.php">Iniciar Sesión</a>
-                        <?php
-                    }
-                        ?>
-                        </li>
-            </div>
-        </div>
-    </nav>
+  <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.php">CabLagos</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <?php
+          if (ComprobarSesión()) {
+          ?>
+            <!--Sesión Iniciada-->
+            <li class="nav-item">
+              <a class="nav-link active" href="IngresoCabana.php">Publicar Cabaña</a>
+            </li>
+            <?php
+            if (ComprobarAdmin()) {
+            ?>
+              <li class="nav-item">
+                <a class="nav-link" href = "PaginaAdministrador.php">Página Administrador</a>
+              </li>
+            <?php
+            }
+            ?>
+            <li class="nav-item">
+              <a class="nav-link" href="Backend/CerrarSesion.php">Cerrar Sesión</a>
+            </li>
+          <?php
+          } else {
+          ?>
+            <!--Sesión Cerrada-->
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="Registro.php">Crear Cuenta</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="InicioSesion.php">Iniciar Sesión</a>
+            <?php
+          }
+            ?>
+            </li>
+      </div>
+    </div>
+  </nav>
 
     <!--Mostrar mensaje admin-->
     <?php
@@ -80,8 +78,8 @@ mysqli_close($enlace);
     ?>
     <div>
         Esta cabaña está es revisión. ¿Desea aprobarla?<br>
-        <input type="button" onclick = "location.href='Backend/PublicarCabana.php'" value = "Publicar">
-        <input type="button" value = "Rechazar">
+        <input type="button" onclick = "location.href='Backend/PublicarCabana.php?id=<?php echo $cabana['idCabana']?>'" value = "Publicar">
+        <input type="button" onclick = "location.href='Backend/RechazarCabana.php?id=<?php echo $cabana['idCabana']?>'" value = "Rechazar">
     </div>
     <?php
     }
@@ -105,7 +103,7 @@ mysqli_close($enlace);
 
     <script>
         //Mostrar mapa
-        var map = L.map('map', ).setView([<?php echo $lat ?>, <?php echo $lng ?>], 18);
+        var map = L.map('map').setView([<?php echo $lat ?>, <?php echo $lng ?>], 18);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -125,6 +123,33 @@ mysqli_close($enlace);
 
     <h2>Descripción</h2>
     <?php echo ($cabana["Descripcion"]); ?>
+
+    <h2>Características</h2>
+    <?php
+    if($cabana["Wifi"]){
+        echo "Wifi";?><br><?php 
+    }
+    if($cabana["Estacionamiento"]){
+        echo "Estacionamiento";?><br><?php 
+    }
+    if($cabana["Quincho"]){
+        echo "Quincho";?><br><?php 
+    }
+    if($cabana["Piscina"]){
+    }
+    if($cabana["Bodega"]){
+        echo "Bodega";?><br><?php 
+    }
+    if($cabana["CalefaccionGas"]){
+        echo "Calefacción a gas";?><br><?php 
+    }
+    if($cabana["CalefaccionElectrica"]){
+        echo "Calefacción eléctrica";?><br><?php 
+    }
+    if($cabana["CombustionLenta"]){
+        echo "Combustón lenta";?><br><?php 
+    }
+    ?>
 
     <!-- Boostrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

@@ -20,7 +20,7 @@ function ComprobarPost($campo)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="CSS/SinBootstrap.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro Usuario</title>
+    <title>Iniciar Sesión</title>
 </head>
 
 <body>
@@ -31,7 +31,7 @@ function ComprobarPost($campo)
             <input class="controls" type="text" name="correo" id="correo" placeholder="Correo@dominio.com" value="<?php echo $correo; ?>">
             Contraseña
             <input class="controls" type="password" name="contrasena" id="contrasena" placeholder="Contraseña" value="<?php echo $contrasena; ?>">
-            <input class="boton" type="submit" value="Registrar">
+            <input class="boton" type="submit" value="Iniciar Sesión">
         </section>
     </form>
     <?php
