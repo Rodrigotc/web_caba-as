@@ -1,24 +1,87 @@
 <?php
-
+//Inicializar SESSION y funciones
 include("Backend/FuncionesSesion.php");
-  
-    ?>
+?>
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="cssbusqueda.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">  
-    <title>aria-label</title>
-</head>
-<body>
-      <!-- NavBar -->
-  <nav class="navbar navbar-expand-lg bg-light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.98.0">
+    <title>Album example · Bootstrap v5.2</title>
+    <link rel="stylesheet" href="./CSS/style.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/album/">
+
+    
+
+    
+
+<link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
+
+    
+  </head>
+  <body>
+    
+<header>
+<nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">CabLagos</a>
+      <a class="navbar-brand" href="index.php">CabLagos</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -66,118 +129,162 @@ include("Backend/FuncionesSesion.php");
     </div>
   </nav>
 
-<!-- Buscador -->
-  <div class="buscador-inicio">
-    <div class="formulario-busqueda">
-      <form  class="formulario" action="Busqueda.html" >
-        <input placeholder="Hola" class="inpt" type="text">
-        <input placeholder="Hola" class="inpt" type="text">
-        <input placeholder="Hola" class="inpt" type="text">
-        <input placeholder="Hola" class="inpt" type="date" name="a" id="">
-        <input type="submit" value="Buscar">
-      </form>
-    </div>
-    </div>
-    <main>
-     <!-- Menu principal -->
-     
-     <nav>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Ver cabañas</a>
-          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Ver cabañas y mapa</a>
-          </div>
-      </nav>
-      <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <div class="card-bsq">
-            <?php
-             include ("conection.php");
-                    $sql = "SELECT `Ciudad`, `Mensaje`, `NroPiezas`, `Estacionamiento`, `Precio` FROM `cabana`";
-                     $resultSet = mysqli_query($enlace, $sql);
-                    mysqli_close($enlace);
-                    while ($row = mysqli_fetch_row($resultSet)) {
-                ?>
-     <div class="card" style="width: 14rem;">
-      <img src="Imagenes/puerto-img.jpg" class="card-img-top" alt="imgcab">
-      <div class="card-body">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><?php echo $row[0]; ?></li>
-        </ul>
-        <h5 class="card-title">nombre</h5>
-        <p class="card-text"><?php echo $row[1]; ?></p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><?php echo $row[2]; ?></li>
-        <li class="list-group-item"><?php echo $row[3]; ?></li>
-        <li class="list-group-item"><?php echo $row[4]; ?></li>
-      </ul>
-      <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="button">Buscar</button>
-      </div>
-    </div>
-    <?php
-            }
-            ?> 
-            </div>
-        </div>
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <div class="row">
-                <div class="col">
-                 
-                        <div class="card-bsq-2">
-                        <?php
-             include ("conection.php");
-                    $sql = "SELECT `Ciudad`, `Mensaje`, `NroPiezas`, `Estacionamiento`, `Precio` FROM `cabana`";
-                     $resultSet = mysqli_query($enlace, $sql);
-                    mysqli_close($enlace);
-                    while ($row = mysqli_fetch_row($resultSet)) {
-                ?>
-     <div class="card" style="width: 20rem;">
-      <img src="Imagenes/puerto-img.jpg" class="card-img-top" alt="imgcab">
-      <div class="card-body">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><?php echo $row[0]; ?></li>
-        </ul>
-        <h5 class="card-title">nombre</h5>
-        <p class="card-text"><?php echo $row[1]; ?></p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><?php echo $row[2]; ?></li>
-        <li class="list-group-item"><?php echo $row[3]; ?></li>
-        <li class="list-group-item"><?php echo $row[4]; ?></li>
-      </ul>
-      <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="button">Buscar</button>
-      </div>
-    </div>
-    <?php
-            }
-            ?> 
-                </div>
-                </div>
-                <div class="col">
-                        <div class="container-mapa">aasdasdaa</div>
-                </div>
-              </div>
-           
-                        </div>
-        </div>
-      </div>
-    
-    
-   
-    </main>
+</header>
+<main>
 
-    
-       <!--Footer-->
- 
-<div class="container">
+  <section class="py-2 text-center container border-bottom">
+    <div class="row py-lg-5">
+    <div class="formulario-busqueda">
+    <form class="formulario" action="Busqueda.php" >
+        <select name="Ciudad" id="Ciudad" selected="Ancud">
+            <option value="0">---Seleccionar Ciudad---</option>
+            <option value="Ancud">Ancud</option>
+            <option value="Calbuco">Calbuco</option>
+            <option value="Castro">Castro</option>
+            <option value="Chaitén">Chaitén</option>
+            <option value="Chonchi">Chonchi</option>
+            <option value="Cochamó">Cochamó</option>
+            <option value="Curaco de Vélez">Curaco de Vélez</option>
+            <option value="Dalcahue">Dalcahue</option>
+            <option value="Fresia">Fresia</option>
+            <option value="Frutillar">Frutillar</option>
+            <option value="Futaleufú">Futaleufú</option>
+            <option value="Llanquihue">Llanquihue</option>
+            <option value="Los Muermos">Los Muermos</option>
+            <option value="Maullín">Maullín</option>
+            <option value="Osorno">Osorno</option>
+            <option value="Palena">Palena</option>
+            <option value="Puerto Montt">Puerto Montt</option>
+            <option value="Puerto Octay">Puerto Octay</option>
+            <option value="Puerto Varas">Puerto Varas</option>
+            <option value="Puqueldón">Puqueldón</option>
+            <option value="Purranque">Purranque</option>
+            <option value="Puyehue">Puyehue</option>
+            <option value="Queilén">Queilén</option>
+            <option value="Quellón">Quellón</option>
+            <option value="Quemchi">Quemchi</option>
+            <option value="Quinchao">Quinchao</option>
+            <option value="Río Negro">Río Negro</option>
+            <option value="San Juan de la Costa">San Juan de la Costa</option>
+            <option value="San Pablo">San Pablo</option>
+        </select>
+          <input placeholder="Hola" class="inpt" type="text">
+          <input placeholder="Hola" class="inpt" type="text">
+          <input placeholder="Hola" class="inpt" type="datetime-local" name="a" id="">
+          <input type="submit" value="Buscar">
+        </form>
+    </div>
+    </div>
+  </section>
+  <div class="container-principal mt-1">
+      <nav>
+         <div class="nav nav-tabs" id="nav-tab" role="tablist">
+           <a class="bg-secondary text-white nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Ver cabañas</a>
+           <a class="bg-secondary text-white nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Ver cabañas y mapa</a>
+           </div>
+       </nav>
+       <div class="tab-content" id="nav-tabContent">
+         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+             <div class="card-bsq">
+             <?php
+              include ("conection.php");
+                     $sql = "SELECT `Ciudad`, `Mensaje`, `NroPiezas`, `Estacionamiento`, `Precio` FROM `cabana`";
+                      $resultSet = mysqli_query($enlace, $sql);
+                     mysqli_close($enlace);
+                     while ($row = mysqli_fetch_row($resultSet)) {
+                 ?>
+      <div class="card border border-3 " style="width: 14rem;">
+       <img src="Imagenes/puerto-img.jpg" class="card-img-top" alt="imgcab">
+       <div class="card-body">
+         <ul class="list-group list-group-flush">
+         </ul>
+         <h6 class="card-title">nombre cabañas</h6>
+         <p class="card-text"><?php echo $row[1]; ?></p>
+       </div>
+       <ul class="list-group list-group-flush">
+         
+       <li class="list-group-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+   <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+   <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+ </svg> <?php echo $row[0]; ?></li>
+         <li class="list-group-item"><img src="./Imagenes/icons8-cama-50.png" class="img-icons"> <?php echo $row[2]; ?> <img src="./Imagenes/icons8-garaje-40.png" class="img-icons"> <?php echo $row[3]; ?></li>
+         <li class="list-group-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+   <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+ </svg> <?php echo $row[4]; ?></li>
+       </ul>
+       <div class="d-grid gap-2">
+         <button class="btn btn-primary" type="button">Buscar</button>
+       </div>
+     </div>
+     <?php
+             }
+             ?> 
+             </div>
+         </div>
+         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+             <div class="row">
+                 <div class="col">
+                  
+                         <div class="card-bsq-2">
+                         <?php
+              include ("conection.php");
+                     $sql = "SELECT `Ciudad`, `Mensaje`, `NroPiezas`, `Estacionamiento`, `Precio` FROM `cabana`";
+                      $resultSet = mysqli_query($enlace, $sql);
+                     mysqli_close($enlace);
+                     while ($row = mysqli_fetch_row($resultSet)) {
+                 ?>
+      <div class="card border border-3 " style="width: 14rem;">
+       <img src="Imagenes/puerto-img.jpg" class="card-img-top" alt="imgcab">
+       <div class="card-body">
+         <ul class="list-group list-group-flush">
+         </ul>
+         <h6 class="card-title">nombre cabañas</h6>
+         <p class="card-text"><?php echo $row[1]; ?></p>
+       </div>
+       <ul class="list-group list-group-flush">
+         
+       <li class="list-group-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+   <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+   <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+ </svg> <?php echo $row[0]; ?></li>
+         <li class="list-group-item"><img src="./Imagenes/icons8-cama-50.png" class="img-icons"> <?php echo $row[2]; ?> <img src="./Imagenes/icons8-garaje-40.png" class="img-icons"> <?php echo $row[3]; ?></li>
+         <li class="list-group-item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+   <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+ </svg> <?php echo $row[4]; ?></li>
+       </ul>
+       <div class="d-grid gap-2">
+         <button class="btn btn-primary" type="button">Buscar</button>
+       </div>
+     </div>
+     <?php
+             }
+             ?> 
+                 </div>
+                 </div>
+                 <div class="col">
+                         <div class="container-mapa">aasdasdaa</div>
+                 </div>
+               </div>
+            
+                         </div>
+         </div>
+       </div>
+     
+       </div> <!--Div container pinricpal -->
+  
+<br>
+</main>
+
+
+
+    <!-- Inicio Footer -->
+    <div class="container">
   <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
     <div class="col-md-4 d-flex align-items-center">
-      <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-        <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+      <a href="/" class="mb-1 me-1 mb-md-0 text-muted text-decoration-none lh-1">
+        <svg class="bi" width="10" height="24"><use xlink:href="#bootstrap"/></svg>
       </a>
-      <img src="Imagenes/CabLagos_Logo.png" class="img-footer" alt="puerto-imagen">
+      <img style="width: 8rem;" src="Imagenes/CabLagos_Logo.png" class="img-footer" alt="puerto-imagen">
 
     </div>
 
@@ -202,10 +309,12 @@ include("Backend/FuncionesSesion.php");
   </footer>
 </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-</body>
+      
+  </body>
 </html>

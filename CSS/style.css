@@ -1,16 +1,9 @@
 
-.buscador-inicio{   
-    display: flex;
-    height: 10rem;
-    background-color: rgb(243, 243, 243);
-    padding: 2rem;  
-    
-}
 .formulario-busqueda{
     margin: auto;
     height: 4rem;
     width: 70%;
-    background-color: rgb(0, 0, 0);
+    background-color: rgba(255, 255, 255, 0.367);
     border-radius: 10px;
 }
 .formulario{
@@ -22,39 +15,54 @@
     margin: 0.7%;
     width: 100%;
 }
+.titulo-ciudades{
+    color: white;
+    width: 40rem;
+    background-color: rgba(0, 0, 0, 0.367);
+    padding: 3px;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+border-radius: 6px;
+border-style: dashed;
+
+}
 legend{
     font-size: medium;
 }
+main{
+    
+    background-color: #21D4FD;
+background-image: linear-gradient( #21D4FD 0%, #B721FF 100%);
 
-.img-logo{
-    width: 5rem;
-    left: 5rem;
-    align-items: center;
+}
+.card-img{
+    width: 20rem;
+    height: 20rem;
 }
 
-
-
 /* contenido busqueda.php*/
+
 .card-bsq{
    
-    background-color: rgb(31, 15, 15);
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    border-radius: 2px;
+    border: 2px;
+    justify-self:center;
+    align-items: center;
     
 }
 .card{
-    margin: 0.7rem;
+    margin: 0.3rem;
 }
 
 .card-bsq-2{
-    background-color: aqua;
     display: inline-flex;
     flex-wrap: wrap;
 }
 .container-mapa{
   display: inline-flex;  
-    background-color: rgb(209, 24, 24);
     height: 100%;
     width: 100%;
     padding: 0.4rem;
@@ -68,11 +76,4 @@ legend{
         width: 16rem;
     }
     
-}
-
-/* footer */
-
-
-.img-footer{
-	width: 30%;
 }
