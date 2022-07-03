@@ -1,53 +1,60 @@
-.navbar-custom {
-    background-color: rgb(246, 255, 0);
-}
-.buscador-inicio{   
+.buscador-inicio {
     display: flex;
-    margin-top: 4rem;
     background-color: rgb(240, 240, 14);
     padding: 2rem;
 }
-.formulario-busqueda{
+
+.formulario-busqueda {
     margin: auto;
     background-color: rgb(198, 138, 47);
     border-radius: 10px;
 }
-.formulario{
+
+.formulario {
     display: flex;
     padding: 0.5rem;
 }
-.inpt{
+
+.inpt {
     margin: 0.3%;
-    width: 40%;
+    width: 100%;
 }
-legend{
+
+legend {
     font-size: medium;
 }
-.img-logo{
+
+.img-logo {
     width: 5rem;
     left: 5rem;
     align-items: center;
 }
-.lista-cards{
+
+.lista-cards {
     display: flex;
-margin-left: 4rem;
-margin-right: 4rem;
+    margin-left: 4rem;
+    margin-right: 4rem;
 }
-.card{
-margin: 1rem;
+
+.card {
+    width: 100%;
+    margin: 1rem;
     padding: 1rem;
 }
+
 @media screen and (max-width:1080px) {
-    .lista-cards{
+    .lista-cards {
         flex-wrap: wrap;
     }
 }
-.footer{
+
+.footer {
     display: block;
-    background-color:rgb(246, 255, 0);
+    background-color: rgb(246, 255, 0);
     width: 100%;
     height: 10rem;
 }
-.img-cabana{
-    float: left;  
-  }
+
+.img-cabana {
+    float: left;
+}

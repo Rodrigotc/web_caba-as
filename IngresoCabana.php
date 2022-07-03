@@ -1,28 +1,32 @@
 <?php
-//Inicializar SESSION y funciones
+//////Inicializar SESSION y funciones//////
 include("Backend/FuncionesSesion.php");
 $idPersona = $_SESSION['id'];
 
-//Almacenamiento buffer de salida (Solución error línea 177)
+////////Verificar si hay una sesión iniciada//////
+include("Backend/VerificarSesionIniciada.php");
+
+//////Almacenamiento buffer de salida (Solución error línea 177)//////
 ob_start();
 
-//Recibir datos POST
+//////Recibir datos POST//////
 $Direccion = ComprobarPost("Direccion");
 $Ciudad = ComprobarPost("Ciudad");
 $nroPiezas = ComprobarPost("nroPiezas");
 $Precio = ComprobarPost("Precio");
 $Descripcion = ComprobarPost("Descripcion");
+$Imagen = ComprobarPost("Imagen");
 $Wifi = ComprobarCheckbox("Wifi");
 $Estacionamiento = ComprobarCheckbox("Estacionamiento");
 $Quincho = ComprobarCheckbox("Quincho");
 $Piscina = ComprobarCheckbox("Piscina");
 $Bodega = ComprobarCheckbox("Bodega");
-$CalefacciónGas = ComprobarCheckbox("CalefacciónGas");
-$CalefacciónElectrica = ComprobarCheckbox("CalefacciónElectrica");
-$CalefacciónLenta = ComprobarCheckbox("CalefacciónLenta");
-$Imagen = ComprobarPost("Imagen");
+$CalefaccionGas = ComprobarCheckbox("CalefaccionGas");
+$CalefaccionElectrica = ComprobarCheckbox("CalefaccionElectrica");
+$CalefaccionLenta = ComprobarCheckbox("CalefaccionLenta");
 
-//Función - Comprobar POST
+//////Funciones//////
+//Comprobar POST
 function ComprobarPost($campo)
 {
     $resultado = "";
@@ -32,7 +36,7 @@ function ComprobarPost($campo)
     return $resultado;
 }
 
-//Función - Comprobar Estado de Checkbox
+//Comprobar Estado de Checkbox
 function ComprobarCheckbox($campo)
 {
     $resultado = ComprobarPost($campo);
@@ -42,7 +46,7 @@ function ComprobarCheckbox($campo)
     return $resultado;
 }
 
-//Función - Transformar on en 1
+//Transformar on en 1
 function TransformarON($campo)
 {
     $resultado = 0;
@@ -51,7 +55,6 @@ function TransformarON($campo)
     }
     return $resultado;
 }
-
 ?>
 
 <!--Html-->
@@ -63,60 +66,18 @@ function TransformarON($campo)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="CSS/Index.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!--Leaflet-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
-    <title>Web cabañas</title>
+    <title>Publicar Cabaña</title>
 </head>
 
 <body>
     <!-- NavBar -->
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">CabLagos</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <?php
-                    if (ComprobarSesión()) {
-                    ?>
-                        <!--Sesión Iniciada-->
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="Index.php">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="IngresoCabana.php">Publicar Cabaña</a>
-                        </li>
-                        <?php
-                        if (ComprobarAdmin()) {
-                        ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="PaginaAdministrador.php">Página Administrador</a>
-                            </li>
-                        <?php
-                        }
-                        ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Backend/CerrarSesion.php">Cerrar Sesión</a>
-                        </li>
-                    <?php
-                    } else {
-                    ?>
-                        <!--Sesión Cerrada-->
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="Registro.php">Crear Cuenta</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="InicioSesion.php">Iniciar Sesión</a>
-                        <?php
-                    }
-                        ?>
-                        </li>
-            </div>
-        </div>
-    </nav>
+    <?php
+    include("Colecciones/NavBar.php");
+    ?>
 
     <!--formulario-->
     <form action="IngresoCabana.php" method="POST" enctype="multipart/form-data">
@@ -168,9 +129,9 @@ function TransformarON($campo)
             <label for=""><input type="checkbox" name="Quincho" id="Quincho" <?php echo $Quincho; ?>>Quincho</label><br>
             <label for=""><input type="checkbox" name="Piscina" id="Piscina" <?php echo $Piscina; ?>>Piscina</label><br>
             <label for=""><input type="checkbox" name="Bodega" id="Bodega" <?php echo $Bodega; ?>>Bodega</label><br>
-            <label for=""><input type="checkbox" name="CalefacciónGas" id="CalefacciónGas" <?php echo $CalefacciónGas; ?>>Calefacción a gas</label><br>
-            <label for=""><input type="checkbox" name="CalefacciónElectrica" id="CalefacciónElectrica" <?php echo $CalefacciónElectrica; ?>>Calefacción eléctrica</label><br>
-            <label for=""><input type="checkbox" name="CalefacciónLenta" id="CalefacciónLenta" <?php echo $CalefacciónLenta; ?>>Combustión lenta</label><br>
+            <label for=""><input type="checkbox" name="CalefaccionGas" id="CalefaccionGas" <?php echo $CalefaccionGas; ?>>Calefacción a gas</label><br>
+            <label for=""><input type="checkbox" name="CalefaccionElectrica" id="CalefaccionElectrica" <?php echo $CalefaccionElectrica; ?>>Calefacción eléctrica</label><br>
+            <label for=""><input type="checkbox" name="CalefaccionLenta" id="CalefaccionLenta" <?php echo $CalefaccionLenta; ?>>Combustión lenta</label><br>
         </section>
         <input type="file" name="Imagen"><br>
         <input type="submit"><br>
@@ -179,8 +140,7 @@ function TransformarON($campo)
     <!--Validación-->
     <?php
     if (isset($_POST['Direccion'])) {
-        //Ejecución de programa
-        //Crear link de dirección - Leaflet
+        //////Crear link de dirección - Leaflet//////
         $DireccionValidada = str_replace(" ", "+", $Direccion);
         $Link = "https://nominatim.openstreetmap.org/search?city=" . str_replace(" ", "+", $Ciudad) . "&street=" . $DireccionValidada . "&format=json";
         $httpOptions = [
@@ -193,7 +153,7 @@ function TransformarON($campo)
         $json = file_get_contents($Link, false, $streamContext);
         $decoded = json_decode($json, true);
 
-        //Verificación de errores
+        //////Verificación de errores//////
         //Definir arrelgo
         $errores = array();
 
@@ -215,7 +175,7 @@ function TransformarON($campo)
             $lng = $decoded['0']["lon"];
         }
 
-        //Resultado de POST
+        //////Resultado de POST//////
         //Si existen errores
         if (count($errores) > 0) {
             foreach ($errores as $i => $value) {
@@ -226,10 +186,17 @@ function TransformarON($campo)
         } else {
             //Transformar checkbox
             $Wifi = TransformarON($Wifi);
+            $Estacionamiento = TransformarON($Estacionamiento);
+            $Quincho = TransformarON($Quincho);
+            $Piscina = TransformarON($Piscina);
+            $Bodega = TransformarON($Bodega);
+            $CalefaccionGas = TransformarON($CalefaccionGas);
+            $CalefaccionElectrica = TransformarON($CalefaccionElectrica);
+            $CalefaccionLenta = TransformarON($CalefaccionLenta);
 
             //Insertar cabaña en DB
             include("Backend\conection.php");
-            $insertar = "INSERT INTO `nuevocabanasdb`.`cabana` (`Ciudad`, `Estado`, `Wifi`, `NroPiezas`, `Estacionamiento`, `Precio`, `Descripcion`, `Direccion`, `Latitud`, `Longitud`, `Persona_idPersona`) VALUES ('$Ciudad', '0', '$Wifi', '$nroPiezas', '$Estacionamiento', '$Precio', '$Descripcion' , '$Direccion' , '$lat' , '$lng' , '$idPersona')";
+            $insertar = "INSERT INTO `nuevocabanasdb`.`cabana` (`Ciudad`, `Estado`, `NroPiezas`, `Precio`, `Descripcion`, `Direccion`, `Latitud`, `Longitud`, `Wifi`, `Estacionamiento`, `Quincho`, `Piscina`, `Bodega`, `CalefaccionGas`, `CalefaccionElectrica`, `CombustionLenta`, `Persona_idPersona`) VALUES ('$Ciudad', '0', '$nroPiezas', '$Precio', '$Descripcion', '$Direccion' , '$lat' , '$lng' , '$Wifi' , '$Estacionamiento', '$Quincho', '$Piscina', '$Bodega', ' $CalefaccionGas', '$CalefaccionElectrica', '$CalefaccionLenta', '$idPersona');";
             mysqli_query($enlace, $insertar);
 
             //Recuperar ID de cabaña
@@ -247,6 +214,9 @@ function TransformarON($campo)
             header("location:index.php");
         }
     }
+
+    //////Footer//////
+    include("Colecciones/Footer.php");
     ?>
 </body>
 
