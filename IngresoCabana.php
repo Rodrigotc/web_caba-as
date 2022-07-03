@@ -1,22 +1,21 @@
 <?php
-//Inicializar SESSION y funciones
+//////Inicializar SESSION y funciones//////
 include("Backend/FuncionesSesion.php");
 $idPersona = $_SESSION['id'];
 
-//Verificar si hay una sesión iniciada
+////////Verificar si hay una sesión iniciada//////
 include("Backend/VerificarSesionIniciada.php");
 
-//Almacenamiento buffer de salida (Solución error línea 177)
+//////Almacenamiento buffer de salida (Solución error línea 177)//////
 ob_start();
 
-//Recibir datos POST
+//////Recibir datos POST//////
 $Direccion = ComprobarPost("Direccion");
 $Ciudad = ComprobarPost("Ciudad");
 $nroPiezas = ComprobarPost("nroPiezas");
 $Precio = ComprobarPost("Precio");
 $Descripcion = ComprobarPost("Descripcion");
 $Imagen = ComprobarPost("Imagen");
-//Booleanos
 $Wifi = ComprobarCheckbox("Wifi");
 $Estacionamiento = ComprobarCheckbox("Estacionamiento");
 $Quincho = ComprobarCheckbox("Quincho");
@@ -26,7 +25,8 @@ $CalefaccionGas = ComprobarCheckbox("CalefaccionGas");
 $CalefaccionElectrica = ComprobarCheckbox("CalefaccionElectrica");
 $CalefaccionLenta = ComprobarCheckbox("CalefaccionLenta");
 
-//Función - Comprobar POST
+//////Funciones//////
+//Comprobar POST
 function ComprobarPost($campo)
 {
     $resultado = "";
@@ -36,7 +36,7 @@ function ComprobarPost($campo)
     return $resultado;
 }
 
-//Función - Comprobar Estado de Checkbox
+//Comprobar Estado de Checkbox
 function ComprobarCheckbox($campo)
 {
     $resultado = ComprobarPost($campo);
@@ -46,7 +46,7 @@ function ComprobarCheckbox($campo)
     return $resultado;
 }
 
-//Función - Transformar on en 1
+//Transformar on en 1
 function TransformarON($campo)
 {
     $resultado = 0;
@@ -75,49 +75,9 @@ function TransformarON($campo)
 
 <body>
     <!-- NavBar -->
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">CabLagos</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <?php
-                    if (ComprobarSesión()) {
-                    ?>
-                        <!--Sesión Iniciada-->
-                        <li class="nav-item">
-                            <a class="nav-link active" href="IngresoCabana.php">Publicar Cabaña</a>
-                        </li>
-                        <?php
-                        if (ComprobarAdmin()) {
-                        ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="PaginaAdministrador.php">Página Administrador</a>
-                            </li>
-                        <?php
-                        }
-                        ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="Backend/CerrarSesion.php">Cerrar Sesión</a>
-                        </li>
-                    <?php
-                    } else {
-                    ?>
-                        <!--Sesión Cerrada-->
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="Registro.php">Crear Cuenta</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="InicioSesion.php">Iniciar Sesión</a>
-                        <?php
-                    }
-                        ?>
-                        </li>
-            </div>
-        </div>
-    </nav>
+    <?php
+    include("Colecciones/NavBar.php");
+    ?>
 
     <!--formulario-->
     <form action="IngresoCabana.php" method="POST" enctype="multipart/form-data">
@@ -180,8 +140,7 @@ function TransformarON($campo)
     <!--Validación-->
     <?php
     if (isset($_POST['Direccion'])) {
-        //Ejecución de programa
-        //Crear link de dirección - Leaflet
+        //////Crear link de dirección - Leaflet//////
         $DireccionValidada = str_replace(" ", "+", $Direccion);
         $Link = "https://nominatim.openstreetmap.org/search?city=" . str_replace(" ", "+", $Ciudad) . "&street=" . $DireccionValidada . "&format=json";
         $httpOptions = [
@@ -194,7 +153,7 @@ function TransformarON($campo)
         $json = file_get_contents($Link, false, $streamContext);
         $decoded = json_decode($json, true);
 
-        //Verificación de errores
+        //////Verificación de errores//////
         //Definir arrelgo
         $errores = array();
 
@@ -216,7 +175,7 @@ function TransformarON($campo)
             $lng = $decoded['0']["lon"];
         }
 
-        //Resultado de POST
+        //////Resultado de POST//////
         //Si existen errores
         if (count($errores) > 0) {
             foreach ($errores as $i => $value) {
@@ -255,6 +214,9 @@ function TransformarON($campo)
             header("location:index.php");
         }
     }
+
+    //////Footer//////
+    include("Colecciones/Footer.php");
     ?>
 </body>
 
