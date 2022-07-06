@@ -1,9 +1,10 @@
-<main>
-    <div class="buscador-inicio">
-      <div class="formulario-busqueda">
-        <form class="formulario" action="Busqueda.php">
-          <select class="inpt" name="Ciudad" id="Ciudad" selected="Ancud">
-            <option value="">---Seleccionar Ciudad---</option>
+
+  <section class="py-2 text-center container border-bottom">
+    <div class="row py-lg-5">
+    <div class="formulario-busqueda">
+    <form class="formulario" action="Busqueda.php" >
+        <select class="inpt" name="Ciudad" id="Ciudad" selected="Ancud">
+            <option value="0">---Seleccionar Ciudad---</option>
             <option value="Ancud">Ancud</option>
             <option value="Calbuco">Calbuco</option>
             <option value="Castro">Castro</option>
@@ -33,8 +34,12 @@
             <option value="Río Negro">Río Negro</option>
             <option value="San Juan de la Costa">San Juan de la Costa</option>
             <option value="San Pablo">San Pablo</option>
-          </select><br>
-          <input type="submit" value="Buscar">
+        </select>
+        <input class="inpt" type="text" name="" id="">
+        
+          <input class="inpt" type="submit" value="Buscar">
         </form>
-      </div>
+    </div> 
+    
     </div>
+  </section>

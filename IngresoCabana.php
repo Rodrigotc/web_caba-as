@@ -67,6 +67,7 @@ function TransformarON($campo)
     <link rel="stylesheet" href="CSS/Index.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="./CSS/Ingresarcabana.css">
     <!--Leaflet-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
@@ -78,8 +79,91 @@ function TransformarON($campo)
     <?php
     include("Colecciones/NavBar.php");
     ?>
+    <div class=" m-0 alert alert-warning alert-dismissible fade show" role="alert">
+<?php
 
+if (isset($_POST['Direccion'])) {
+    //////Crear link de dirección - Leaflet//////
+    $DireccionValidada = str_replace(" ", "+", $Direccion);
+    $Link = "https://nominatim.openstreetmap.org/search?city=" . str_replace(" ", "+", $Ciudad) . "&street=" . $DireccionValidada . "&format=json";
+    $httpOptions = [
+        "http" => [
+            "method" => "GET",
+            "header" => "User-Agent:Nominatim-Test"
+        ]
+    ];
+    $streamContext = stream_context_create($httpOptions);
+    $json = file_get_contents($Link, false, $streamContext);
+    $decoded = json_decode($json, true);
+
+    //////Verificación de errores//////
+    //Definir arrelgo
+    $errores = array();
+
+    //Campos vacíos
+    if ($Direccion == "" || $nroPiezas == "" || $Descripcion == "" || $Precio == "") {
+        array_push($errores, "Debe rellenar todos los datos.");
+    }
+
+    //Ciudad seleccionada
+    if ($Ciudad == "") {
+        array_push($errores, "Debe Seleccionar una ciudad.");
+    }
+
+    //Dirección válida
+    if (!$decoded) {
+        array_push($errores, "Debe ingresar una dirección válida.");
+    } else {
+        $lat = $decoded['0']["lat"];
+        $lng = $decoded['0']["lon"];
+    }
+
+    //////Resultado de POST//////
+    //Si existen errores
+    if (count($errores) > 0) {
+        foreach ($errores as $i => $value) {
+         
+            echo $value . "</br>" ;
+        }
+        //Si los datos son ingresados correctamente  
+    } else {
+        //Transformar checkbox
+        $Wifi = TransformarON($Wifi);
+        $Estacionamiento = TransformarON($Estacionamiento);
+        $Quincho = TransformarON($Quincho);
+        $Piscina = TransformarON($Piscina);
+        $Bodega = TransformarON($Bodega);
+        $CalefaccionGas = TransformarON($CalefaccionGas);
+        $CalefaccionElectrica = TransformarON($CalefaccionElectrica);
+        $CalefaccionLenta = TransformarON($CalefaccionLenta);
+
+        //Insertar cabaña en DB
+        include("Backend\conection.php");
+        $insertar = "INSERT INTO `nuevocabanasdb`.`cabana` (`Ciudad`, `Estado`, `NroPiezas`, `Precio`, `Descripcion`, `Direccion`, `Latitud`, `Longitud`, `Wifi`, `Estacionamiento`, `Quincho`, `Piscina`, `Bodega`, `CalefaccionGas`, `CalefaccionElectrica`, `CombustionLenta`, `Persona_idPersona`) VALUES ('$Ciudad', '0', '$nroPiezas', '$Precio', '$Descripcion', '$Direccion' , '$lat' , '$lng' , '$Wifi' , '$Estacionamiento', '$Quincho', '$Piscina', '$Bodega', ' $CalefaccionGas', '$CalefaccionElectrica', '$CalefaccionLenta', '$idPersona');";
+        mysqli_query($enlace, $insertar);
+
+        //Recuperar ID de cabaña
+        $idCabana =  mysqli_fetch_assoc(mysqli_query($enlace, "SELECT MAX(idCabana) FROM nuevocabanasdb.cabana where Persona_idPersona = '$idPersona'"));
+        mysqli_close($enlace);
+
+        //Subir foto al servidor
+        $ruta = "Fotos_Cabanas/";
+        $fichero = $ruta . basename($_FILES['Imagen']['name']);
+        if (move_uploaded_file($_FILES['Imagen']['tmp_name'], $ruta . $idCabana['MAX(idCabana)'] . '.jpg')) {
+            echo "Subió";
+        }
+
+        //Volver a index
+        header("location:index.php");
+    }
+}
+?>
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button> </div>
     <!--formulario-->
+    <div class="container-form-ingresarcab">
+  <div class="row">
+    <div class="col">
+    <div class="container-select-input p-2">
     <form action="IngresoCabana.php" method="POST" enctype="multipart/form-data">
         Ciudad<br>
         <select name="Ciudad" id="Ciudad" selected="Ancud">
@@ -123,6 +207,12 @@ function TransformarON($campo)
         Descripción<br>
         <textarea name="Descripcion" id="Descripcion" cols="30" rows="10" placeholder="Descripción de la cabaña"><?php echo $Descripcion; ?></textarea><br>
         Características<br>
+        </div>
+    
+    </div>
+    <div class="col">
+      
+    <div class="container-filtros p-2">
         <section>
             <label for=""><input type="checkbox" name="Wifi" id="Wifi" <?php echo $Wifi; ?>>Wifi</label><br>
             <label for=""><input type="checkbox" name="Estacionamiento" id="Estacionamiento" <?php echo $Estacionamiento; ?>>Estacionamiento</label><br>
@@ -133,88 +223,16 @@ function TransformarON($campo)
             <label for=""><input type="checkbox" name="CalefaccionElectrica" id="CalefaccionElectrica" <?php echo $CalefaccionElectrica; ?>>Calefacción eléctrica</label><br>
             <label for=""><input type="checkbox" name="CalefaccionLenta" id="CalefaccionLenta" <?php echo $CalefaccionLenta; ?>>Combustión lenta</label><br>
         </section>
+        </div>
         <input type="file" name="Imagen"><br>
         <input type="submit"><br>
-    </form>
+        </form>
+    </div>
+  </div>
+</div>
 
     <!--Validación-->
     <?php
-    if (isset($_POST['Direccion'])) {
-        //////Crear link de dirección - Leaflet//////
-        $DireccionValidada = str_replace(" ", "+", $Direccion);
-        $Link = "https://nominatim.openstreetmap.org/search?city=" . str_replace(" ", "+", $Ciudad) . "&street=" . $DireccionValidada . "&format=json";
-        $httpOptions = [
-            "http" => [
-                "method" => "GET",
-                "header" => "User-Agent:Nominatim-Test"
-            ]
-        ];
-        $streamContext = stream_context_create($httpOptions);
-        $json = file_get_contents($Link, false, $streamContext);
-        $decoded = json_decode($json, true);
-
-        //////Verificación de errores//////
-        //Definir arrelgo
-        $errores = array();
-
-        //Campos vacíos
-        if ($Direccion == "" || $nroPiezas == "" || $Descripcion == "" || $Precio == "") {
-            array_push($errores, "Debe rellenar todos los datos.");
-        }
-
-        //Ciudad seleccionada
-        if ($Ciudad == "") {
-            array_push($errores, "Debe Seleccionar una ciudad.");
-        }
-
-        //Dirección válida
-        if (!$decoded) {
-            array_push($errores, "Debe ingresar una dirección válida.");
-        } else {
-            $lat = $decoded['0']["lat"];
-            $lng = $decoded['0']["lon"];
-        }
-
-        //////Resultado de POST//////
-        //Si existen errores
-        if (count($errores) > 0) {
-            foreach ($errores as $i => $value) {
-                echo $value . "</br>";
-            }
-
-            //Si los datos son ingresados correctamente  
-        } else {
-            //Transformar checkbox
-            $Wifi = TransformarON($Wifi);
-            $Estacionamiento = TransformarON($Estacionamiento);
-            $Quincho = TransformarON($Quincho);
-            $Piscina = TransformarON($Piscina);
-            $Bodega = TransformarON($Bodega);
-            $CalefaccionGas = TransformarON($CalefaccionGas);
-            $CalefaccionElectrica = TransformarON($CalefaccionElectrica);
-            $CalefaccionLenta = TransformarON($CalefaccionLenta);
-
-            //Insertar cabaña en DB
-            include("Backend\conection.php");
-            $insertar = "INSERT INTO `nuevocabanasdb`.`cabana` (`Ciudad`, `Estado`, `NroPiezas`, `Precio`, `Descripcion`, `Direccion`, `Latitud`, `Longitud`, `Wifi`, `Estacionamiento`, `Quincho`, `Piscina`, `Bodega`, `CalefaccionGas`, `CalefaccionElectrica`, `CombustionLenta`, `Persona_idPersona`) VALUES ('$Ciudad', '0', '$nroPiezas', '$Precio', '$Descripcion', '$Direccion' , '$lat' , '$lng' , '$Wifi' , '$Estacionamiento', '$Quincho', '$Piscina', '$Bodega', ' $CalefaccionGas', '$CalefaccionElectrica', '$CalefaccionLenta', '$idPersona');";
-            mysqli_query($enlace, $insertar);
-
-            //Recuperar ID de cabaña
-            $idCabana =  mysqli_fetch_assoc(mysqli_query($enlace, "SELECT MAX(idCabana) FROM nuevocabanasdb.cabana where Persona_idPersona = '$idPersona'"));
-            mysqli_close($enlace);
-
-            //Subir foto al servidor
-            $ruta = "Fotos_Cabanas/";
-            $fichero = $ruta . basename($_FILES['Imagen']['name']);
-            if (move_uploaded_file($_FILES['Imagen']['tmp_name'], $ruta . $idCabana['MAX(idCabana)'] . '.jpg')) {
-                echo "Subió";
-            }
-
-            //Volver a index
-            header("location:index.php");
-        }
-    }
-
     //////Footer//////
     include("Colecciones/Footer.php");
     ?>

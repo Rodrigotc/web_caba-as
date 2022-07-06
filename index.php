@@ -20,56 +20,72 @@ include("Backend/FuncionesSesion.php");
   <?php
   include("Colecciones/NavBar.php");
   ?>
-
+<main>
   <!--Cuadro de búsqueda-->
   <?php
   include("Colecciones/CuadroBusqueda.php");
   ?>
 
   <!--Cards Ciudades-->
-  <div class="lista-cards">
-    <div class="card">
-      <img src="Imagenes/PuertoMontt.jpg" class="card-img card-img-top" alt="puerto-imagen">
-      <div class=" card-body">
-        <h5 class="card-title">Puerto montt</h5>
-        <p class="card-text">Puerto Montt es una ciudad y comuna de la zona sur de Chile, capital de la provincia de Llanquihue y de la Región de Los Lagos. Se encuentra en frente al seno de Reloncaví y posee una población urbana y rural de 245 902 habitantes.4​ Limita al norte con Puerto Varas, al este con Cochamó, al suroeste con Calbuco y al oeste con Maullín y Los Muermos. Junto con Alerce y Puerto Varas y Llanquihue, forma el Área Metropolitana de Puerto Montt que según el censo de 2017 supera los 308.071 habitantes.</p>
-        <div class="d-grid gap-2">
-          <button class="btn btn-primary" type="button">Buscar</button>
+ 
+  <div class="container"><br>
+      <h3 class="titulo-ciudades">Principales ciudades de la region de los lagos</h3>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3  ">
+        
+      <div class="col">
+          <div class="card shadow-sm">
+           
+          <img class="card-img" src="Imagenes/PuertoMontt.jpg" alt="Puerto_montt">
+            <div class="card-body">
+              <h5>Puerto montt</h5>
+              <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla similique iste eaque nihil nam sapiente rerum cum. Aliquam, recusandae. Eos, possimus aspernatur sint consequuntur totam magnam inventore voluptas ex aut?</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                <div class="d-grid gap-2">
+                  <button class="btn btn-primary" type="button">Buscar cabañas en Puerto Montt</button>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="card">
-      <img src="Imagenes/Osorno.jpg" class="card-img card-img-top" alt="puerto-imagen">
-      <div class=" card-body">
-        <h5 class="card-title">Osorno</h5>
-        <p class="card-text">Osorno es una ciudad y comuna de la zona sur de Chile, capital de la provincia de Osorno, en la Región de Los Lagos.</p>
-        <div class="d-grid gap-2">
-          <button class="btn btn-primary" type="button">Buscar</button>
+        <div class="col">
+          <div class="card shadow-sm">
+            
+          <img class="card-img" src="Imagenes/PuertoVaras.jpg" alt="Puerto_varas">
+            <div class="card-body">
+            <h5>Puerto varas</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor nulla repellat blanditiis! Dignissimos eligendi possimus porro distinctio quo iure, necessitatibus architecto dolor eveniet, totam quas iste itaque incidunt veniam! Quae?.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                <div class="d-grid gap-2">
+                 <button class="btn btn-primary" type="button">Buscar cabañas en Puerto Varas</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="card">
-      <img src="Imagenes/PuertoVaras.jpg" class="card-img card-img-top" alt="puerto-imagen">
-      <div class=" card-body">
-        <h5 class="card-title">Puerto Varas</h5>
-        <p class="card-text">Puerto Varas es una ciudad y comuna de la zona sur de Chile, ubicada en la provincia de Llanquihue (región de Los Lagos) perteneciente al Área Metropolitana de Puerto Montt, en conjunto con la comuna homónima y la comuna de Llanquihue. Fue creada a partir de la colonización alemana con inmigrantes que se asentaron a orillas del lago Llanquihue entre los años 1852 y 1853.</p>
-        <div class="d-grid gap-2">
-          <button class="btn btn-primary" type="button">Buscar</button>
+        <div class="col">
+          <div class="card shadow-sm">
+            <img class="card-img" src="Imagenes/Castro2.jpg" alt="Castro">
+            <div class="card-body">
+            <h5>Castro</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, provident tempore sint reiciendis quaerat, porro facere itaque consectetur animi iure unde praesentium commodi accusantium. Soluta hic expedita dolor quisquam voluptas.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                <div class="d-grid gap-2">
+  <button class="btn btn-primary" type="button">Buscar cabañas en Castro</button>
+</div>
+                </div>
+              </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="card">
-      <img src="Imagenes/Frutillar.jpg" class="card-img card-img-top" alt="puerto-imagen">
-      <div class=" card-body">
-        <h5 class="card-title">Frutillar</h5>
-        <p class="card-text">Frutillar es una comuna ubicada en la bahía oeste del lago Llanquihue, en la región de Los Lagos, en la zona sur de Chile. Se caracteriza por las vistas a los volcanes y a la ribera de la bahía junto al horizonte del gran lago Llanquihue. Es conocida por las tradiciones alemanas de sus fundadores y de las Semanas Musicales de Frutillar. Gracias a este festival y al Teatro del Lago la ciudad se ha convertido en la capital de la música en Chile. También se han incorporado otras actividades desde 1996 con la creación del primer club de yates del lago Llanquihue Cofradía Náutica de Frutillar, gracias a su actividad náutica hoy cuenta con un respetado prestigio en la navegación a vela del país, alternando las regatas en el lago cada año con la regata de Chiloe. En el año 2012 se incorporó la primera cancha de golf Nicklaus PGA Club de Golf Patagonia Virgin Frutillar. Así, la bahía de Frutillar complementa una diversificada gama de actividades que incluyen música, artes, pesca-casa deportiva, navegación a vela y golf.</p>
-        <div class="d-grid gap-2">
-          <button class="btn btn-primary" type="button">Buscar</button>
-        </div>
+
       </div>
     </div>
   </div>
-
+  
   <!--Footer-->
   <?php
   include("Colecciones/Footer.php");
