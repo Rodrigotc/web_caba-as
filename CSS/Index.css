@@ -1,23 +1,24 @@
-.buscador-inicio {
-    display: flex;
-    background-color: rgb(240, 240, 14);
-    padding: 2rem;
-}
-
 .formulario-busqueda {
     margin: auto;
-    background-color: rgb(198, 138, 47);
+    height: 4rem;
+    width: 70%;
+    background-color: rgba(140,116,6,255);
     border-radius: 10px;
 }
 
 .formulario {
     display: flex;
-    padding: 0.5rem;
+    width: 100%;
+    padding: 0.6rem;
 }
 
 .inpt {
-    margin: 0.3%;
+    margin: 0.7%;
     width: 100%;
+}
+
+.btn-primary{
+    background-color: rgba(93,170,226,255) !important;
 }
 
 legend {

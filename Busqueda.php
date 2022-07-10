@@ -3,6 +3,15 @@
 include("Backend/FuncionesSesion.php");
 
 //////Funciones//////
+//Comprobar GET///
+function ComprobarGet($campo)
+{
+  $resultado = "";
+  if (isset($_GET[$campo])) {
+    $resultado = trim($_GET[$campo]);
+  }
+  return $resultado;
+}
 //Filtrar cabañas//
 function filtrarCabanas()
 {
@@ -10,11 +19,43 @@ function filtrarCabanas()
   $query = "SELECT * FROM nuevocabanasdb.cabana Where Estado = '1' ";
 
   //Recibir datos GET
-  $Ciudad = $_GET["Ciudad"];
+  $Ciudad               = $_GET["Ciudad"];
+  $Wifi                 = ComprobarGet("Wifi");
+  $Estacionamiento      = ComprobarGet("Estacionamiento");
+  $Quincho              = ComprobarGet("Quincho");
+  $Piscina              = ComprobarGet("Piscina");
+  $Bodega               = ComprobarGet("Bodega");
+  $CalefaccionGas       = ComprobarGet("CalefaccionGas");
+  $CalefaccionElectrica = ComprobarGet("CalefaccionElectrica");
+  $CalefaccionLenta     = ComprobarGet("CalefaccionLenta");
 
   //Filtros de búsqueda
   if ($Ciudad != "") {
     $query .= "AND Ciudad = '$Ciudad' ";
+  }
+  if ($Wifi != "") {
+    $query .= "AND Wifi = '1' ";
+  }
+  if ($Estacionamiento != "") {
+    $query .= "AND Estacionamiento = '1' ";
+  }
+  if ($Quincho != "") {
+    $query .= "AND Quincho = '1' ";
+  }
+  if ($Piscina != "") {
+    $query .= "AND Piscina = '1' ";
+  }
+  if ($Bodega != "") {
+    $query .= "AND Bodega = '1' ";
+  }
+  if ($CalefaccionGas != "") {
+    $query .= "AND CalefaccionGas = '1' ";
+  }
+  if ($CalefaccionElectrica != "") {
+    $query .= "AND CalefaccionElectrica = '1' ";
+  }
+  if ($CalefaccionLenta != "") {
+    $query .= "AND CombustionLenta = '1' ";
   }
 
   //Retornar query
@@ -58,7 +99,7 @@ function mostrarCabana()
   }
   //Mostrar mensaje si no hay cabañas
   if ($count == 0) {
-    echo "No hay niuna cabaña, leso";
+    echo "No se encuentran cabañas con los filtros seleccionados.";
   }
   ?>
   <div class="card item" style="width: 14rem;"></div>
@@ -84,7 +125,9 @@ function agregarMarcadores()
   while ($cabana = mysqli_fetch_array($resultado)) {
   ?>
     <script>
-      L.marker([<?php echo $cabana['Latitud'] ?>, <?php echo $cabana['Longitud'] ?>]).addTo(map);
+      L.marker([<?php echo $cabana['Latitud'] ?>, <?php echo $cabana['Longitud'] ?>], {
+        icon: customIcon
+      }).addTo(map);
     </script>
 <?php
   }
@@ -147,8 +190,7 @@ function agregarMarcadores()
               }
             </style>
             <script>
-              //Bajar pantalla
-              //window.scrollTo(0, document.body.scrollHeight);
+              //Definir coordenadas de mapa
               switch ("<?php echo $_GET["Ciudad"] ?>") {
                 case "Ancud":
                   var lat = -41.8707;
@@ -190,9 +232,59 @@ function agregarMarcadores()
                   var lng = -73.657047;
                   var zoom = 15;
                   break;
+                case "Fresia":
+                  var lat = -41.1531;
+                  var lng = -73.4306;
+                  var zoom = 14;
+                  break;
+                case "Frutillar":
+                  var lat = -41.1167;
+                  var lng = -73.05;
+                  var zoom = 14;
+                  break;
+                case "Futaleufú":
+                  var lat = -43.1833;
+                  var lng = -71.8667;
+                  var zoom = 15;
+                  break;
+                case "Llanquihue":
+                  var lat = -41.2581;
+                  var lng = -73.0086;
+                  var zoom = 15;
+                  break;
+                case "Los Muermos":
+                  var lat = -41.4;
+                  var lng = -73.46;
+                  var zoom = 14;
+                  break;
+                case "Maullín":
+                  var lat = -41.6167;
+                  var lng = -73.6;
+                  var zoom = 15;
+                  break;
+                case "Osorno":
+                  var lat = -40.5725;
+                  var lng = -73.1353;
+                  var zoom = 13;
+                  break;
+                case "Palena":
+                  var lat = -43.6178;
+                  var lng = -71.8039;
+                  var zoom = 15;
+                  break;
                 case "Puerto Montt":
                   var lat = -41.4693;
                   var lng = -72.94237;
+                  var zoom = 13;
+                  break;
+                case "Puerto Octay":
+                  var lat = -40.971806;
+                  var lng = -72.884410;
+                  var zoom = 15;
+                  break;
+                case "Puerto Varas":
+                  var lat = -41.3167;
+                  var lng = -72.9833;
                   var zoom = 13;
                   break;
                 default:
@@ -200,12 +292,21 @@ function agregarMarcadores()
                   var lng = -73.0000000;
                   var zoom = 8;
               }
+
+              //configurar mapa
               var map = L.map('map', {
                 closePopupOnClick: false
               }).setView([lat, lng], zoom);
               L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               }).addTo(map);
+
+              //Cambiar ícono de amrcador
+              var customIcon = new L.Icon({
+                iconUrl: 'Imagenes/Marcador.png',
+                iconSize: [50, 50],
+                iconAnchor: [25, 50]
+              });
             </script>
             <?php
             agregarMarcadores();

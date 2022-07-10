@@ -1,15 +1,8 @@
-.buscador-inicio {
-    display: flex;
-    height: 10rem;
-    background-color: rgb(243, 243, 243);
-    padding: 2rem;
-}
-
 .formulario-busqueda {
     margin: auto;
     height: 4rem;
     width: 70%;
-    background-color: rgb(0, 0, 0);
+    background-color: rgba(140,116,6,255);
     border-radius: 10px;
 }
 
@@ -42,11 +35,14 @@ legend {
 }
 
 .ho:hover{
-    box-sizing: border-box;
-    transition: all 0.3 ease;
-    -webkit-transform: scale(1.03);
-    -ms-transform: scale(1.03);
-    transform: (1.03);
+    text-shadow: none !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    -webkit-transform: scale(1.03) !important;
+    -ms-transform: scale(1.03) !important;
+    transform: scale(1.03) !important;
+    z-index: 2;
 }
 
 .card-bsq {
