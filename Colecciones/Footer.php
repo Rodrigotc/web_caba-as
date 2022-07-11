@@ -1,8 +1,8 @@
-<div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+<div style="background:whitesmoke; border-radius:10px" class="container">
+    <footer  class="d-flex flex-wrap justify-content-between align-items-center py-2 my-2">
     <div class="col-md-4 d-flex align-items-center">
       <a href="/" class="mb-1 me-1 mb-md-0 text-muted text-decoration-none lh-1">
-        <svg class="bi" width="10" height="24"><use xlink:href="#bootstrap"/></svg>
+        <svg class="bi" width="10" height="10"><use xlink:href="#bootstrap"/></svg>
       </a>
       <img style="width: 8rem;" src="Imagenes/CabLagos_Logo.png" class="img-footer" alt="puerto-imagen">
 

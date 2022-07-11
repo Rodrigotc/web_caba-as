@@ -1,15 +1,6 @@
 
 .container-form-ingresarcab{
     display: inline-block;
-    background-color: rgb(106, 106, 106);
     width: 100%;
     height: 100%;
-    
-    
-}
-.container-select-input{
-    background-color: aqua;
-}
-.container-filtros{
-    background-color: blueviolet;
 }

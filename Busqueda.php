@@ -39,7 +39,7 @@ function mostrarCabana()
     $count = $count + 1;
 ?>
     <div class="card ho">
-      <a class="link" href="PaginaCabana.php?idCabana=<?php echo $cabana['idCabana'] ?>">
+      <a class="link" href="zdetalle.php?idCabana=<?php echo $cabana['idCabana'] ?>">
         <img src="Fotos_Cabanas/<?php echo $cabana['idCabana']; ?>.jpg" class="card-img-top" alt="imgcab">
         <div class="card-body">
           <h5 class="card-title"><?php echo $cabana['Ciudad']; ?></h5>
@@ -99,7 +99,7 @@ function agregarMarcadores()
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="CSS/Busqueda.css">
+  <link rel="stylesheet" href="css/Busqueda.css">
   <!--Boostrap-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   <!--Leaflet-->
@@ -203,8 +203,8 @@ function agregarMarcadores()
               var map = L.map('map', {
                 closePopupOnClick: false
               }).setView([lat, lng], zoom);
-              L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               }).addTo(map);
             </script>
             <?php

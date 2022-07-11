@@ -1,7 +1,7 @@
 
-  <section class="py-2 text-center container border-bottom">
-    <div class="row py-lg-5">
-    <div class="formulario-busqueda">
+  <section class="py-1 text-center container border-bottom">
+    <div class="row py-lg-3 m-0">
+    <div style=" background: #e36686;" class="formulario-busqueda">
     <form class="formulario" action="Busqueda.php" >
         <select class="inpt" name="Ciudad" id="Ciudad" selected="Ancud">
             <option value="0">---Seleccionar Ciudad---</option>

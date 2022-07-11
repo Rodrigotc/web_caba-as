@@ -9,13 +9,14 @@ include("Backend/FuncionesSesion.php");
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="stylesheet" href="CSS\index.css">
+  <link rel="stylesheet" href="css/Index.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   <title>Cab Lagos</title>
 </head>
 
-<body>
+<body style="
+    background-color: #020929;">
   <!-- NavBar -->
   <?php
   include("Colecciones/NavBar.php");
@@ -28,8 +29,8 @@ include("Backend/FuncionesSesion.php");
 
   <!--Cards Ciudades-->
  
-  <div class="container"><br>
-      <h3 class="titulo-ciudades">Principales ciudades de la region de los lagos</h3>
+  <div class="container border-bottom"><br>
+      <h3  style="color: white; text-align:center;">Principales ciudades de la region de los lagos</h3>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3  ">
         
       <div class="col">

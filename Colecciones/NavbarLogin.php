@@ -6,39 +6,15 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <?php
-          if (ComprobarSesión()) {
-          ?>
-            <!--Sesión Iniciada-->
-            <li class="nav-item">
-              <a class="nav-link active" href="IngresoCabana.php">Publicar Cabaña</a>
-            </li>
-            <?php
-            if (ComprobarAdmin()) {
-            ?>
-              <li class="nav-item">
-                <a class="nav-link" href="PaginaAdministrador.php">Página Administrador</a>
-              </li>
-            <?php
-            }
-            ?>
-            <li class="nav-item">
-              <a class="nav-link" href="Backend/CerrarSesion.php">Cerrar Sesión</a>
-            </li>
-          <?php
-          } else {
-          ?>
-            <!--Sesión Cerrada-->
+          
+       
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="Registro.php">Crear Cuenta</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="InicioSesion.php">Iniciar Sesión</a>
-            <?php
-          }
-            ?>
-            <li> <a href="zdetalle.php">aa</a></li>
             </li>
+            
       </div>
     </div>
   </nav>

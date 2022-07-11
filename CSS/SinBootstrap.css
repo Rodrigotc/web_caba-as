@@ -4,9 +4,7 @@
     box-sizing: border-box;
 }
 
-body{
-    background-image: url('../Imagenes/fondo_azul.jpg');
-}
+
 
 .form-register{
     width: 400px;
@@ -16,7 +14,7 @@ body{
     margin-top: 100px;
     border-radius: 4px;
     font-family: 'calibri';
-    color: white;
+    color: rgb(255, 255, 255);
     box-shadow: 7px 13px 37px black;
 }
 

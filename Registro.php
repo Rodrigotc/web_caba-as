@@ -26,10 +26,20 @@ function ComprobarPost($campo)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="CSS/SinBootstrap.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+ 
     <title>Registro Usuario</title>
 </head>
 
-<body>
+<body style="background-image: url('Imagenes/fondo_azul.jpg'); 
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  height: 100vh;">
+<?php
+  include("Colecciones/NavbarLogin.php");
+  ?>    
+
     <form action="Registro.php" method="POST">
         <section class="form-register">
             <h4>Formulario Registro</h4>

@@ -18,7 +18,7 @@ mysqli_close($enlace);
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="CSS/PaginaAdministrador.css">
+    <link rel="stylesheet" href="css/PaginaAdministrador.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <title>Página Administrador</title>
@@ -30,20 +30,39 @@ mysqli_close($enlace);
     include("Colecciones/NavBar.php");
     ?>
 
+<div class="wrapper">
+	<div class="header">Cabañas sin publicar</div>
 
-    <!-- Mostrar Cabañas con solicitud -->
+	<div class="cards_wrap">
+		
     <?php
     while ($fila = mysqli_fetch_array($resultado)) {
         $id = $fila["idCabana"];
     ?>
-        <a class="btn-Cabana" href="PaginaCabana.php?idCabana=<?php echo $id ?>" id="Cabaña">
-            <img class="img-cabana" src=<?php echo "Fotos_Cabanas/" . $fila["idCabana"] . ".jpg"; ?> width="250" height="200">
-            <p>ID Cabaña: <?php echo ($fila["idCabana"]); ?></p>
-            <p>Ciudad: <?php echo ($fila["Ciudad"]); ?></p>
-            <p>Dirección: <?php echo ($fila["Direccion"]); ?></p>
-            <p>Precio: <?php echo ($fila["Precio"]); ?></p>
-        </a>
-    <?php
+<div class="card ho">
+      <a class="link" href="PaginaCabana.php?idCabana=<?php echo $id ?>" id="Cabaña">
+        <img src=<?php echo "Fotos_Cabanas/" . $fila["idCabana"] . ".jpg"; ?> class="card-img-top" alt="imgcab">
+        <div class="card-body">
+          <h5 class="card-title">Cabaña en: <?php echo ($fila["Ciudad"]); ?></h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">ID Cabaña: <?php echo ($fila["idCabana"]); ?></li>
+          <li class="list-group-item">Dirección: <?php echo ($fila["Direccion"]); ?></li>
+          <li class="list-group-item">Precio: <?php echo ($fila["Precio"]); ?></li>
+        </ul>
+      </a>
+     
+    </div>
+
+        <?php
     }
     ?>
+	
+	</div>
+</div>  </a>
+
+
+   
+
+
 </body>

@@ -64,10 +64,10 @@ function TransformarON($campo)
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="CSS/Index.css">
+    <link rel="stylesheet" href="css/Index.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link rel="stylesheet" href="./CSS/Ingresarcabana.css">
+    <link rel="stylesheet" href="css/Ingresarcabana.css">
     <!--Leaflet-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
@@ -79,7 +79,7 @@ function TransformarON($campo)
     <?php
     include("Colecciones/NavBar.php");
     ?>
-    <div class=" m-0 alert alert-warning alert-dismissible fade show" role="alert">
+
 <?php
 
 if (isset($_POST['Direccion'])) {
@@ -122,8 +122,9 @@ if (isset($_POST['Direccion'])) {
     //Si existen errores
     if (count($errores) > 0) {
         foreach ($errores as $i => $value) {
-         
-            echo $value . "</br>" ;
+          
+          echo  $value . "</br>";
+          
         }
         //Si los datos son ingresados correctamente  
     } else {
@@ -158,15 +159,14 @@ if (isset($_POST['Direccion'])) {
     }
 }
 ?>
-<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> </button> </div>
     <!--formulario-->
     <div class="container-form-ingresarcab">
-  <div class="row">
-    <div class="col">
-    <div class="container-select-input p-2">
+  <div style=" font-size:1.1rem; font-style: italic; background: #e36686; --bs-gutter-x: 0rem; height: 100vh;" class="row">
+    <div style="border: 2px dashed black;" class="col">
+    <div class="container-select-input p-3">
     <form action="IngresoCabana.php" method="POST" enctype="multipart/form-data">
         Ciudad<br>
-        <select name="Ciudad" id="Ciudad" selected="Ancud">
+        <select class="form-select"  name="Ciudad" id="Ciudad" selected="Ancud">
             <option value="">---Seleccionar Ciudad---</option>
             <option value="Ancud">Ancud</option>
             <option value="Calbuco">Calbuco</option>
@@ -199,43 +199,66 @@ if (isset($_POST['Direccion'])) {
             <option value="San Pablo">San Pablo</option>
         </select><br>
         Calle y número<br>
-        <input name="Direccion" id="Direccion" placeholder="Dirección de cabaña." value="<?php echo $Direccion; ?>"><br>
+        <input class="input-group input-group-sm mb-1" name="Direccion" id="Direccion" placeholder="Dirección de cabaña." value="<?php echo $Direccion; ?>"><br>
         Número de Piezas<br>
-        <input type="number" name="nroPiezas" id="nroPiezas" min=1 placeholder="Número de piezas" value="<?php echo $nroPiezas; ?>"><br>
+        <input class="input-group input-group-sm mb-1" type="number" name="nroPiezas" id="nroPiezas" min=1 placeholder="Número de piezas" value="<?php echo $nroPiezas; ?>"><br>
         Precio por día<br>
-        <input type="number" name="Precio" id="Precio" min=1 placeholder="Precio" value="<?php echo $Precio; ?>"><br>
+        <input class="input-group input-group-sm mb-1" type="number" name="Precio" id="Precio" min=1 placeholder="Precio" value="<?php echo $Precio; ?>"><br>
         Descripción<br>
-        <textarea name="Descripcion" id="Descripcion" cols="30" rows="10" placeholder="Descripción de la cabaña"><?php echo $Descripcion; ?></textarea><br>
-        Características<br>
+        <textarea class="form-control" name="Descripcion" id="Descripcion" cols="30" rows="10" placeholder="Descripción de la cabaña"><?php echo $Descripcion; ?></textarea><br>
+       
         </div>
     
     </div>
-    <div class="col">
+    <div style="border: 2px dashed black;" class="col">
       
-    <div class="container-filtros p-2">
+    <div class="container-filtros p-3">
         <section>
-            <label for=""><input type="checkbox" name="Wifi" id="Wifi" <?php echo $Wifi; ?>>Wifi</label><br>
-            <label for=""><input type="checkbox" name="Estacionamiento" id="Estacionamiento" <?php echo $Estacionamiento; ?>>Estacionamiento</label><br>
-            <label for=""><input type="checkbox" name="Quincho" id="Quincho" <?php echo $Quincho; ?>>Quincho</label><br>
-            <label for=""><input type="checkbox" name="Piscina" id="Piscina" <?php echo $Piscina; ?>>Piscina</label><br>
-            <label for=""><input type="checkbox" name="Bodega" id="Bodega" <?php echo $Bodega; ?>>Bodega</label><br>
-            <label for=""><input type="checkbox" name="CalefaccionGas" id="CalefaccionGas" <?php echo $CalefaccionGas; ?>>Calefacción a gas</label><br>
-            <label for=""><input type="checkbox" name="CalefaccionElectrica" id="CalefaccionElectrica" <?php echo $CalefaccionElectrica; ?>>Calefacción eléctrica</label><br>
-            <label for=""><input type="checkbox" name="CalefaccionLenta" id="CalefaccionLenta" <?php echo $CalefaccionLenta; ?>>Combustión lenta</label><br>
-        </section>
+        Características<br>
+ 
+        <div class="form-check">
+        <label class="form-check-label" for=""><input class="form-check-input" type="checkbox" name="Wifi" id="Wifi" <?php echo $Wifi; ?>>Wifi</label><br> </div>
+        
+        <div class="form-check">
+        <label class="form-check-label" for=""><input class="form-check-input" type="checkbox" name="Estacionamiento" id="Estacionamiento" <?php echo $Estacionamiento; ?>>Estacionamiento</label><br> 
+           
         </div>
-        <input type="file" name="Imagen"><br>
-        <input type="submit"><br>
+        <div class="form-check">
+        <label class="form-check-label" for=""><input class="form-check-input" type="checkbox" name="Quincho" id="Quincho" <?php echo $Quincho; ?>>Quincho</label><br> 
+          
+        </div>
+        <div class="form-check">
+        <label class="form-check-label" for=""><input class="form-check-input" type="checkbox" name="Piscina" id="Piscina" <?php echo $Piscina; ?>>Piscina</label><br> 
+            
+        </div>
+        <div class="form-check">
+        <label class="form-check-label" for=""><input class="form-check-input" type="checkbox" name="Bodega" id="Bodega" <?php echo $Bodega; ?>>Bodega</label><br> 
+           
+        </div>
+        <div class="form-check">
+        <label class="form-check-label" for=""><input class="form-check-input" type="checkbox" name="CalefaccionGas" id="CalefaccionGas" <?php echo $CalefaccionGas; ?>>Calefacción a gas</label><br> 
+          
+        </div>
+        <div class="form-check">
+        <label class="form-check-label" for=""><input class="form-check-input" type="checkbox" name="CalefaccionElectrica" id="CalefaccionElectrica" <?php echo $CalefaccionElectrica; ?>>Calefacción eléctrica</label><br> 
+          
+        </div>
+        <div class="form-check">
+        <label class="form-check-label" for=""><input class="form-check-input" type="checkbox" name="CalefaccionLenta" id="CalefaccionLenta" <?php echo $CalefaccionLenta; ?>>Combustión lenta</label><br> 
+       
+        </div>
+             </section><br>
+        <input class="btn btn-primary" type="file" name="Imagen"><br>
+        </div>
+ 
+        <input  class="btn btn-primary ms-3" type="submit"><br>
         </form>
     </div>
   </div>
 </div>
 
     <!--Validación-->
-    <?php
-    //////Footer//////
-    include("Colecciones/Footer.php");
-    ?>
+  
 </body>
 
 </html>
