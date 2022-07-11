@@ -26,6 +26,8 @@ function ComprobarPost($campo)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="CSS/SinBootstrap.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Title e ícono-->
+    <link rel="shortcut icon" href="Imagenes/Marcador.png">
     <title>Registro Usuario</title>
 </head>
 

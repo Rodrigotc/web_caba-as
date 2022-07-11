@@ -1,3 +1,8 @@
+<style>
+  .container-fluid{
+    width: 80%;
+  }
+</style>
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="index.php">CabLagos</a>

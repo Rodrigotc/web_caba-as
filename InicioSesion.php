@@ -20,6 +20,8 @@ function ComprobarPost($campo)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="CSS/SinBootstrap.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Title e ícono-->
+    <link rel="shortcut icon" href="Imagenes/Marcador.png">
     <title>Iniciar Sesión</title>
 </head>
 
@@ -39,7 +41,7 @@ function ComprobarPost($campo)
         //Arreglo
         $errores = array();
 
-    //Verificación de errores
+        //Verificación de errores
         //Campos vacíos
         if ($correo == "" || $contrasena == "") {
             array_push($errores, "Debe rellenar todos los datos.");
@@ -57,7 +59,7 @@ function ComprobarPost($campo)
             array_push($errores, "Correo o contraseña incorrectas.");
         }
 
-    //Resultado de POST
+        //Resultado de POST
         //Si existen errores
         if (count($errores) > 0) {
             foreach ($errores as $i => $value) {

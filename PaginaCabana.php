@@ -23,6 +23,8 @@ mysqli_close($enlace);
   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
   <!--Boostrap-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <!--Title e ícono-->
+  <link rel="shortcut icon" href="Imagenes/Marcador.png">
   <title>Página Cabaña</title>
 </head>
 
@@ -89,29 +91,29 @@ mysqli_close($enlace);
   <?php
   if ($cabana["Wifi"]) {
     echo "Wifi"; ?><br><?php
-                        }
-                        if ($cabana["Estacionamiento"]) {
-                          echo "Estacionamiento"; ?><br><?php
-                                  }
-                                  if ($cabana["Quincho"]) {
-                                    echo "Quincho"; ?><br><?php
-                                  }
-                                  if ($cabana["Piscina"]) {
-                                    echo "Piscina"; ?><br><?php
-                                  }
-                                  if ($cabana["Bodega"]) {
-                                    echo "Bodega"; ?><br><?php
-                                  }
-                                  if ($cabana["CalefaccionGas"]) {
-                                    echo "Calefacción a gas"; ?><br><?php
-                                    }
-                                    if ($cabana["CalefaccionElectrica"]) {
-                                      echo "Calefacción eléctrica"; ?><br><?php
-                                        }
-                                        if ($cabana["CombustionLenta"]) {
-                                          echo "Combustón lenta"; ?><br><?php
-                                        }
-                                    ?>
+                      }
+                      if ($cabana["Estacionamiento"]) {
+                        echo "Estacionamiento"; ?><br><?php
+                                                      }
+                                                      if ($cabana["Quincho"]) {
+                                                        echo "Quincho"; ?><br><?php
+                                                        }
+                                                        if ($cabana["Piscina"]) {
+                                                          echo "Piscina"; ?><br><?php
+                                                        }
+                                                        if ($cabana["Bodega"]) {
+                                                          echo "Bodega"; ?><br><?php
+                                                        }
+                                                        if ($cabana["CalefaccionGas"]) {
+                                                          echo "Calefacción a gas"; ?><br><?php
+                                                                  }
+                                                                  if ($cabana["CalefaccionElectrica"]) {
+                                                                    echo "Calefacción eléctrica"; ?><br><?php
+                                                                        }
+                                                                        if ($cabana["CombustionLenta"]) {
+                                                                          echo "Combustón lenta"; ?><br><?php
+                                                                        }
+                                                                        ?>
 
   <!-- Boostrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

@@ -148,6 +148,8 @@ function agregarMarcadores()
   <!--Leaflet-->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+  <!--Title e ícono-->
+  <link rel="shortcut icon" href="Imagenes/Marcador.png">
   <title>Búsqueda</title>
 </head>
 
@@ -156,20 +158,19 @@ function agregarMarcadores()
   <?php
   include("Colecciones/NavBar.php");
   ?>
-
-  <!-- Cuadro de búsqueda -->
-  <?php
-  include("Colecciones/CuadroBusqueda.php");
-  ?>
-
   <!-- Main -->
   <main>
+    <!-- Cuadro de búsqueda -->
+    <?php
+    include("Colecciones/CuadroBusqueda.php");
+    ?>
+
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
       <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Cabañas y mapa</a>
       <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Cabañas</a>
     </div>
 
-    <!--Mostrar solo cabañas-->
+    <!--Mostrar cabañas y mapa-->
     <div class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         <div class="row" style="--bs-gutter-x: 0rem;">
@@ -186,7 +187,7 @@ function agregarMarcadores()
             <style>
               #map {
                 width: 100%;
-                height: 100vh;
+                height: 100%;
               }
             </style>
             <script>
@@ -297,8 +298,9 @@ function agregarMarcadores()
               var map = L.map('map', {
                 closePopupOnClick: false
               }).setView([lat, lng], zoom);
-              L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+
+              L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               }).addTo(map);
 
               //Cambiar ícono de amrcador
@@ -315,7 +317,7 @@ function agregarMarcadores()
         </div>
       </div>
 
-      <!--Mostrar cabañas y mapa-->
+      <!--Mostrar solo cabañas-->
       <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         <div class="card-bsq">
           <?php
@@ -323,7 +325,6 @@ function agregarMarcadores()
           ?>
         </div>
       </div>
-    </div>
     </div>
 
   </main>
