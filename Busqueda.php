@@ -108,7 +108,7 @@ function agregarMarcadores()
   <title>Búsqueda</title>
 </head>
 
-<body>
+<body style="background-image: url('Imagenes/fondo_azul.jpg');">
   <!-- NavBar -->
   <?php
   include("Colecciones/NavBar.php");
@@ -122,8 +122,8 @@ function agregarMarcadores()
   <!-- Main -->
   <main>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Cabañas y mapa</a>
-      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Cabañas</a>
+      <a class="bg-light nav-item nav-link active border  border-warning" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Cabañas y mapa</a>
+      <a class="bg-light nav-item nav-link ms-1 border  border-warning" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Cabañas</a>
     </div>
 
     <!--Mostrar solo cabañas-->
