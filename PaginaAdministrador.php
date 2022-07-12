@@ -24,7 +24,7 @@ mysqli_close($enlace);
     <title>Página Administrador</title>
 </head>
 
-<body>
+<body style="background-image: url('Imagenes/fondo_azul.jpg');">
     <!-- NavBar -->
     <?php
     include("Colecciones/NavBar.php");
@@ -40,7 +40,7 @@ mysqli_close($enlace);
         $id = $fila["idCabana"];
     ?>
 <div class="card ho">
-      <a class="link" href="PaginaCabana.php?idCabana=<?php echo $id ?>" id="Cabaña">
+      <a class="link" href="zdetalle.php?idCabana=<?php echo $id ?>" id="Cabaña">
         <img src=<?php echo "Fotos_Cabanas/" . $fila["idCabana"] . ".jpg"; ?> class="card-img-top" alt="imgcab">
         <div class="card-body">
           <h5 class="card-title">Cabaña en: <?php echo ($fila["Ciudad"]); ?></h5>

@@ -161,7 +161,7 @@ if (isset($_POST['Direccion'])) {
 ?>
     <!--formulario-->
     <div class="container-form-ingresarcab">
-  <div style=" font-size:1.1rem; font-style: italic; background: #e36686; --bs-gutter-x: 0rem; height: 100vh;" class="row">
+  <div style=" font-size:1.1rem; font-style: italic; color:white ;background-image: url('Imagenes/fondo_azul.jpg'); --bs-gutter-x: 0rem; height: 100vh;" class="row">
     <div style="border: 2px dashed black;" class="col">
     <div class="container-select-input p-3">
     <form action="IngresoCabana.php" method="POST" enctype="multipart/form-data">

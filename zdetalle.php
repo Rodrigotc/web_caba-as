@@ -21,8 +21,24 @@ mysqli_close($enlace);
   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
   
   <title>Detalle</title>
+  <style>
+    
+.header{
+	width: 100%;
+	height: 100%px;
+	color: #fff;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	font-size: 20px;
+	text-transform: uppercase;
+	letter-spacing: 5px;
+	font-weight: 900;
+}
+
+  </style>
 </head>
-<body>
+<body style="background-image: url('Imagenes/fondo_azul.jpg');">
 
 <!-- NavBar -->
 <?php
@@ -30,12 +46,25 @@ mysqli_close($enlace);
   ?>
 
 
+<!--Mostrar mensaje admin-->
 
-<div class="container mt-3">
+<?php
+  if ($_SESSION['administrador'] == 1 && $cabana['Estado'] == 0) {
+  ?>
+
+      <div class="header bg-danger "> Esta cabaña está en revisión. ¿Desea aprobarla?<br>
+      <input class="btn btn-dark  m-1" type="button" onclick="location.href='Backend/PublicarCabana.php?id=<?php echo $cabana['idCabana'] ?>'" value="Publicar">
+      <input class="btn btn-dark  m-1" type="button" onclick="location.href='Backend/RechazarCabana.php?id=<?php echo $cabana['idCabana'] ?>'" value="Rechazar">
+      </div>
+
+  <?php
+  }
+  ?>
+<div  class="container mt-3 bg-light border border-2 rounded border-warning">
  
 <div class="container-fluid ">
   <div class="row content">
-    <div class="col-sm-3 sidenav me-1">
+    <div class="col sidenav me-1">
     <h2>Cabaña ubicada en <?php echo ($cabana["Ciudad"]); ?><br></h2>
   
     
@@ -120,7 +149,7 @@ mysqli_close($enlace);
                                     ?>
   </div>
 
-    <div class="col-sm-6">
+    <div class="col">
     <img class="img-cabana" src=<?php echo "Fotos_Cabanas/" . $cabana["idCabana"] . ".jpg"; ?> style="width:100%; height:40vh; margin:3px ">
       
       <div class="row ">

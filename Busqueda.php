@@ -58,9 +58,9 @@ function mostrarCabana()
   }
   //Mostrar mensaje si no hay cabañas
   if ($count == 0) {
-    echo "No hay niuna cabaña, leso";
-  }
-  ?>
+    ?>
+  <img class="mt-3"  src="Imagenes/advertencia.png"  width="80%"  alt="">
+     <?php } ?>
   <div class="card item" style="width: 14rem;"></div>
   <div class="card item" style="width: 14rem;"></div>
   <div class="card item" style="width: 14rem;"></div>
