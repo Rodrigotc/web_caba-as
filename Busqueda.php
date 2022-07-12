@@ -56,17 +56,15 @@ function mostrarCabana()
     </div>
   <?php
   }
-  //Mostrar mensaje si no hay cabañas
-  if ($count == 0) {
-    ?>
-  <img class="mt-3"  src="Imagenes/advertencia.png"  width="80%"  alt="">
-     <?php } ?>
+  //place
+  ?>
   <div class="card item" style="width: 14rem;"></div>
   <div class="card item" style="width: 14rem;"></div>
   <div class="card item" style="width: 14rem;"></div>
   <div class="card item" style="width: 14rem;"></div>
   <div class="card item" style="width: 14rem;"></div>
   <?php
+  return $count;
 }
 
 //Agregar marcadores//
@@ -133,7 +131,11 @@ function agregarMarcadores()
           <div class="col scroll">
             <div class="card-bsq-2">
               <?php
-              mostrarCabana();
+               $count = mostrarCabana();
+              if ($count == 0) {
+                ?>
+                <img src="Imagenes/advertencia.png" width="80%" alt="">
+              <?php } 
               ?>
             </div>
           </div>
@@ -208,6 +210,7 @@ function agregarMarcadores()
               }).addTo(map);
             </script>
             <?php
+            
             agregarMarcadores();
             ?>
           </div>
@@ -218,8 +221,13 @@ function agregarMarcadores()
       <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         <div class="card-bsq">
           <?php
-          mostrarCabana();
-          ?>
+          
+          $count = mostrarCabana();
+         if ($count == 0) {
+           ?>
+           <img src="Imagenes/advertencia.png" width="50%" alt="">
+         <?php } 
+         ?>
         </div>
       </div>
     </div>
@@ -235,8 +243,9 @@ function agregarMarcadores()
 </body>
 
 </html>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-      
-  </body>
+
+</body>
+
 </html>
