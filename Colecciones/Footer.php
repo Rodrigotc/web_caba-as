@@ -4,7 +4,7 @@
       <a href="/" class="mb-1 me-1 mb-md-0 text-muted text-decoration-none lh-1">
         <svg class="bi" width="10" height="10"><use xlink:href="#bootstrap"/></svg>
       </a>
-      <img style="width: 8rem;" src="Imagenes/CabLagos_Logo.png" class="img-footer" alt="puerto-imagen">
+      <img height="60" src="Imagenes/logo.png" class="img-footer" alt="logo">
 
     </div>
 
