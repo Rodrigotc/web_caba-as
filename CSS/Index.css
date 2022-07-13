@@ -27,14 +27,18 @@ main {
 }
 
 .card {
-    margin: 1rem;
-    padding: 1rem;
+    display: block;
+    width: 95%;
+    height: 100%;
+}
+.card p {
+    height: 200px;
+    width: 100%;
 }
 
 .btn-primary {
     background-color: rgba(93, 170, 226, 255) !important;
 }
-
 
 .img-logo {
     width: 5rem;
@@ -47,4 +51,3 @@ main {
     margin-left: 4rem;
     margin-right: 4rem;
 }
-

@@ -209,7 +209,7 @@ function TransformarON($campo)
                         <input class="input-group input-group-sm mb-1" type="number" name="Precio" id="Precio" min=1 placeholder="Precio" value="<?php echo $Precio; ?>"><br>
                         Descripción<br>
                         <textarea class="form-control" name="Descripcion" id="Descripcion" cols="30" rows="10" placeholder="Descripción de la cabaña"><?php echo $Descripcion; ?></textarea><br>
-                    </form>
+
                 </div>
 
             </div>
@@ -248,10 +248,9 @@ function TransformarON($campo)
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for=""><input class="form-check-input" type="checkbox" name="CalefaccionLenta" id="CalefaccionLenta" <?php echo $CalefaccionLenta; ?>>Combustión lenta</label><br>
-
                         </div>
                     </section><br>
-                    <input class="form-control form-control" type="file" name="Imagen"><br>
+                    <input class="btn btn-primary" type="file" name="Imagen"><br>
                 </div>
 
                 <input class="btn btn-primary ms-3" type="submit"><br>

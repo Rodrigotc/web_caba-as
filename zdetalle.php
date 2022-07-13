@@ -26,10 +26,19 @@ mysqli_close($enlace);
   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
   <!--Title e ícono-->
   <link rel="shortcut icon" href="Imagenes/Marcador.png">
-  <title>Detalle</title>
+  <title><?php echo $cabana['Titulo'] ?></title>
 </head>
 
 <body>
+  <!-- Sumar vista a cabaña -->
+  <?php
+  $visitasCabana = $cabana['Visitas'] + 1;
+  include("Backend\conection.php");
+  $insertar = "UPDATE `nuevocabanasdb`.`cabana` SET `Visitas` = '$visitasCabana' WHERE (`idCabana` = '$idCabana');";
+  mysqli_query($enlace, $insertar);
+  mysqli_close($enlace);
+  ?>
+
   <!-- NavBar -->
   <?php
   include("Colecciones/NavBar.php");
@@ -65,6 +74,8 @@ mysqli_close($enlace);
           <strong>Correo electrónico: </strong>
           <?php echo $arrendador['Correo'] ?><br>
         </div>
+
+        Vistas: <?php echo $visitasCabana ?>
       </div>
     </div>
 
@@ -184,14 +195,6 @@ mysqli_close($enlace);
         .openPopup();
     </script>
   </div>
-
-
-
-
-
-
-
-
 
   <!--Boostrap-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

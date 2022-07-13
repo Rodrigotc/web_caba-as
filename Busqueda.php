@@ -241,6 +241,61 @@ function agregarMarcadores()
                   var lng = -72.94237;
                   var zoom = 13;
                   break;
+                case "Puerto Octay":
+                  var lat = -40.9667;
+                  var lng = -72.9;
+                  var zoom = 14;
+                  break;
+                case "Puerto Varas":
+                  var lat = -41.31946;
+                  var lng = -72.98538;
+                  var zoom = 14;
+                  break;
+                case "Puqueldón":
+                  var lat = -42.600694;
+                  var lng = -73.672800;
+                  var zoom = 15;
+                  break;
+                case "Purranque":
+                  var lat = -40.916015;
+                  var lng = -73.163093;
+                  var zoom = 14;
+                  break;
+                case "Puyehue":
+                  var lat = -39.664122;
+                  var lng = -72.387911;
+                  var zoom = 14;
+                  break;
+                case "Queilén":
+                  var lat = -42.891102;
+                  var lng = -73.473801;
+                  var zoom = 14;
+                  break;
+                case "Quellón":
+                  var lat = -43.125867;
+                  var lng = -73.617262;
+                  var zoom = 14;
+                  break;
+                case "Quemchi":
+                  var lat = -42.151770;
+                  var lng = -73.484190;
+                  var zoom = 14;
+                  break;
+                case "Quinchao":
+                  var lat = -42.539280;
+                  var lng = -73.423588;
+                  var zoom = 14;
+                  break;
+                case "San Juan de la Costa":
+                  var lat = -40.511617;
+                  var lng = -73.409784;
+                  var zoom = 14;
+                  break;
+                case "San Pablo":
+                  var lat = -40.415769;
+                  var lng = -73.011309;
+                  var zoom = 14;
+                  break;
                 default:
                   var lat = -41.7500000;
                   var lng = -73.0000000;

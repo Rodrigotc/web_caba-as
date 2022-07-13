@@ -34,61 +34,51 @@ include("Backend/FuncionesSesion.php");
     <!--Carrusel de cards-->
     <h1 style="text-align:center; color:white;">Ciudades Principales</h1>
     <div class="owl-carousel owl-theme border-bottom">
-      <div class="card">
-        <img src="Imagenes/PuertoMontt.jpg" class="card-img card-img-top" alt="puerto-imagen">
+      <div class="card card-body flex-fill">
+        <img style="height:35vh" src="Imagenes/PuertoMontt.jpg" class="card-img card-img-top " alt="puerto-imagen">
         <div class=" card-body">
           <h5 class="card-title">Puerto montt</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quam dui, rutrum quis tincidunt in, vulputate a dui. Ut orci leo, dictum ac libero in, vulputate consectetur ante.</p>
+          <p class="card-text" align = "justify">La ciudad de Puerto Montt, capital de la Región de Los Lagos, está ubicada en el extremo norte del seno de Reloncaví. Es el punto de inicio de la Carretera Austral y la puerta de entrada a la Patagonia norte y sur del país.</p>
           <div class="d-grid gap-2">
             <button class="btn btn-primary" type="button">Buscar</button>
           </div>
         </div>
       </div>
-      <div class="card">
-        <img src="Imagenes/PuertoMontt.jpg" class="card-img card-img-top" alt="puerto-imagen">
+      <div class="card card-body flex-fill">
+        <img style="height:35vh" src="Imagenes/Osorno.jpg" class="card-img card-img-top" alt="Osorno-imagen">
         <div class=" card-body">
           <h5 class="card-title">Osorno</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quam dui, rutrum quis tincidunt in, vulputate a dui. Ut orci leo, dictum ac libero in, vulputate consectetur ante.</p>
+          <p class="card-text" align = "justify">Entre los disímiles atractivos que caracteriza a la comuna de Osorno se encuentra el Parque Nacional Puyehue, dotado éste de una vegetación colorida y aromática, de ríos, cascadas y el inigualable Volcán Osorno al que se puede acceder y excursionar de manera segura.</p>
           <div class="d-grid gap-2">
             <button class="btn btn-primary" type="button">Buscar</button>
           </div>
         </div>
       </div>
-      <div class="card">
-        <img src="Imagenes/PuertoMontt.jpg" class="card-img card-img-top" alt="puerto-imagen">
+      <div class="card card-body flex-fill">
+        <img style="height:35vh" src="Imagenes/PuertoVaras.jpg" class="card-img card-img-top" alt="puertov-imagen">
         <div class=" card-body">
           <h5 class="card-title">Puerto Varas</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quam dui, rutrum quis tincidunt in, vulputate a dui. Ut orci leo, dictum ac libero in, vulputate consectetur ante.</p>
+          <p class="card-text" align = "justify">Puerto vara es considerada una de las ciudades mas lindas de Chile y está ubicada en la región de los lagos, fue creada a partid de la colonización alemana y construyeron la ciudad a las orillas del lago Llanquihue.</p>
           <div class="d-grid gap-2">
             <button class="btn btn-primary" type="button">Buscar</button>
           </div>
         </div>
       </div>
-      <div class="card">
-        <img src="Imagenes/PuertoMontt.jpg" class="card-img card-img-top" alt="puerto-imagen">
+      <div class="card card-body flex-fill">
+        <img style="height:35vh" src="Imagenes/Frutillar.jpg" class="card-img card-img-top" alt="Frutillar-imagen">
         <div class=" card-body">
           <h5 class="card-title">Frutillar</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quam dui, rutrum quis tincidunt in, vulputate a dui. Ut orci leo, dictum ac libero in, vulputate consectetur ante.</p>
+          <p class="card-text" align = "justify">Frutillar se caracteriza por las vistas a los volcanes y a la ribera de la bahía junto al horizonte del gran lago Llanquihue. Es conocida por las tradiciones alemanas de sus fundadores y de las Semanas Musicales de Frutillar.</p>
           <div class="d-grid gap-2">
             <button class="btn btn-primary" type="button">Buscar</button>
           </div>
         </div>
       </div>
-      <div class="card">
-        <img src="Imagenes/PuertoMontt.jpg" class="card-img card-img-top" alt="puerto-imagen">
+      <div class="card card-body flex-fill">
+        <img style="height:35vh" src="Imagenes/castro.jpg" class="card-img card-img-top" alt="puerto-imagen">
         <div class=" card-body">
-          <h5 class="card-title">Frutillar</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quam dui, rutrum quis tincidunt in, vulputate a dui. Ut orci leo, dictum ac libero in, vulputate consectetur ante.</p>
-          <div class="d-grid gap-2">
-            <button class="btn btn-primary" type="button">Buscar</button>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <img src="Imagenes/PuertoMontt.jpg" class="card-img card-img-top" alt="puerto-imagen">
-        <div class=" card-body">
-          <h5 class="card-title">Frutillar</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quam dui, rutrum quis tincidunt in, vulputate a dui. Ut orci leo, dictum ac libero in, vulputate consectetur ante.</p>
+          <h5 class="card-title">Castro</h5>
+          <p class="card-text" align = "justify">Castro es la capital provincial de Chiloé, cuenta con una hermosa arquitectura, como lo son los palafitos y la iglesia San Francisco que fue declarada Patrimonio de la Humanidad. Otros atractivos son el Parque Nacional Chiloé o la Feria Artesanal de Castro, el Museo de Arte Contemporáneo de Chiloé</p>
           <div class="d-grid gap-2">
             <button class="btn btn-primary" type="button">Buscar</button>
           </div>
@@ -96,7 +86,7 @@ include("Backend/FuncionesSesion.php");
       </div>
     </div>
 
-    <img src="Imagenes/puerto-img.jpg" alt="Cosa" style = "width: 100%; border-radius: 1%; margin-top: 20px">
+    <img src="Imagenes/PuertoMontt.jpg" alt="Cosa" style="width: 100%; border-radius: 1%; margin-top: 20px">
 
   </main>
 
@@ -116,16 +106,16 @@ include("Backend/FuncionesSesion.php");
       nav: true,
       autoplay: true,
       margin: 1,
-      responsiveClass: true,
+      responsiveClass: false,
       autoplayTimeout: 3000,
       responsive: {
         0: {
           items: 1
         },
-        700: {
+        750: {
           items: 2
         },
-        1000: {
+        1150: {
           items: 3
         }
       }
