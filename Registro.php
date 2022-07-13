@@ -4,6 +4,7 @@ $nombres = ComprobarPost("nombres");
 $apellidos = ComprobarPost("apellidos");
 $rut = ComprobarPost("rut");
 $correo = ComprobarPost("correo");
+$telefono = ComprobarPost("telefono");
 $contrasena = ComprobarPost("contrasena");
 
 //Validar campos
@@ -24,14 +25,19 @@ function ComprobarPost($campo)
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="CSS/SinBootstrap.css">
+    <link rel="stylesheet" href="CSS/RegistroInicio.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!--Title e ícono-->
     <link rel="shortcut icon" href="Imagenes/Marcador.png">
-    <title>Registro Usuario</title>
+    <title>Crear cuenta</title>
 </head>
 
 <body>
+    <?php
+    include("Colecciones/NavbarLogin.php");
+    ?>
+
     <form action="Registro.php" method="POST">
         <section class="form-register">
             <h4>Formulario Registro</h4>
@@ -43,6 +49,8 @@ function ComprobarPost($campo)
             <input class="controls" type="text" name="rut" id="rut" placeholder="12345678-9" value="<?php echo $rut; ?>">
             Correo
             <input class="controls" type="text" name="correo" id="correo" placeholder="Correo@dominio.com" value="<?php echo $correo; ?>">
+            Teléfono
+            <input class="controls" type="text" name="telefono" id="telefono" placeholder="12345678" value="<?php echo $telefono; ?>">
             Contraseña
             <input class="controls" type="password" name="contrasena" id="contrasena" placeholder="Contraseña" value="<?php echo $contrasena; ?>">
             <input class="boton" type="submit" value="Crear Cuenta">
@@ -57,7 +65,7 @@ function ComprobarPost($campo)
 
         //Verificación de errores
         //Campos vacíos
-        if ($nombres == "" || $apellidos == "" || $rut == "" || $correo == "" || $contrasena == "") {
+        if ($nombres == "" || $apellidos == "" || $rut == "" || $correo == "" || $telefono == "" || $contrasena == "") {
             array_push($errores, "Debe rellenar todos los datos.");
         }
 
@@ -69,6 +77,11 @@ function ComprobarPost($campo)
         //Correo
         if ((!filter_var($correo, FILTER_VALIDATE_EMAIL)) && ($correo != "")) {
             array_push($errores, "Debe ingresar un correo válido.");
+        }
+
+        //Telefono
+        if ((preg_match("/[0-9]{9}/", $telefono) == 0) && ($telefono != "")) {
+            array_push($errores, "Debe ingresar un telefono válido.");
         }
 
         //Rut ya existente
@@ -87,7 +100,6 @@ function ComprobarPost($campo)
             array_push($errores, "Ya existe una cuenta con ese correo.");
         }
 
-
         //Resultado de POST
         //Si existen errores
         if (count($errores) > 0) {
@@ -98,7 +110,7 @@ function ComprobarPost($campo)
             //Si los datos son ingresados correctamente  
         } else {
             include("Backend\conection.php");
-            $insertar = "INSERT INTO `nuevocabanasdb`.`persona` (`Nombres`, `Apellidos`, `Correo`, `Contrasena`, `Rut`) VALUES ('$nombres', '$apellidos', '$correo', '$contrasena', '$rut')";
+            $insertar = "INSERT INTO `nuevocabanasdb`.`persona` (`Nombres`, `Apellidos`, `Correo`, `Contrasena`, `Rut`, `Telefono`) VALUES ('$nombres', '$apellidos', '$correo', '$contrasena', '$rut', '$telefono')";
             mysqli_query($enlace, $insertar);
             mysqli_close($enlace);
             session_start();

@@ -1,48 +1,43 @@
-<style>
-  .container-fluid{
-    width: 80%;
-  }
-</style>
-<nav class="navbar navbar-expand-lg bg-light">
+<nav  style="background:rgba(250,250,222,255)" class="navbar navbar-expand-lg ">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.php">CabLagos</a>
+      <a class="navbar-brand" href="index.php"><img src="Imagenes/logo2.png" alt="logo"    height="40"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+      <div   class="collapse navbar-collapse position-absolute top-0 end-0" id="navbarNav">
+        <ul class="navbar-nav mt-2 me-2">
           <?php
           if (ComprobarSesión()) {
           ?>
             <!--Sesión Iniciada-->
             <li class="nav-item">
-              <a class="nav-link active" href="IngresoCabana.php">Publicar Cabaña</a>
+              <a class="nav-link active border-bottom border-3 m-1 border-info" href="IngresoCabana.php">Publicar Cabaña</a>
             </li>
             <?php
             if (ComprobarAdmin()) {
             ?>
-              <li class="nav-item">
-                <a class="nav-link" href="PaginaAdministrador.php">Página Administrador</a>
+              <li class="nav-item  ">
+                <a class="nav-link  border-bottom border-3 m-1 border-info" href="PaginaAdministrador.php">Página Administrador</a>
               </li>
             <?php
             }
             ?>
-            <li class="nav-item">
-              <a class="nav-link" href="Backend/CerrarSesion.php">Cerrar Sesión</a>
+            <li class="nav-item  ">
+              <a class="nav-link  border-bottom border-3 m-1 border-info" href="Backend/CerrarSesion.php">Cerrar Sesión</a>
             </li>
           <?php
           } else {
           ?>
             <!--Sesión Cerrada-->
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="Registro.php">Crear Cuenta</a>
+            <li class="nav-item  ">
+              <a class="nav-link  border-bottom border-3 m-1 border-info" aria-current="page" href="Registro.php">Crear Cuenta</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="InicioSesion.php">Iniciar Sesión</a>
+            <li class="nav-item  ">
+              <a class="nav-link  border-bottom border-3 m-1 border-info" href="InicioSesion.php">Iniciar Sesión</a>
             <?php
           }
             ?>
-            </li>
+           
       </div>
     </div>
   </nav>

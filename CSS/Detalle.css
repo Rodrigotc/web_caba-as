@@ -1,0 +1,23 @@
+body {
+    background-image: url('../Imagenes/fondo_azul.jpg');
+}
+
+.grid {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 60% auto;
+    grid-column-gap: 20px;
+}
+
+.grid-izquierdo {
+    width: 100%;
+    border-radius: 1%;
+}
+
+#map {
+    width: 100%;
+    height: 40vh;
+    margin: auto;
+    margin-bottom: 10px;
+    border-radius: 1%;
+}

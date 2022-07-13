@@ -12,6 +12,7 @@ function ComprobarGet($campo)
   }
   return $resultado;
 }
+
 //Filtrar cabañas//
 function filtrarCabanas()
 {
@@ -80,7 +81,7 @@ function mostrarCabana()
     $count = $count + 1;
 ?>
     <div class="card ho">
-      <a class="link" href="PaginaCabana.php?idCabana=<?php echo $cabana['idCabana'] ?>">
+      <a class="link" href="zdetalle.php?idCabana=<?php echo $cabana['idCabana'] ?>">
         <img src="Fotos_Cabanas/<?php echo $cabana['idCabana']; ?>.jpg" class="card-img-top" alt="imgcab">
         <div class="card-body">
           <h5 class="card-title"><?php echo $cabana['Ciudad']; ?></h5>
@@ -97,10 +98,7 @@ function mostrarCabana()
     </div>
   <?php
   }
-  //Mostrar mensaje si no hay cabañas
-  if ($count == 0) {
-    echo "No se encuentran cabañas con los filtros seleccionados.";
-  }
+  //place
   ?>
   <div class="card item" style="width: 14rem;"></div>
   <div class="card item" style="width: 14rem;"></div>
@@ -108,6 +106,7 @@ function mostrarCabana()
   <div class="card item" style="width: 14rem;"></div>
   <div class="card item" style="width: 14rem;"></div>
   <?php
+  return $count;
 }
 
 //Agregar marcadores//
@@ -125,9 +124,7 @@ function agregarMarcadores()
   while ($cabana = mysqli_fetch_array($resultado)) {
   ?>
     <script>
-      L.marker([<?php echo $cabana['Latitud'] ?>, <?php echo $cabana['Longitud'] ?>], {
-        icon: customIcon
-      }).addTo(map);
+      L.marker([<?php echo $cabana['Latitud'] ?>, <?php echo $cabana['Longitud'] ?>]).addTo(map);
     </script>
 <?php
   }
@@ -142,7 +139,7 @@ function agregarMarcadores()
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="CSS/Busqueda.css">
+  <link rel="stylesheet" href="css/Busqueda.css">
   <!--Boostrap-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   <!--Leaflet-->
@@ -153,31 +150,36 @@ function agregarMarcadores()
   <title>Búsqueda</title>
 </head>
 
-<body>
+<body style="background-image: url('Imagenes/fondo_azul.jpg');">
   <!-- NavBar -->
   <?php
   include("Colecciones/NavBar.php");
   ?>
+
+  <!-- Cuadro de búsqueda -->
+  <?php
+  include("Colecciones/CuadroBusqueda.php");
+  ?>
+
   <!-- Main -->
   <main>
-    <!-- Cuadro de búsqueda -->
-    <?php
-    include("Colecciones/CuadroBusqueda.php");
-    ?>
-
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Cabañas y mapa</a>
-      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Cabañas</a>
+      <a class="bg-light nav-item nav-link active border  border-warning" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Cabañas y mapa</a>
+      <a class="bg-light nav-item nav-link ms-1 border  border-warning" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Cabañas</a>
     </div>
 
-    <!--Mostrar cabañas y mapa-->
+    <!--Mostrar solo cabañas-->
     <div class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         <div class="row" style="--bs-gutter-x: 0rem;">
           <div class="col scroll">
             <div class="card-bsq-2">
               <?php
-              mostrarCabana();
+              $count = mostrarCabana();
+              if ($count == 0) {
+              ?>
+                <img src="Imagenes/advertencia.png" width="80%" alt="">
+              <?php }
               ?>
             </div>
           </div>
@@ -187,11 +189,12 @@ function agregarMarcadores()
             <style>
               #map {
                 width: 100%;
-                height: 100%;
+                height: 100vh;
               }
             </style>
             <script>
-              //Definir coordenadas de mapa
+              //Bajar pantalla
+              //window.scrollTo(0, document.body.scrollHeight);
               switch ("<?php echo $_GET["Ciudad"] ?>") {
                 case "Ancud":
                   var lat = -41.8707;
@@ -233,59 +236,9 @@ function agregarMarcadores()
                   var lng = -73.657047;
                   var zoom = 15;
                   break;
-                case "Fresia":
-                  var lat = -41.1531;
-                  var lng = -73.4306;
-                  var zoom = 14;
-                  break;
-                case "Frutillar":
-                  var lat = -41.1167;
-                  var lng = -73.05;
-                  var zoom = 14;
-                  break;
-                case "Futaleufú":
-                  var lat = -43.1833;
-                  var lng = -71.8667;
-                  var zoom = 15;
-                  break;
-                case "Llanquihue":
-                  var lat = -41.2581;
-                  var lng = -73.0086;
-                  var zoom = 15;
-                  break;
-                case "Los Muermos":
-                  var lat = -41.4;
-                  var lng = -73.46;
-                  var zoom = 14;
-                  break;
-                case "Maullín":
-                  var lat = -41.6167;
-                  var lng = -73.6;
-                  var zoom = 15;
-                  break;
-                case "Osorno":
-                  var lat = -40.5725;
-                  var lng = -73.1353;
-                  var zoom = 13;
-                  break;
-                case "Palena":
-                  var lat = -43.6178;
-                  var lng = -71.8039;
-                  var zoom = 15;
-                  break;
                 case "Puerto Montt":
                   var lat = -41.4693;
                   var lng = -72.94237;
-                  var zoom = 13;
-                  break;
-                case "Puerto Octay":
-                  var lat = -40.971806;
-                  var lng = -72.884410;
-                  var zoom = 15;
-                  break;
-                case "Puerto Varas":
-                  var lat = -41.3167;
-                  var lng = -72.9833;
                   var zoom = 13;
                   break;
                 default:
@@ -293,38 +246,35 @@ function agregarMarcadores()
                   var lng = -73.0000000;
                   var zoom = 8;
               }
-
-              //configurar mapa
               var map = L.map('map', {
                 closePopupOnClick: false
               }).setView([lat, lng], zoom);
-
               L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               }).addTo(map);
-
-              //Cambiar ícono de amrcador
-              var customIcon = new L.Icon({
-                iconUrl: 'Imagenes/Marcador.png',
-                iconSize: [50, 50],
-                iconAnchor: [25, 50]
-              });
             </script>
             <?php
+
             agregarMarcadores();
             ?>
           </div>
         </div>
       </div>
 
-      <!--Mostrar solo cabañas-->
+      <!--Mostrar cabañas y mapa-->
       <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         <div class="card-bsq">
           <?php
-          mostrarCabana();
+
+          $count = mostrarCabana();
+          if ($count == 0) {
+          ?>
+            <img src="Imagenes/advertencia.png" width="50%" alt="">
+          <?php }
           ?>
         </div>
       </div>
+    </div>
     </div>
 
   </main>
@@ -334,6 +284,12 @@ function agregarMarcadores()
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
 </body>
 
 </html>

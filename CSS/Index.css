@@ -1,4 +1,10 @@
-main{
+body {
+    background-image: url('../Imagenes/fondo_azul.jpg');
+    background-attachment: fixed;
+    overflow: scroll;
+}
+
+main {
     width: 80%;
     margin: auto;
 }
@@ -7,13 +13,13 @@ main{
 .owl-prev,
 .owl-next {
     position: absolute;
-    top:200px;
+    top: 200px;
     font-size: 100px !important;
-    font-weight:900 !important;
+    font-weight: 900 !important;
 }
 
 .owl-prev {
-    left:-1%;
+    left: -1%;
 }
 
 .owl-next {
@@ -29,9 +35,6 @@ main{
     background-color: rgba(93, 170, 226, 255) !important;
 }
 
-legend {
-    font-size: medium;
-}
 
 .img-logo {
     width: 5rem;
@@ -45,7 +48,3 @@ legend {
     margin-right: 4rem;
 }
 
-.img-prueba {
-    width: 100%;
-    margin-bottom: 50px;
-}
