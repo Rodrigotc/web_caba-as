@@ -90,7 +90,7 @@ include("Backend/FuncionesSesion.php");
 
   </main>
 
-  <!--Footer--->
+  <!--Footer-->
   <?php
   include("Colecciones/Footer.php");
   ?>
