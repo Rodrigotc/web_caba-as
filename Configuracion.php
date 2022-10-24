@@ -25,7 +25,7 @@ include("Backend/VerificarSesionIniciada.php");
   <?php
   include("Colecciones/NavBar.php");
   ?>
-  
+
   <h3>Datos de la Cuenta</h3>
   <div class="card" style="width: 18rem;">
     <ul class="list-group list-group-flush">
@@ -58,8 +58,27 @@ include("Backend/VerificarSesionIniciada.php");
       <li class="list-group-item">Correo: <?php echo ($_SESSION['correo']) ?></li>
       <li class="list-group-item">Rut: <?php echo ($_SESSION['rut']) ?></li>
       <li class="list-group-item">Número Telefónico: <?php echo ($_SESSION['telefono']) ?></li>
-      <li class="list-group-item">Contraseña: **********</li>
+      <li type="button" class="list-group-item" data-bs-toggle="modal" data-bs-target="#contrasenaModal">Contraseña: ********** </li>
     </ul>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="contrasenaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="contrasenaModalLabel">Cambiar Contraseña</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
   </div>
 
 

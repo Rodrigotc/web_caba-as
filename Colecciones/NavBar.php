@@ -20,7 +20,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                   <!--Configuración-->
-                  <li><a class="dropdown-item" href="Configuracion.php">Configuracion</a></li>
+                  <li><a class="dropdown-item" href="Configuracion.php">Configuración</a></li>
                   <?php
                   if (ComprobarAdmin()) {
                   ?>
