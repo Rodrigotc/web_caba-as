@@ -26,7 +26,7 @@ include("Backend/FuncionesSesion.php");
   include("Colecciones/NavBar.php");
   ?>
   <main>
-    <!--Cuadro de búsqueda-->
+    <!--Cuadro de búsqueda--->
     <?php
     include("Colecciones/CuadroBusqueda.php");
     ?>
