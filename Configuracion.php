@@ -62,7 +62,7 @@ include("Backend/VerificarSesionIniciada.php");
     </ul>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal Contraseña-->
   <div class="modal fade" id="contrasenaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -70,18 +70,37 @@ include("Backend/VerificarSesionIniciada.php");
           <h1 class="modal-title fs-5" id="contrasenaModalLabel">Cambiar Contraseña</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+        <form action="" id="formContrasena">
+          <div class="modal-body">
+            Nueva Contraseña:<br>
+            <input type="password" name="contrasena" id="contrasena" placeholder="Nueva Contraseña"><br>
+            Repetir nueva contraseña:<br>
+            <input type="password" name="contrasena2" id="contrasena2" placeholder="Nueva Contraseña">
+            <div id="liveAlertPlaceholder"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="Enviar">Actualizar Contraseña</button>
+            <!-- Comprobar si las contraseñas coinciden-->
+            <script>
+              document.getElementById("Enviar").addEventListener('click', () => {
+                function comparar() {
+                  var con1 = document.getElementById("contrasena").value;
+                  var con2 = document.getElementById("contrasena2").value;
+                  if(con1 == "" || con2 == ""){
+                    alert("Debe rellenar todos los datos.")
+                  }else if (con1 != con2) {
+                    alert("Las contraseñas no coinciden.");
+                  }
+                }
+                comparar()
+              })
+            </script>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-
-
   <!--Boostrap-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
