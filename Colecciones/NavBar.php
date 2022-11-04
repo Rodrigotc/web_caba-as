@@ -29,6 +29,8 @@
                   <?php
                   }
                   ?>
+                  <!--Dashboard-->
+                  <li><a class="dropdown-item" href="Dashboard.php">Dashboard</a></li>
                   <!--Cerrar Sesión-->
                   <li><a class="dropdown-item" href="Backend/CerrarSesion.php">Cerrar Sesión</a></li>
                 </ul>
