@@ -96,7 +96,7 @@ include("Backend/VerificarSesionIniciada.php");
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary" id="Enviar">Actualizar Teléfono</button>
+            <button type="submit" class="btn btn-primary" id="Enviar">Actualizar Correo</button>
           </div>
         </form>
       </div>
