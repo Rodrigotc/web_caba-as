@@ -1,0 +1,109 @@
+.buscador-inicio {
+    display: flex;
+    height: 10rem;
+    background-color: rgb(243, 243, 243);
+    padding: 2rem;
+}
+
+.formulario-busqueda{
+    margin: auto;
+    height: 4rem;
+    width: 70%;
+    background-color: rgb(59, 33, 33);
+    border-radius: 10px;
+}
+.formulario{
+    display: flex;
+    width: 100%;
+    height: 98%;
+    padding: 0.5rem;
+}
+.inpt{
+    margin-inline: 0.1rem;
+    width: 100%;
+    height: 100%;
+}
+
+legend {
+    font-size: medium;
+}
+
+.img-logo {
+    width: 5rem;
+    left: 5rem;
+    align-items: center;
+}
+
+/* contenido busqueda.php*/
+
+.card {
+    margin: 0.5rem;
+    width: 14rem;
+}
+
+.ho:hover{
+    text-shadow: none !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    -webkit-transform: scale(1.03) !important;
+    -ms-transform: scale(1.03) !important;
+    transform: scale(1.03) !important;
+    z-index: 2;
+}
+
+.card-bsq {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.card.item {
+    visibility: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.card-bsq-2 {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card-img-top {
+    border-radius: 25%;
+    height: 150px;
+}
+
+.col.scroll {
+    padding: 0%;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+}
+
+.col.mapa {
+    padding: 0%;
+    max-width:47%;
+}
+
+.link{
+    text-decoration: none;
+}
+
+@media screen and (max-width:1080px) {
+    .card-cards {
+        flex-wrap: wrap;
+    }
+
+    .card {
+        width: 16rem;
+    }
+
+}
+
+/* footer */
+.img-footer {
+    width: 30%;
+}

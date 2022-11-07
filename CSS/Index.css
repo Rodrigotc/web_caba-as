@@ -1,0 +1,53 @@
+body {
+    background-image: url('../Imagenes/fondo_azul.jpg');
+    background-attachment: fixed;
+    overflow: scroll;
+}
+
+main {
+    width: 80%;
+    margin: auto;
+}
+
+/*Carrusel*/
+.owl-prev,
+.owl-next {
+    position: absolute;
+    top: 200px;
+    font-size: 100px !important;
+    font-weight: 900 !important;
+}
+
+.owl-prev {
+    left: -1%;
+}
+
+.owl-next {
+    right: -1%;
+}
+
+.card {
+    display: block;
+    width: 95%;
+    height: 100%;
+}
+.card p {
+    height: 200px;
+    width: 100%;
+}
+
+.btn-primary {
+    background-color: rgba(93, 170, 226, 255) !important;
+}
+
+.img-logo {
+    width: 5rem;
+    left: 5rem;
+    align-items: center;
+}
+
+.lista-cards {
+    display: flex;
+    margin-left: 4rem;
+    margin-right: 4rem;
+}

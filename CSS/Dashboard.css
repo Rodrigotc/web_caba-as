@@ -1,0 +1,101 @@
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.barra-lateral {
+    background: #252121;
+    color: #fff;
+    min-width: 250px;
+    min-height: 100vh;
+    padding-right: 0000px !important;
+    padding-left: 0000px !important;
+    position: fixed;
+}
+
+.barra-lateral a {
+    color: #fff;
+}
+
+/*Estilos Menu*/
+.barra-lateral .menu a {
+    display: block;
+    padding: 20px;
+    font-family: Roboto, sans-serif;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.barra-lateral .menu a:hover {
+    background-color: #003c5d;
+    text-decoration: none;
+}
+
+.active {
+    background-color: #003c5d;
+}
+
+.barra-lateral .menu {
+    border-top: 5px #fff solid;
+}
+
+.barra-lateral .menu a i {
+    margin-right: 20px;
+}
+
+/*Main */
+.main {
+    padding-top: 5px;
+    margin-bottom: 6px;
+}
+
+.main .columna {
+    padding-left: 290px;
+    padding-right: 40px;
+}
+
+.img-fluid{
+    max-width: 200px;
+}
+
+/*MEDIAQUERYS*/
+
+@media screen and (max-width:1300px) {
+    .barra-lateral {
+        min-width: auto;
+    }
+
+    .barra-lateral .menu a span {
+        display: none;
+    }
+
+    .barra-lateral .menu a i {
+        margin: 0;
+    }
+
+    .barra {
+        min-width: auto;
+    }
+
+    .main .columna {
+        padding-left: 98px;
+        padding-right: 40px;
+    }
+}
+
+@media screen and (max-width:575px) {
+    .barra-lateral {
+        min-width: auto;
+    }
+
+    .barra-lateral .menu a {
+        display: inline-block;
+        border-bottom: none;
+    }
+
+    body {
+        font-size: 16px;
+        overflow: visible;
+    }
+}
