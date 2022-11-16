@@ -8,9 +8,13 @@ include("Backend/VerificarSesionIniciada.php");
 /////Recuperar datos de Cabañas/////
 include("Backend\conection.php");
 $idPersona = $_SESSION['id'];
-$Cabanas = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE Persona_idPersona = '$idPersona'"));
-$cantCabanasPublicadas = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT COUNT(*) FROM nuevocabanasdb.cabana WHERE Estado = '1';"));
-$cantCabanasPendientes = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT COUNT(*) FROM nuevocabanasdb.cabana WHERE Estado = '0';"));
+$CabanasEnSolicitud = mysqli_query($enlace,
+"SELECT idArriendo, idCabana, Titulo, arriendo.Persona_idPersona AS idArrendatario, Nombres, Apellidos, Correo, Telefono, Mensaje, FechaEntrada, FechaSalida
+FROM nuevocabanasdb.arriendo 
+INNER JOIN nuevocabanasdb.cabana ON arriendo.Cabana_idCabana = cabana.idCabana
+INNER JOIN nuevocabanasdb.persona ON arriendo.Persona_idPersona = persona.idPersona
+WHERE cabana.Persona_idPersona = $idPersona AND arriendo.Estado = 'En Solicitud' OR arriendo.Estado = 'Pendiente de pago';"
+);
 mysqli_close($enlace);
 ?>
 
@@ -52,9 +56,66 @@ mysqli_close($enlace);
           <div class="columna cal-lg-6">
             <h4>Solicitudes</h4>
 
-            
+            <!-- Card Solicitudes -->
+            <?php
+            while ($cabana = mysqli_fetch_array($CabanasEnSolicitud)) {
+            ?>
+              <div class="card-group">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Solicitudes <?php echo ($cabana['idArrendatario']) ?></h5>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                        <div class="row g-0">
+                          <div class="col-md-4">
+                            <img src=<?php echo "Fotos_Cabanas/" . $cabana["idCabana"] . ".jpg"; ?> class="img-fluid" alt="...">
+                          </div>
+                          <div class="col-md-8">
+                            <div class="card-body">
+                              <h5 class="card-title"><?php echo ($cabana['Titulo']) ?> </h5>
+                              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo ($cabana['idArrendatario']) ?>"><i class="fa-solid fa-phone"></i></button>
+                              <p class="card-text"><?php echo (" " . $cabana['Mensaje']) ?></p>
+                              <button type="button" class="btn btn-primary btn-lg">Aceptar Solicitud</button>
+                              <button type="button" class="btn btn-secondary btn-lg">Rechazar Solicitud</button>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </div><br>
+
+              <!--Modal Contacto-->
+              <div class="modal fade" id="exampleModal<?php echo ($cabana['idArrendatario']) ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Nombre: <?php echo ($cabana['Nombres']) ?>
+                      Correo: <?php echo ($cabana['Correo']) ?>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <?php
+            }
+            ?>
+
           </div>
         </div>
+
+
+
       </main>
     </div>
   </div>
