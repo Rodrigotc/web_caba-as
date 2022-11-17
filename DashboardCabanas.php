@@ -55,7 +55,7 @@ function iconoVerificado($cabana)
 
   <!-- Barra lateral -->
   <div class="container-fluid">
-    <div class="row">
+  <div class="row">
       <div class="barra-lateral col-12 col-sm-auto">
         <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
           <a class="active" href="Dashboard.php"><i class="fa-solid fa-gauge"></i><span>Resumen</span></a>
@@ -76,21 +76,13 @@ function iconoVerificado($cabana)
             while ($cabana = mysqli_fetch_array($CabanasEnSolicitud)) {
             ?>
               <div class="card-group">
-                <div class="card">
+                <a href=""></a>
+                <div class="card" href="zdetalle.php?idCabana=<?php echo $cabana['idCabana'] ?>" >
                   <div class="card-body">
-
                     <h5 class="card-title">
-                      <a href="zdetalle.php?idCabana=<?php echo $cabana['idCabana'] ?>">
-                        <?php
-                        echo ($cabana['Titulo'])
-                        ?>
-                      </a>
-                      <?php
-                      echo " - " . $cabana['Nombres'] . " " . $cabana['Apellidos'];
-                      iconoVerificado($cabana);
-                      ?>
+                      <?php echo ($cabana['Titulo']) . " - " . $cabana['Nombres'] . " " . $cabana['Apellidos'];
+                      iconoVerificado($cabana); ?>
                     </h5>
-
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item">
                         <div class="row g-0">
