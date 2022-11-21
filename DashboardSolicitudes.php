@@ -58,9 +58,9 @@ function iconoVerificado($cabana)
     <div class="row">
       <div class="barra-lateral col-12 col-sm-auto">
         <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
-          <a class="active" href="Dashboard.php"><i class="fa-solid fa-gauge"></i><span>Resumen</span></a>
-          <a href="DashboardSolicitudes.php"><i class="fa-solid fa-envelope"></i><span>Solicitudes</span></a>
-          <a href="#"><i class="fa-solid fa-house-circle-check"></i><span>Cabañas Publicadas</span></a>
+          <a href="Dashboard.php"><i class="fa-solid fa-gauge"></i><span>Resumen</span></a>
+          <a class="active" href="DashboardSolicitudes.php"><i class="fa-solid fa-envelope"></i><span>Solicitudes</span></a>
+          <a href="DashboardCabanas.php"><i class="fa-solid fa-house-circle-check"></i><span>Mis cabañas</span></a>
           <a href="#"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis solicitudes</span></a>
         </nav>
       </div>
