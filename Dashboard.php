@@ -45,7 +45,7 @@ mysqli_close($enlace);
           <a class="active" href="Dashboard.php"><i class="fa-solid fa-gauge"></i><span>Resumen</span></a>
           <a href="DashboardSolicitudes.php"><i class="fa-solid fa-envelope"></i><span>Solicitudes</span></a>
           <a href="DashboardCabanas.php"><i class="fa-solid fa-house-circle-check"></i><span>Mis Cabañas</span></a>
-          <a href="#"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis solicitudes</span></a>
+          <a href="DashboardMisSolicitudes.php"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis solicitudes</span></a>
         </nav>
       </div>
 

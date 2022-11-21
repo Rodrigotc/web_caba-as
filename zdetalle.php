@@ -30,7 +30,7 @@ mysqli_close($enlace);
 </head>
 
 <body>
-  <!-- Sumar vista a cabaña 
+  <!-- Sumar vista a cabaña -->
   <?php
   $visitasCabana = $cabana['Visitas'] + 1;
   include("Backend\conection.php");
@@ -99,6 +99,8 @@ mysqli_close($enlace);
             <label for="exampleInputEmail1" class="form-label">Solicitud de Arrendamiento</label>
             <textarea class="form-control" placeholder="Ingrese los datos de su solicitud aquí." name="Mensaje" required></textarea>
             <div id="emailHelp" class="form-text">El mensaje se le enviará directamente al arrendador.</div>
+            Fecha de Entrada:<input type="date" name = "FechaInicio"><br>
+            Fecha de Salida:<input type="date" name = "FechaTermino">
           </div>
           <button type="submit" class="btn btn-primary">Enviar solicitud</button>
         </form>

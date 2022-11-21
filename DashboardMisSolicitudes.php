@@ -8,7 +8,7 @@ include("Backend/VerificarSesionIniciada.php");
 /////Recuperar datos de Cabañas/////
 include("Backend\conection.php");
 $idPersona = $_SESSION['id'];
-$Cabanas = mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE Persona_idPersona = $idPersona;");
+$solicitudes = mysqli_query($enlace,"SELECT * FROM nuevocabanasdb.arriendo WHERE Persona_idPersona = $idPersona;");
 mysqli_close($enlace);
 
 /////Funciones/////
@@ -44,17 +44,17 @@ function iconoVerificado($cabana)
     <?php
     include("Colecciones/NavBar.php");
     ?>
-    
+  </header>
 
   <!-- Barra lateral -->
   <div class="container-fluid">
-  <div class="row">
+    <div class="row">
       <div class="barra-lateral col-12 col-sm-auto">
         <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
           <a href="Dashboard.php"><i class="fa-solid fa-gauge"></i><span>Resumen</span></a>
           <a href="DashboardSolicitudes.php"><i class="fa-solid fa-envelope"></i><span>Solicitudes</span></a>
-          <a class="active" href="DashboardCabanas.php"><i class="fa-solid fa-house-circle-check"></i><span>Mis Cabañas</span></a>
-          <a href="DashboardMisSolicitudes.php"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis solicitudes</span></a>
+          <a href="DashboardCabanas.php"><i class="fa-solid fa-house-circle-check"></i><span>Mis cabañas</span></a>
+          <a class="active" href="DashboardMisSolicitudes.php"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis solicitudes</span></a>
         </nav>
       </div>
 
@@ -62,40 +62,26 @@ function iconoVerificado($cabana)
       <main class="main col">
         <div class="row justify-content-center align-content-center text-center">
           <div class="columna cal-lg-6">
-            <h4>Mis Cabañas</h4>
+            <h4>Mis Solicitudes</h4>
 
-            <!-- Card cabañas -->
+            <!-- Card Solicitudes -->
             <?php
-            while ($cabana = mysqli_fetch_array($Cabanas)) {
+            while ($solicitud = mysqli_fetch_array($solicitudes)) {
             ?>
               <div class="card-group">
                 <div class="card">
                   <div class="card-body">
 
-                    <h5 class="card-title">
-                      <a href="zdetalle.php?idCabana=<?php echo $cabana['idCabana'] ?>">
-                        <?php
-                        echo ($cabana['Titulo'])
-                        ?>
-                      </a>
-                      
-                    </h5>
 
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item">
                         <div class="row g-0">
                           <div class="col-md-4">
-                            <img src=<?php echo "Fotos_Cabanas/" . $cabana["idCabana"] . ".jpg"; ?> class="img-fluid" alt="...">
+                            <img src=<?php echo "Fotos_Cabanas/" . $solicitud["Cabana_idCabana"] . ".jpg"; ?> class="img-fluid" alt="...">
                           </div>
                           <div class="col-md-8">
                             <div class="card-body">
-                              Estado: <?php 
-                              if($cabana['Estado'] == 1){
-                                echo "Publicado";
-                              }else{
-                                echo "En Revisión";
-                              }
-                              ?>
+                              fdsf
                             </div>
                           </div>
                         </div>
@@ -111,8 +97,6 @@ function iconoVerificado($cabana)
 
           </div>
         </div>
-
-
 
       </main>
     </div>

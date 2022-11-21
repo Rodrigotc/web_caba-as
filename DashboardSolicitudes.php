@@ -10,11 +10,11 @@ include("Backend\conection.php");
 $idPersona = $_SESSION['id'];
 $CabanasEnSolicitud = mysqli_query(
   $enlace,
-  "SELECT idArriendo, idCabana, Titulo, arriendo.Persona_idPersona AS idArrendatario, Nombres, Apellidos, Correo, Telefono, Verificado, Mensaje, FechaEntrada, FechaSalida
+  "SELECT idArriendo, idCabana, arriendo.Estado, Titulo, arriendo.Persona_idPersona AS idArrendatario, Nombres, Apellidos, Correo, Telefono, Verificado, Mensaje, FechaEntrada, FechaSalida
 FROM nuevocabanasdb.arriendo 
 INNER JOIN nuevocabanasdb.cabana ON arriendo.Cabana_idCabana = cabana.idCabana
 INNER JOIN nuevocabanasdb.persona ON arriendo.Persona_idPersona = persona.idPersona
-WHERE cabana.Persona_idPersona = $idPersona AND arriendo.Estado = 'En Solicitud' OR arriendo.Estado = 'Pendiente de pago';"
+WHERE cabana.Persona_idPersona = $idPersona AND arriendo.Estado = 'En Solicitud' OR arriendo.Estado = 'Esperando Pago';"
 );
 mysqli_close($enlace);
 
@@ -61,7 +61,7 @@ function iconoVerificado($cabana)
           <a href="Dashboard.php"><i class="fa-solid fa-gauge"></i><span>Resumen</span></a>
           <a class="active" href="DashboardSolicitudes.php"><i class="fa-solid fa-envelope"></i><span>Solicitudes</span></a>
           <a href="DashboardCabanas.php"><i class="fa-solid fa-house-circle-check"></i><span>Mis cabañas</span></a>
-          <a href="#"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis solicitudes</span></a>
+          <a href="DashboardMisSolicitudes.php"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis solicitudes</span></a>
         </nav>
       </div>
 
@@ -94,18 +94,47 @@ function iconoVerificado($cabana)
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item">
                         <div class="row g-0">
+                          <!--Columna Izquierda-->
                           <div class="col-md-4">
                             <img src=<?php echo "Fotos_Cabanas/" . $cabana["idCabana"] . ".jpg"; ?> class="img-fluid" alt="...">
                           </div>
+
+                          <!--Columna Derecha-->
                           <div class="col-md-8">
                             <div class="card-body">
                               <h5 class="card-title"><?php echo ($cabana['Titulo']) ?> </h5>
-                              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo ($cabana['idArrendatario']) ?>"><i class="fa-solid fa-phone"></i></button>
+                              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo ($cabana['idArrendatario']) ?>"><i class="fa-solid fa-phone"></i></button><br>
+                              Estado: <?php echo $cabana["Estado"] ?>
                               <p class="card-text"><?php echo (" " . $cabana['Mensaje']) ?></p>
-                              <button type="button" class="btn btn-primary btn-lg">Aceptar Solicitud</button>
-                              <a href="Backend/RechazarSolicitud.php?idArriendo=<?php echo $cabana['idArriendo'] ?>">
-                                <button class="btn btn-secondary btn-lg">Rechazar Solicitud</button>
-                              </a>
+
+                              <?php
+                              if ($cabana['Estado'] == "En Solicitud") {
+                              ?>
+                                <!--Formulario Solicitud-->
+                                <form action="Backend/AceptarSolicitud.php?idSolicitud=<?php echo (" " . $cabana['idArriendo']) ?>" Method="POST">
+                                  <input name="FechaEntrada" type="date" value="<?php echo ($cabana['FechaEntrada']) ?>">
+                                  <input name="FechaSalida" type="date" value="<?php echo ($cabana['FechaSalida']) ?>"><br><br>
+                                  <!--Aceptar Solicitud-->
+                                  <button type="submit" class="btn btn-primary btn-lg">Aceptar Solicitud</button>
+                                  <!--Rechazar Solicitud-->
+                                  <input class="btn btn-secondary btn-lg btn-danger" onclick="location.href='Backend/RechazarSolicitud.php?idArriendo=<?php echo $cabana['idArriendo'] ?>'" value="Eliminar Solicitud">
+                                </form>
+                              <?php
+                              } else {
+                              ?>
+                                <!--Formulario Pago-->
+                                <form action="Backend/AceptarSolicitudPago.php?idSolicitud=<?php echo (" " . $cabana['idArriendo']) ?>" Method="POST">
+                                  <input name="FechaEntrada" type="date" value="<?php echo ($cabana['FechaEntrada']) ?>">
+                                  <input name="FechaSalida" type="date" value="<?php echo ($cabana['FechaSalida']) ?>"><br><br>
+                                  <!--Aceptar Solicitud-->
+                                  <button type="submit" class="btn btn-primary btn-lg btn-success">Confirmar Pago</button>
+                                  <!--Rechazar Solicitud-->
+                                  <input class="btn btn-secondary btn-lg btn-danger" onclick="location.href='Backend/RechazarSolicitud.php?idArriendo=<?php echo $cabana['idArriendo'] ?>'" value="Eliminar Solicitud">
+                                </form>
+                              <?php
+                              }
+                              ?>
+
 
                             </div>
                           </div>
