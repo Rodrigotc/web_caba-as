@@ -53,17 +53,23 @@ function iconoVerificado($cabana)
     ?>
   </header>
 
-  <!-- Barra lateral -->
   <div class="container-fluid">
+    <!-- Barra lateral -->
     <div class="row">
       <div class="barra-lateral col-12 col-sm-auto">
+        Arrendador
         <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
           <a href="Dashboard.php"><i class="fa-solid fa-gauge"></i><span>Resumen</span></a>
-          <a class="active" href="DashboardSolicitudes.php"><i class="fa-solid fa-envelope"></i><span>Solicitudes</span></a>
-          <a href="DashboardCabanas.php"><i class="fa-solid fa-house-circle-check"></i><span>Mis cabañas</span></a>
-          <a href="DashboardMisSolicitudes.php"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis solicitudes</span></a>
+          <a class="active" href="DashboardSolicitudes.php"><i class="fa-solid fa-bell"></i><span>Solicitudes</span></a>
+          <a href="DashboardCabanas.php"><i class="fa-solid fa-house-circle-check"></i><span>Mis Cabañas</span></a>
+        </nav>
+        Arrendatario
+        <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
+          <a href="DashboardMisSolicitudes.php"><i class="fa-solid fa-envelope"></i><span>Mis solicitudes</span></a>
+          <a href="DashboardMisArriendos.php"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis Arriendos</span></a>
         </nav>
       </div>
+
 
       <!-- Contenido -->
       <main class="main col">

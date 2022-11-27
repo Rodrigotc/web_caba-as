@@ -24,6 +24,8 @@ mysqli_close($enlace);
   <link rel="stylesheet" href="CSS/Dashboard.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <!--Fontawesome-->
+  <script src="https://kit.fontawesome.com/1e5f0e0661.js" crossorigin="anonymous"></script>
   <!--Title e ícono-->
   <link rel="shortcut icon" href="Imagenes/Marcador.png">
   <title>Dashboard</title>
@@ -37,15 +39,21 @@ mysqli_close($enlace);
     ?>
   </header>
 
-  <!-- Barra lateral -->
+
   <div class="container-fluid">
+    <!-- Barra lateral -->
     <div class="row">
       <div class="barra-lateral col-12 col-sm-auto">
+        Arrendador
         <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
           <a class="active" href="Dashboard.php"><i class="fa-solid fa-gauge"></i><span>Resumen</span></a>
-          <a href="DashboardSolicitudes.php"><i class="fa-solid fa-envelope"></i><span>Solicitudes</span></a>
+          <a href="DashboardSolicitudes.php"><i class="fa-solid fa-bell"></i><span>Solicitudes</span></a>
           <a href="DashboardCabanas.php"><i class="fa-solid fa-house-circle-check"></i><span>Mis Cabañas</span></a>
-          <a href="DashboardMisSolicitudes.php"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis solicitudes</span></a>
+        </nav>
+        Arrendatario
+        <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
+          <a href="DashboardMisSolicitudes.php"><i class="fa-solid fa-envelope"></i><span>Mis solicitudes</span></a>
+          <a href="DashboardMisArriendos.php"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis Arriendos</span></a>
         </nav>
       </div>
 
@@ -129,8 +137,6 @@ mysqli_close($enlace);
     </div>
   </div>
 
-  <!--Fontawesome-->
-  <script src="https://kit.fontawesome.com/1e5f0e0661.js" crossorigin="anonymous"></script>
   <!--Boostrap-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>

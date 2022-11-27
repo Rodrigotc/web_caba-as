@@ -11,7 +11,7 @@ $FechaEntrada = $_POST["FechaEntrada"];
 $FechaSalida = $_POST["FechaSalida"];
 $idSolicitud = $_GET["idSolicitud"];
 
-$insert = "UPDATE `nuevocabanasdb`.`arriendo` SET `Estado` = 'Esperando Pago', `FechaEntrada` = $FechaEntrada, `FechaSalida` = $FechaSalida  WHERE (`idArriendo` = '$idSolicitud');";
+$insert = "UPDATE `nuevocabanasdb`.`arriendo` SET `Estado` = 'Aceptado', `FechaEntrada` = $FechaEntrada, `FechaSalida` = $FechaSalida  WHERE (`idArriendo` = '$idSolicitud');";
 mysqli_query($enlace, $insert);
 
 $insert= "UPDATE `nuevocabanasdb`.`arriendo` SET `FechaEntrada` = '$FechaEntrada', `FechaSalida` = '$FechaSalida' WHERE (`idArriendo` = '$idSolicitud');";
