@@ -8,11 +8,28 @@ include("Backend/VerificarSesionIniciada.php");
 /////Recuperar datos de Cabañas/////
 include("Backend\conection.php");
 $idPersona = $_SESSION['id'];
-$Cabanas = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE Persona_idPersona = '$idPersona'"));
-$cantCabanasPublicadas = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT COUNT(*) FROM nuevocabanasdb.cabana WHERE Estado = '1';"));
-$cantCabanasPendientes = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT COUNT(*) FROM nuevocabanasdb.cabana WHERE Estado = '0';"));
+$CabanasEnSolicitud = mysqli_query(
+  $enlace,
+  "SELECT idArriendo, idCabana, arriendo.Estado, Titulo, arriendo.Persona_idPersona AS idArrendatario, Nombres, Apellidos, Correo, Telefono, Verificado, Mensaje, FechaEntrada, FechaSalida
+FROM nuevocabanasdb.arriendo 
+INNER JOIN nuevocabanasdb.cabana ON arriendo.Cabana_idCabana = cabana.idCabana
+INNER JOIN nuevocabanasdb.persona ON arriendo.Persona_idPersona = persona.idPersona
+WHERE cabana.Persona_idPersona = $idPersona AND arriendo.Estado = 'En Solicitud' OR arriendo.Estado = 'Esperando Pago';"
+);
 mysqli_close($enlace);
+
+/////Funciones/////
+function iconoVerificado($cabana)
+{
+  if ($cabana['Verificado'] == '1') {
 ?>
+    <i class="fa-solid fa-circle-check fa-xs"></i>
+<?php
+  }
+}
+?>
+
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -30,9 +47,11 @@ mysqli_close($enlace);
 
 <body>
   <!-- NavBar -->
-  <?php
-  include("Colecciones/NavBar.php");
-  ?>
+  <header>
+    <?php
+    include("Colecciones/NavBar.php");
+    ?>
+  </header>
 
   <!-- Barra lateral -->
   <div class="container-fluid">
@@ -41,8 +60,8 @@ mysqli_close($enlace);
         <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
           <a href="Dashboard.php"><i class="fa-solid fa-gauge"></i><span>Resumen</span></a>
           <a class="active" href="DashboardSolicitudes.php"><i class="fa-solid fa-envelope"></i><span>Solicitudes</span></a>
-          <a href="#"><i class="fas fa-home"></i><span>Inicio</span></a>
-          <a href="#"><i class="fas fa-home"></i><span>Inicio</span></a>
+          <a href="DashboardCabanas.php"><i class="fa-solid fa-house-circle-check"></i><span>Mis cabañas</span></a>
+          <a href="DashboardMisSolicitudes.php"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis solicitudes</span></a>
         </nav>
       </div>
 
@@ -52,9 +71,114 @@ mysqli_close($enlace);
           <div class="columna cal-lg-6">
             <h4>Solicitudes</h4>
 
-            
+            <!-- Card Solicitudes -->
+            <?php
+            while ($cabana = mysqli_fetch_array($CabanasEnSolicitud)) {
+            ?>
+              <div class="card-group">
+                <div class="card">
+                  <div class="card-body">
+
+                    <h5 class="card-title">
+                      <a href="zdetalle.php?idCabana=<?php echo $cabana['idCabana'] ?>">
+                        <?php
+                        echo ($cabana['Titulo'])
+                        ?>
+                      </a>
+                      <?php
+                      echo " - " . $cabana['Nombres'] . " " . $cabana['Apellidos'];
+                      iconoVerificado($cabana);
+                      ?>
+                    </h5>
+
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                        <div class="row g-0">
+                          <!--Columna Izquierda-->
+                          <div class="col-md-4">
+                            <img src=<?php echo "Fotos_Cabanas/" . $cabana["idCabana"] . ".jpg"; ?> class="img-fluid" alt="...">
+                          </div>
+
+                          <!--Columna Derecha-->
+                          <div class="col-md-8">
+                            <div class="card-body">
+                              <h5 class="card-title"><?php echo ($cabana['Titulo']) ?> </h5>
+                              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo ($cabana['idArrendatario']) ?>"><i class="fa-solid fa-phone"></i></button><br>
+                              Estado: <?php echo $cabana["Estado"] ?>
+                              <p class="card-text"><?php echo (" " . $cabana['Mensaje']) ?></p>
+
+                              <?php
+                              if ($cabana['Estado'] == "En Solicitud") {
+                              ?>
+                                <!--Formulario Solicitud-->
+                                <form action="Backend/AceptarSolicitud.php?idSolicitud=<?php echo (" " . $cabana['idArriendo']) ?>" Method="POST">
+                                  <input name="FechaEntrada" type="date" value="<?php echo ($cabana['FechaEntrada']) ?>">
+                                  <input name="FechaSalida" type="date" value="<?php echo ($cabana['FechaSalida']) ?>"><br><br>
+                                  <!--Aceptar Solicitud-->
+                                  <button type="submit" class="btn btn-primary btn-lg">Aceptar Solicitud</button>
+                                  <!--Rechazar Solicitud-->
+                                  <input class="btn btn-secondary btn-lg btn-danger" onclick="location.href='Backend/RechazarSolicitud.php?idArriendo=<?php echo $cabana['idArriendo'] ?>'" value="Eliminar Solicitud">
+                                </form>
+                              <?php
+                              } else {
+                              ?>
+                                <!--Formulario Pago-->
+                                <form action="Backend/AceptarSolicitudPago.php?idSolicitud=<?php echo (" " . $cabana['idArriendo']) ?>" Method="POST">
+                                  <input name="FechaEntrada" type="date" value="<?php echo ($cabana['FechaEntrada']) ?>">
+                                  <input name="FechaSalida" type="date" value="<?php echo ($cabana['FechaSalida']) ?>"><br><br>
+                                  <!--Aceptar Solicitud-->
+                                  <button type="submit" class="btn btn-primary btn-lg btn-success">Confirmar Pago</button>
+                                  <!--Rechazar Solicitud-->
+                                  <input class="btn btn-secondary btn-lg btn-danger" onclick="location.href='Backend/RechazarSolicitud.php?idArriendo=<?php echo $cabana['idArriendo'] ?>'" value="Eliminar Solicitud">
+                                </form>
+                              <?php
+                              }
+                              ?>
+
+
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </div><br>
+
+              <!--Modal Contacto-->
+              <div class="modal fade" id="exampleModal<?php echo ($cabana['idArrendatario']) ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Datos de Contacto</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Nombre: <?php echo ($cabana['Nombres'] . " " . $cabana['Apellidos']);
+                              iconoVerificado($cabana);
+                              ?>
+                      <br>
+                      Correo: <?php echo ($cabana['Correo']) ?><br>
+                      Número Telefónico: <?php echo ($cabana['Telefono']) ?>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <?php
+            }
+            ?>
+
           </div>
         </div>
+
+
+
       </main>
     </div>
   </div>

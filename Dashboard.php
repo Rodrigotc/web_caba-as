@@ -10,8 +10,8 @@ include("Backend\conection.php");
 $idPersona = $_SESSION['id'];
 $Cabanas = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE Persona_idPersona = '$idPersona'"));
 $CananasMasVistas = mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE Persona_idPersona = '$idPersona' AND Estado = '1' ORDER BY Visitas desc Limit 5");
-$cantCabanasPublicadas = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT COUNT(*) FROM nuevocabanasdb.cabana WHERE Estado = '1';"));
-$cantCabanasPendientes = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT COUNT(*) FROM nuevocabanasdb.cabana WHERE Estado = '0';"));
+$cantCabanasPublicadas = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT COUNT(*) FROM nuevocabanasdb.cabana WHERE Estado = '1' AND Persona_idPersona = '$idPersona';"));
+$cantCabanasPendientes = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT COUNT(*) FROM nuevocabanasdb.cabana WHERE Estado = '0' AND Persona_idPersona = '$idPersona';"));
 mysqli_close($enlace);
 ?>
 
@@ -44,8 +44,8 @@ mysqli_close($enlace);
         <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
           <a class="active" href="Dashboard.php"><i class="fa-solid fa-gauge"></i><span>Resumen</span></a>
           <a href="DashboardSolicitudes.php"><i class="fa-solid fa-envelope"></i><span>Solicitudes</span></a>
-          <a href="#"><i class="fas fa-home"></i><span>Inicio</span></a>
-          <a href="#"><i class="fas fa-home"></i><span>Inicio</span></a>
+          <a href="DashboardCabanas.php"><i class="fa-solid fa-house-circle-check"></i><span>Mis Cabañas</span></a>
+          <a href="DashboardMisSolicitudes.php"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis solicitudes</span></a>
         </nav>
       </div>
 

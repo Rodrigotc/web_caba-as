@@ -44,6 +44,24 @@ mysqli_close($enlace);
   include("Colecciones/NavBar.php");
   ?>
 
+  <!-- Verificar mensaje -->
+  <?php
+  if (isset($_GET['mensaje'])) {
+    $mensaje = $_GET['mensaje'];
+  } else {
+    $mensaje = "";
+  }
+
+  if ($mensaje != "") {
+  ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <?php echo ($mensaje) ?>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <?php
+  }
+  ?>
+
   <!--Mostrar mensaje admin-->
   <?php
   if (ComprobarSesión()) {
@@ -75,11 +93,22 @@ mysqli_close($enlace);
           <?php echo $arrendador['Correo'] ?><br>
         </div>
 
-        Vistas: <?php echo $visitasCabana ?>
+        <!--Formulario Solicitud-->
+        <form method="POST" action="Backend/IngresarSolicitud.php?idCabana=<?php echo ($idCabana) ?>">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Solicitud de Arrendamiento</label>
+            <textarea class="form-control" placeholder="Ingrese los datos de su solicitud aquí." name="Mensaje" required></textarea>
+            <div id="emailHelp" class="form-text">El mensaje se le enviará directamente al arrendador.</div>
+            Fecha de Entrada:<input type="date" name = "FechaInicio"><br>
+            Fecha de Salida:<input type="date" name = "FechaTermino">
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+        </form>
+
       </div>
     </div>
 
-    <h2><?php echo ($cabana["Titulo"]); ?><br></h2>
+    <h2 class="d-inline"><?php echo ($cabana["Titulo"] . " "); ?></h2><i class="fa-regular fa-eye d-inline"> </i><?php echo (" " . $visitasCabana) ?><br>
 
     <?php echo ($cabana["Descripcion"]); ?><br><br>
 
@@ -196,6 +225,8 @@ mysqli_close($enlace);
     </script>
   </div>
 
+  <!--Fontawesome-->
+  <script src="https://kit.fontawesome.com/1e5f0e0661.js" crossorigin="anonymous"></script>
   <!--Boostrap-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
