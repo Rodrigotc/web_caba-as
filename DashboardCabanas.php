@@ -100,7 +100,10 @@ function iconoVerificado($cabana)
                                 } else {
                                   echo "En Revisión";
                                 }
-                                ?>
+                                ?><br>
+
+                                <!--Eliminar Cabania-->
+                                <input class="btn btn-secondary btn-lg btn-danger" onclick="location.href='Backend/EliminarCabania.php?idCabania=<?php echo $cabana['idCabana'] ?>'" value="Eliminar Cabaña">
                               </div>
                             </div>
                           </div>
