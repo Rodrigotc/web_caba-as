@@ -38,27 +38,63 @@ function ComprobarPost($campo)
     include("Colecciones/NavbarLogin.php");
     ?>
 
-    <form action="Registro.php" method="POST">
-        <section class="form-register">
-            <h4>Formulario Registro</h4>
-            Nombres
-            <input class="controls" type="text" name="nombres" id="nombres" placeholder="Nombres" value="<?php echo $nombres; ?>">
-            Apellidos
-            <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Apellidos" value="<?php echo $apellidos; ?>">
-            Rut
-            <input class="controls" type="text" name="rut" id="rut" placeholder="12345678-9" value="<?php echo $rut; ?>">
-            Correo
-            <input class="controls" type="text" name="correo" id="correo" placeholder="Correo@dominio.com" value="<?php echo $correo; ?>">
-            Teléfono
-            <input class="controls" type="text" name="telefono" id="telefono" placeholder="12345678" value="<?php echo $telefono; ?>">
-            Contraseña
-            <input class="controls" type="password" name="contrasena" id="contrasena" placeholder="Contraseña" value="<?php echo $contrasena; ?>">
-            <input class="boton" type="submit" value="Crear Cuenta">
-        </section>
-    </form>
+    <!--Contenido-->
+    <div class="container-fluid cew-9">
+        <div class="row">
+            <div class="izq col">
+                <H1>Únete a nuestra comunidad</H1>
+                <P>
+                    Miles de usuarios ya publicaron sus cabañas, ¿y tú qué esperas para unirte a la comunidad de CabLagos? la cual cuenta con una extensa variedad de lugares increíbles alrededor de la región de los Lagos.
+                </P>
+            </div>
+            <div class="col">
+                <form action="Registro.php" method="POST">
+                    <section class="form-register">
+                        <h4>Únete a CabLagos y empieza a publicar</h4>
+                        <div class="container-fluid cew-9">
+                            <div class="row">
+                                <div class="col">
+                                    Nombres
+                                    <input class="controls" type="text" name="nombres" id="nombres" placeholder="Nombres" value="<?php echo $nombres; ?>">
+                                </div>
+                                <div class="col">
+                                    Apellidos
+                                    <input class="controls" type="text" name="apellidos" id="apellidos" placeholder="Apellidos" value="<?php echo $apellidos; ?>">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Rut
+                                    <input class="controls" type="text" name="rut" id="rut" placeholder="12345678-9" value="<?php echo $rut; ?>">
+                                </div>
+                                <div class="col">
+                                    Correo
+                                    <input class="controls" type="text" name="correo" id="correo" placeholder="Correo@dominio.com" value="<?php echo $correo; ?>">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Teléfono
+                                    <input class="controls" type="text" name="telefono" id="telefono" placeholder="12345678" value="<?php echo $telefono; ?>">
+                                </div>
+                                <div class="col">
+                                    Contraseña
+                                    <input class="controls" type="password" name="contrasena" id="contrasena" placeholder="Contraseña" value="<?php echo $contrasena; ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <input class="boton" type="submit" value="Unirse a CabLagos">
+                    </section>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    <!--Validación-->
-    <?php
+   
+</body>
+<footer>
+     <!--Validación-->
+     <?php
     if (isset($_POST['nombres'])) {
         //Arreglo
         $errores = array();
@@ -103,10 +139,16 @@ function ComprobarPost($campo)
         //Resultado de POST
         //Si existen errores
         if (count($errores) > 0) {
-            foreach ($errores as $i => $value) {
-                echo $value . "</br>";
-            }
+    ?>
+            <div class="alerta alert alert-danger">
+                <?php
+                foreach ($errores as $i => $value) {
+                    echo $value . "</br>";
+                }
 
+                ?>
+            </div>
+    <?php
             //Si los datos son ingresados correctamente  
         } else {
             include("Backend\conection.php");
@@ -118,6 +160,6 @@ function ComprobarPost($campo)
         }
     }
     ?>
-</body>
+</footer>
 
 </html>
