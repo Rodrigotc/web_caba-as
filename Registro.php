@@ -1,4 +1,7 @@
 <?php
+//Error
+ob_start();
+
 //Recibir datos POST
 $nombres = ComprobarPost("nombres");
 $apellidos = ComprobarPost("apellidos");
