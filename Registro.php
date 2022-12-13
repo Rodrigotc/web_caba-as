@@ -78,7 +78,7 @@ function ComprobarPost($campo)
                             <div class="row">
                                 <div class="col">
                                     Teléfono
-                                    <input class="controls" type="text" name="telefono" id="telefono" placeholder="12345678" value="<?php echo $telefono; ?>">
+                                    <input class="controls" type="text" name="telefono" id="telefono" placeholder="+56912345678" value="<?php echo $telefono; ?>">
                                 </div>
                                 <div class="col">
                                     Contraseña

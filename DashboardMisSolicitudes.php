@@ -8,7 +8,12 @@ include("Backend/VerificarSesionIniciada.php");
 /////Recuperar datos de Cabañas/////
 include("Backend\conection.php");
 $idPersona = $_SESSION['id'];
-$solicitudes = mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.arriendo WHERE Persona_idPersona = $idPersona AND Estado != 'Aceptado'");
+$solicitudes = mysqli_query(
+  $enlace,
+  "SELECT *, arriendo.Estado AS estadoArriendo FROM nuevocabanasdb.arriendo
+INNER JOIN nuevocabanasdb.cabana ON arriendo.Cabana_idCabana = cabana.idCabana
+WHERE arriendo.Persona_idPersona = 39 AND arriendo.Estado != 'Aceptado'"
+);
 mysqli_close($enlace);
 
 /////Funciones/////
@@ -72,36 +77,51 @@ function iconoVerificado($cabana)
 
             <!-- Card Solicitudes -->
             <?php
-            while ($solicitud = mysqli_fetch_array($solicitudes)) {
+            while ($cabana = mysqli_fetch_array($solicitudes)) {
             ?>
               <div class="card-group">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="solicitudesCard card-body">
+                    <!-- Título -->
+                    <div class="tituloIzquierdo"><?php echo ($cabana['Titulo']) ?>
+                    </div>
 
+                    <div class="tituloDerecho"></div><br>
 
                     <ul class="list-group list-group-flush">
-                      <li class="list-group-item">
+                      <li class="lista list-group-item">
                         <div class="row g-0">
                           <div class="col-md-4">
-                            <img src=<?php echo "Fotos_Cabanas/" . $solicitud["Cabana_idCabana"] . ".jpg"; ?> class="img-fluid" alt="...">
+                            <a href="zdetalle.php?idCabana=<?php echo $cabana['idCabana'] ?>"><img src=<?php echo "Fotos_Cabanas/" . $cabana["idCabana"] . ".jpg"; ?> class="imgCabana" alt="Cabaña"></a>
                           </div>
+
                           <div class="col-md-8">
                             <div class="card-body">
-                              <?php echo $solicitud["Mensaje"] ?><br>
-                              <input class="btn btn-secondary btn-lg btn-danger" onclick="location.href='Backend/EliminarSolicitud.php?idArriendo=<?php echo $solicitud['idArriendo'] ?>'" value="Eliminar Solicitud">
+                              <div class="row">
+                                <div class="col">
+                                  <p class="titulo">Estado: <?php echo $cabana["estadoArriendo"] ?></p>
+                                  <p class="titulo">Mensaje: <?php echo $cabana["Mensaje"] ?></p>
+                                </div>
+                                <div class="col">
+                                  <p class="titulo"> Fecha de Entrada: <?php echo ($cabana['FechaEntrada']) ?>
+                                  <p class="titulo">Fecha de Salida: <?php echo ($cabana['FechaSalida']) ?>
+                                  <p class="titulo">Valor Total: $<?php echo ($cabana['Precio']) ?></p>
+
+                                  <!--Eliminar Solicitud-->
+                                  <input class="btnRechazar btn btn-secondary btn-lg btn-danger" onclick="location.href='Backend/EliminarMiSolicitud.php?idArriendo=<?php echo $cabana['idArriendo'] ?>'" value="Eliminar Solicitud">
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </li>
                     </ul>
-
                   </div>
                 </div>
               </div><br>
             <?php
             }
             ?>
-
           </div>
         </div>
 

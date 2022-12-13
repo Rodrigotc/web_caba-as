@@ -38,7 +38,7 @@ include("Backend/FuncionesSesion.php");
       <div class="card card-body flex-fill">
         <img style="height:35vh" src="Imagenes/PuertoMontt.jpg" class="card-img card-img-top " alt="puerto-imagen">
         <div class=" card-body">
-          <h5 class="card-title">Puerto montt</h5>
+          <h5 class="card-title">Puerto Montt</h5>
           <p class="card-text" align = "justify">La ciudad de Puerto Montt, capital de la Región de Los Lagos, está ubicada en el extremo norte del seno de Reloncaví. Es el punto de inicio de la Carretera Austral y la puerta de entrada a la Patagonia norte y sur del país.</p>
           <div class="d-grid gap-2">
             <button class="btn btn-primary" type="button">Buscar</button>

@@ -7,7 +7,7 @@ header {
 .barra-lateral {
     background: #252121;
     color: #fff;
-    min-width: 250px;
+    min-width: 350px;
     min-height: 100vh;
     padding-right: 0000px !important;
     padding-left: 0000px !important;
@@ -22,8 +22,10 @@ header {
 .barra-lateral .menu a {
     display: block;
     padding: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     font-family: Roboto, sans-serif;
-    font-weight: 500;
+    font-weight: 800;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -51,12 +53,75 @@ header {
 }
 
 .main .columna {
-    padding-left: 290px;
-    padding-right: 40px;
+    padding-left: 410px;
+    padding-right: 60px;
 }
 
-.img-fluid{
-    max-width: 200px;
+/*Cartas*/
+div.cuerpo {
+    padding-bottom: 100px;
+}
+
+.cabanaCard {
+    height: 314px !important;
+}
+
+div.tituloIzquierdo {
+    position: absolute;
+    left: 24px;
+}
+
+div.tituloDerecho {
+    position: absolute;
+    right: 24px;
+}
+
+img.imgCabana {
+    height: 250px;
+    width: 376px;
+    border-radius: 10px;
+    position: absolute;
+    left: 0px;
+}
+
+p.titulo {
+    font-weight: 700;
+    text-align: left;
+    font-size: larger;
+}
+
+input.btnEliminar {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+}
+
+/*Card Solicitudes*/
+.solicitudesCard {
+    height: 320px !important;
+}
+
+.lista{
+    position: absolute;
+    top: 6px;
+}
+
+.btnContacto{
+    position: absolute;
+    left: 270px;
+    top: -3px;
+}
+
+.btnAceptar {
+    position: absolute;
+    right: 276px;
+    bottom: -70px;
+}
+
+.btnRechazar {
+    position: absolute;
+    right: 0px;
+    bottom: -70px;
 }
 
 /*MEDIAQUERYS*/
