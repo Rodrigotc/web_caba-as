@@ -42,11 +42,14 @@ legend {
 }
 
 .ho:hover{
-    box-sizing: border-box;
-    transition: all 0.3 ease;
-    -webkit-transform: scale(1.03);
-    -ms-transform: scale(1.03);
-    transform: (1.03);
+    text-shadow: none !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    -webkit-transform: scale(1.03) !important;
+    -ms-transform: scale(1.03) !important;
+    transform: scale(1.03) !important;
+    z-index: 2;
 }
 
 .card-bsq {

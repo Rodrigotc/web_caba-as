@@ -3,6 +3,16 @@
 include("Backend/FuncionesSesion.php");
 
 //////Funciones//////
+//Comprobar GET///
+function ComprobarGet($campo)
+{
+  $resultado = "";
+  if (isset($_GET[$campo])) {
+    $resultado = trim($_GET[$campo]);
+  }
+  return $resultado;
+}
+
 //Filtrar cabañas//
 function filtrarCabanas()
 {
@@ -10,11 +20,43 @@ function filtrarCabanas()
   $query = "SELECT * FROM nuevocabanasdb.cabana Where Estado = '1' ";
 
   //Recibir datos GET
-  $Ciudad = $_GET["Ciudad"];
+  $Ciudad               = $_GET["Ciudad"];
+  $Wifi                 = ComprobarGet("Wifi");
+  $Estacionamiento      = ComprobarGet("Estacionamiento");
+  $Quincho              = ComprobarGet("Quincho");
+  $Piscina              = ComprobarGet("Piscina");
+  $Bodega               = ComprobarGet("Bodega");
+  $CalefaccionGas       = ComprobarGet("CalefaccionGas");
+  $CalefaccionElectrica = ComprobarGet("CalefaccionElectrica");
+  $CalefaccionLenta     = ComprobarGet("CalefaccionLenta");
 
   //Filtros de búsqueda
   if ($Ciudad != "") {
     $query .= "AND Ciudad = '$Ciudad' ";
+  }
+  if ($Wifi != "") {
+    $query .= "AND Wifi = '1' ";
+  }
+  if ($Estacionamiento != "") {
+    $query .= "AND Estacionamiento = '1' ";
+  }
+  if ($Quincho != "") {
+    $query .= "AND Quincho = '1' ";
+  }
+  if ($Piscina != "") {
+    $query .= "AND Piscina = '1' ";
+  }
+  if ($Bodega != "") {
+    $query .= "AND Bodega = '1' ";
+  }
+  if ($CalefaccionGas != "") {
+    $query .= "AND CalefaccionGas = '1' ";
+  }
+  if ($CalefaccionElectrica != "") {
+    $query .= "AND CalefaccionElectrica = '1' ";
+  }
+  if ($CalefaccionLenta != "") {
+    $query .= "AND CombustionLenta = '1' ";
   }
 
   //Retornar query
@@ -103,6 +145,8 @@ function agregarMarcadores()
   <!--Leaflet-->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+  <!--Title e ícono-->
+  <link rel="shortcut icon" href="Imagenes/Marcador.png">
   <title>Búsqueda</title>
 </head>
 
@@ -131,11 +175,11 @@ function agregarMarcadores()
           <div class="col scroll">
             <div class="card-bsq-2">
               <?php
-               $count = mostrarCabana();
+              $count = mostrarCabana();
               if ($count == 0) {
-                ?>
+              ?>
                 <img src="Imagenes/advertencia.png" width="80%" alt="">
-              <?php } 
+              <?php }
               ?>
             </div>
           </div>
@@ -265,7 +309,7 @@ function agregarMarcadores()
               }).addTo(map);
             </script>
             <?php
-            
+
             agregarMarcadores();
             ?>
           </div>
@@ -276,13 +320,13 @@ function agregarMarcadores()
       <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         <div class="card-bsq">
           <?php
-          
+
           $count = mostrarCabana();
-         if ($count == 0) {
-           ?>
-           <img src="Imagenes/advertencia.png" width="50%" alt="">
-         <?php } 
-         ?>
+          if ($count == 0) {
+          ?>
+            <img src="Imagenes/advertencia.png" width="50%" alt="">
+          <?php }
+          ?>
         </div>
       </div>
     </div>

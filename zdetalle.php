@@ -2,196 +2,262 @@
 //Inicializar SESSION y funciones
 include("Backend/FuncionesSesion.php");
 
-//Recuperar datos cabana
+//Recuperar datos de cabaña y arrendador
 include("Backend\conection.php");
 $idCabana = $_GET['idCabana'];
 $cabana = mysqli_fetch_array(mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE idCabana = '$idCabana'"));
+$idArrendador = $cabana['Persona_idPersona'];
+$arrendador = mysqli_fetch_array(mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.persona WHERE idPersona = '$idArrendador'"));
 mysqli_close($enlace);
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="e">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="CSS/Detalle.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Bootstrap-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-
- <!--Leaflet-->
- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
+  <!--Leaflet-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
-  
-  <title>Detalle</title>
-  <style>
-    
-.header{
-	width: 100%;
-	height: 100%px;
-	color: #fff;
-	text-align: center;
-	justify-content: center;
-	align-items: center;
-	font-size: 20px;
-	text-transform: uppercase;
-	letter-spacing: 5px;
-	font-weight: 900;
-}
-
-  </style>
+  <!--Title e ícono-->
+  <link rel="shortcut icon" href="Imagenes/Marcador.png">
+  <title><?php echo $cabana['Titulo'] ?></title>
 </head>
-<body style="background-image: url('Imagenes/fondo_azul.jpg');">
 
-<!-- NavBar -->
-<?php
+<body>
+  <!-- Sumar vista a cabaña -->
+  <?php
+  $visitasCabana = $cabana['Visitas'] + 1;
+  include("Backend\conection.php");
+  $insertar = "UPDATE `nuevocabanasdb`.`cabana` SET `Visitas` = '$visitasCabana' WHERE (`idCabana` = '$idCabana');";
+  mysqli_query($enlace, $insertar);
+  mysqli_close($enlace);
+  ?>
+
+  <!-- NavBar -->
+  <?php
   include("Colecciones/NavBar.php");
   ?>
 
+  <!-- Verificar mensaje -->
+  <?php
+  if (isset($_GET['mensaje'])) {
+    $mensaje = $_GET['mensaje'];
+  } else {
+    $mensaje = "";
+  }
 
-<!--Mostrar mensaje admin-->
-
-<?php
-  if ($_SESSION['administrador'] == 1 && $cabana['Estado'] == 0) {
+  if ($mensaje != "") {
   ?>
-
-      <div class="header bg-danger "> Esta cabaña está en revisión. ¿Desea aprobarla?<br>
-      <input class="btn btn-dark  m-1" type="button" onclick="location.href='Backend/PublicarCabana.php?id=<?php echo $cabana['idCabana'] ?>'" value="Publicar">
-      <input class="btn btn-dark  m-1" type="button" onclick="location.href='Backend/RechazarCabana.php?id=<?php echo $cabana['idCabana'] ?>'" value="Rechazar">
-      </div>
-
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <?php echo ($mensaje) ?>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
   <?php
   }
   ?>
-<div  class="container mt-3 bg-light border border-2 rounded border-warning">
- 
-<div class="container-fluid ">
-  <div class="row content">
-    <div class="col sidenav me-1">
-    <h2>Cabaña ubicada en <?php echo ($cabana["Ciudad"]); ?><br></h2>
-  
-    
-    <div class="alert alert-primary" role="alert">
-    Dirección: <?php echo ($cabana["Direccion"]); ?><br>
-</div>
-  
-<div class="alert alert-primary" role="alert"> 
-  Precio por día: $<?php echo number_format($cabana["Precio"]); ?>
-</div>
- 
 
-<h4>Descripción</h4>
-  <?php echo ($cabana["Descripcion"]); ?>
-
-  <h4>Extras y Características de la cabaña</h4>
+  <!--Mostrar mensaje admin-->
   <?php
-  if ($cabana["Wifi"]) {
-    echo '<div class="form-check">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
-    <label class="form-check-label" for="flexCheckCheckedDisabled">
-     Wifi
-    </label>
-  </div>'; ?><?php
-                        }
-                        if ($cabana["Estacionamiento"]) {
-                          echo '<div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
-                          <label class="form-check-label" for="flexCheckCheckedDisabled">
-                           Estacionamiento
-                          </label>
-                        </div>'; ?><?php
-                                  }
-                                  if ($cabana["Quincho"]) {
-                                    echo '<div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
-                                    <label class="form-check-label" for="flexCheckCheckedDisabled">
-                                     Quincho
-                                    </label>
-                                  </div>'; ?><?php
-                                  }
-                                  if ($cabana["Piscina"]) {
-                                    echo '<div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
-                                    <label class="form-check-label" for="flexCheckCheckedDisabled">
-                                     Piscina
-                                    </label>
-                                  </div>'; ?><?php
-                                  }
-                                  if ($cabana["Bodega"]) {
-                                    echo '<div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
-                                    <label class="form-check-label" for="flexCheckCheckedDisabled">
-                                     Bodega
-                                    </label>
-                                  </div>'; ?><?php
-                                  }
-                                  if ($cabana["CalefaccionGas"]) {
-                                    echo '<div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
-                                    <label class="form-check-label" for="flexCheckCheckedDisabled">
-                                     Calefaccion a Gas
-                                    </label>
-                                  </div>'; ?><?php
-                                    }
-                                    if ($cabana["CalefaccionElectrica"]) {
-                                      echo '<div class="form-check">
-                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
-                                      <label class="form-check-label" for="flexCheckCheckedDisabled">
-                                       Calefaccion Electrica
-                                      </label>
-                                    </div>'; ?><?php
-                                        }
-                                        if ($cabana["CombustionLenta"]) {
-                                          echo '<div class="form-check">
-                                          <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
-                                          <label class="form-check-label" for="flexCheckCheckedDisabled">
-                                           Combustion lenta
-                                          </label>
-                                        </div>'; ?><?php
-                                        }
-                                    ?>
-  </div>
-
-    <div class="col">
-    <img class="img-cabana" src=<?php echo "Fotos_Cabanas/" . $cabana["idCabana"] . ".jpg"; ?> style="width:100%; height:40vh; margin:3px ">
-      
-      <div class="row ">
-    
-      <?php
-  $lat = $cabana["Latitud"];
-  $lng = $cabana["Longitud"];
+  if (ComprobarSesión()) {
+    if (ComprobarAdmin() == 1 && $cabana['Estado'] == 0) {
+  ?>
+      <div class="header bg-danger "> Esta cabaña está en revisión. ¿Desea aprobarla?<br>
+        <input class="btn btn-dark  m-1" type="button" onclick="location.href='Backend/PublicarCabana.php?id=<?php echo $cabana['idCabana'] ?>'" value="Publicar">
+        <input class="btn btn-dark  m-1" type="button" onclick="location.href='Backend/RechazarCabana.php?id=<?php echo $cabana['idCabana'] ?>'" value="Rechazar">
+      </div>
+  <?php
+    }
+  }
   ?>
 
-  <!--Configurar mapa-->
-  <div  style="width:96%;  height:40vh; margin:1rem" id="map"></div>
- 
+  <!--Pagina cabaña-->
+  <div class="container mt-3 bg-light border border-2 rounded border-warning">
+    <div class="grid">
+      <img class="grid-izquierdo" src=<?php echo "Fotos_Cabanas/" . $cabana["idCabana"] . ".jpg"; ?>>
 
-  <script>
-    //Mostrar mapa
-    var map = L.map('map').setView([<?php echo $lat ?>, <?php echo $lng ?>], 18);
+      <div class=griz-derecho>
+        <div class="alert alert-primary" role="alert">
+          <h4>Información de contacto</h4>
+          <strong>Nombre: </strong>
+          <?php echo $arrendador['Nombres'] ?>
+          <?php echo $arrendador['Apellidos'] ?><br>
+          <strong>Número telefónico: </strong>
+          <?php echo $arrendador['Telefono'] ?><br>
+          <strong>Correo electrónico: </strong>
+          <?php echo $arrendador['Correo'] ?><br>
+        </div>
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+        <!--Formulario Solicitud-->
+        <form method="POST" action="Backend/IngresarSolicitud.php?idCabana=<?php echo ($idCabana) ?>">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Solicitud de Arrendamiento</label>
+            <textarea class="form-control" placeholder="Ingrese los datos de su solicitud aquí." name="Mensaje" required></textarea>
+            <div id="emailHelp" class="form-text">El mensaje se le enviará directamente al arrendador.</div>
+            Fecha de Entrada:<input type="date" name = "FechaInicio"><br>
+            Fecha de Salida:<input type="date" name = "FechaTermino">
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+        </form>
 
-    //Agregar marcador
-    L.marker([<?php echo $lat ?>, <?php echo $lng ?>]).addTo(map)
-      .bindPopup('<?php echo $cabana['Direccion'] ?>')
-      .openPopup();
-  </script>    
+      </div>
     </div>
+
+    <h2 class="d-inline"><?php echo ($cabana["Titulo"] . " "); ?></h2><i class="fa-regular fa-eye d-inline"> </i><?php echo (" " . $visitasCabana) ?><br>
+
+    <?php echo ($cabana["Descripcion"]); ?><br><br>
+
+    <h4>Detalles</h4>
+    <strong>Dirección:</strong>
+    <?php echo ($cabana["Direccion"]); ?><br>
+    <strong>Habitaciones:</strong>
+    <?php echo ($cabana["NroPiezas"]); ?><br>
+    <strong>Precio por día: </strong>$
+    <?php echo number_format($cabana["Precio"]); ?><br><br>
+
+    <h4>Extras y Características de la cabaña</h4>
+    <?php
+    if ($cabana["Wifi"]) {
+    ?>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+        <label class="form-check-label" for="flexCheckCheckedDisabled">
+          Wifi
+        </label>
+      </div>
+    <?php
+    }
+    if ($cabana["Estacionamiento"]) {
+    ?>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+        <label class="form-check-label" for="flexCheckCheckedDisabled">
+          Estacionamiento
+        </label>
+      </div>
+    <?php
+    }
+    if ($cabana["Quincho"]) {
+    ?>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+        <label class="form-check-label" for="flexCheckCheckedDisabled">
+          Quincho
+        </label>
+      </div>
+    <?php
+    }
+    if ($cabana["Piscina"]) {
+    ?>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+        <label class="form-check-label" for="flexCheckCheckedDisabled">
+          Piscina
+        </label>
+      </div>
+    <?php
+    }
+    if ($cabana["Bodega"]) {
+    ?><div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+        <label class="form-check-label" for="flexCheckCheckedDisabled">
+          Bodega
+        </label>
+      </div>
+    <?php
+    }
+    if ($cabana["CalefaccionGas"]) {
+    ?>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+        <label class="form-check-label" for="flexCheckCheckedDisabled">
+          Calefaccion a Gas
+        </label>
+      </div>
+    <?php
+    }
+    if ($cabana["CalefaccionElectrica"]) {
+    ?>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+        <label class="form-check-label" for="flexCheckCheckedDisabled">
+          Calefaccion Electrica
+        </label>
+      </div>
+    <?php
+    }
+    if ($cabana["CombustionLenta"]) {
+    ?>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+        <label class="form-check-label" for="flexCheckCheckedDisabled">
+          Combustion lenta
+        </label>
+      </div>
+    <?php
+    }
+    ?><br><br>
+
+    <!--Configurar mapa-->
+    <?php
+    $lat = $cabana["Latitud"];
+    $lng = $cabana["Longitud"];
+    ?>
+    <div id="map"></div>
+
+    <script>
+      //Mostrar mapa
+      var map = L.map('map').setView([<?php echo $lat ?>, <?php echo $lng ?>], 18);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      //Agregar marcador
+      L.marker([<?php echo $lat ?>, <?php echo $lng ?>]).addTo(map)
+        .bindPopup('<?php echo $cabana['Direccion'] ?>')
+        .openPopup();
+    </script>
+    <br>
+    <div>
+      <h3>comentarios</h3> <br>
+
+      <?php
+
+$conexion=mysqli_connect("localhost","root","","nuevocabanasdb"); 
+
+$resultado= mysqli_query($conexion, "SELECT * FROM comentarios WHERE idCabana = '$idCabana'");
+
+while($comentario = mysqli_fetch_object($resultado)){
+
+    ?>
+
+    <b><?php echo($comentario->nombre);  ?></b> (<?php echo  ($comentario->fecha); ?>): 
+    <br />
+    <?php echo ($comentario->comentario);?>
+    <br />
+    <hr />
+
+
+
+
+    <?php
+}
+
+                                    ?>
+
     </div>
   </div>
-</div>
 
-</div>
-
-
-
-
-
-
-
-
-
-   <!--Boostrap-->
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  <!--Fontawesome-->
+  <script src="https://kit.fontawesome.com/1e5f0e0661.js" crossorigin="anonymous"></script>
+  <!--Boostrap-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
+
 </html>
