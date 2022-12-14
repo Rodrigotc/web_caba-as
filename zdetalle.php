@@ -223,6 +223,35 @@ mysqli_close($enlace);
         .bindPopup('<?php echo $cabana['Direccion'] ?>')
         .openPopup();
     </script>
+
+<div>
+      <h3>comentarios</h3> <br>
+
+      <?php
+
+      $conexion = mysqli_connect("localhost", "root", "", "nuevocabanasdb");
+
+      $resultado = mysqli_query($conexion, "SELECT * FROM comentarios WHERE idCabana = '$idCabana'");
+
+      while ($comentario = mysqli_fetch_object($resultado)) {
+
+      ?>
+
+        <b><?php echo ($comentario->nombre);  ?></b> (<?php echo ($comentario->fecha); ?>):
+        <br />
+        <?php echo ($comentario->comentario); ?>
+        <br />
+        <hr />
+
+
+
+
+      <?php
+      }
+
+      ?>
+
+    </div>
   </div>
 
   <!--Fontawesome-->

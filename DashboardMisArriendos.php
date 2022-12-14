@@ -8,12 +8,8 @@ include("Backend/VerificarSesionIniciada.php");
 /////Recuperar datos de Cabañas/////
 include("Backend\conection.php");
 $idPersona = $_SESSION['id'];
-$solicitudes = mysqli_query(
-  $enlace,
-  "SELECT *, arriendo.Estado AS estadoArriendo FROM nuevocabanasdb.arriendo
-INNER JOIN nuevocabanasdb.cabana ON arriendo.Cabana_idCabana = cabana.idCabana
-WHERE arriendo.Persona_idPersona = $idPersona AND arriendo.Estado = 'Aceptado'"
-);
+$nombrePersona = $_SESSION['nombre'];
+$solicitudes = mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.arriendo WHERE Persona_idPersona = $idPersona AND Estado = 'Aceptado'");
 mysqli_close($enlace);
 
 /////Funciones/////
@@ -88,58 +84,82 @@ function dias_restantes($fecha_final)
             <?php
             while ($solicitud = mysqli_fetch_array($solicitudes)) {
             ?>
-              <div class="card-group">
-                <div class="card">
-                  <div class="solicitudesCard card-body">
-                    <!-- Título -->
-                    <div class="tituloIzquierdo"><?php echo ($solicitud['Titulo']) ?></div><br>
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">
-                        <div class="row g-0">
-                          <div class="col-md-4">
-                            <a href="zdetalle.php?idCabana=<?php echo $solicitud['idCabana'] ?>"><img src=<?php echo "Fotos_Cabanas/" . $solicitud["idCabana"] . ".jpg"; ?> class="imgCabana" alt="Cabaña"></a>
-                          </div>
-                          <div class="col-md-8">
-                            <div class="card-body">
-                              <p class="titulo">Mensaje: <?php echo $solicitud["Mensaje"] ?></p>
-                              <p class="titulo"> Fecha de Entrada: <?php echo ($solicitud['FechaEntrada']) ?></p>
-                              <p class="titulo">Fecha de Salida: <?php echo ($solicitud['FechaSalida']) ?></p>
-                              <p class="titulo">
-                                <?php
-                                //Calcular en que fase del arriendo estamos
-                                if (dias_restantes($solicitud["FechaEntrada"]) == 0) {
-                                  $diasrestantes = dias_restantes($solicitud["FechaEntrada"]);
-                                  echo "Hoy es la fecha de entrada.";
-                                } elseif (dias_restantes($solicitud["FechaEntrada"]) > 0) {
-                                  $diasrestantes = dias_restantes($solicitud["FechaEntrada"]);
-                                  echo "Quedan $diasrestantes días para la fecha de entrada.";
-                                } elseif (dias_restantes($solicitud["FechaSalida"]) > 0) {
-                                  $diasrestantes = dias_restantes($solicitud["FechaSalida"]);
-                                  echo "Quedan $diasrestantes días para la fecha de salida";
-                                } else {
-                                  $diasrestantes = abs(dias_restantes($solicitud["FechaSalida"]));
-                                  echo "Han pasado $diasrestantes días desde la fecha de salida";
-                                }
-                                ?><br>
-                              </p>
 
-                            </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
+
+
+              <div class="container text-center">
+                <div class="row align-items-start">
+                  <div class="col">
+
+                    <img src=<?php echo "Fotos_Cabanas/" . $solicitud["Cabana_idCabana"] . ".jpg"; ?> class="img-fluid" alt="...">
+
                   </div>
+                  <div class="col-4 ">
+
+                    <div class="card-body p-3">
+                      <p class="fst-italic">Mensaje: <?php echo $solicitud["Mensaje"] ?> </p>
+                      <p class="fw-light">
+                        <?php
+                        //Calcular en que fase del arriendo estamos
+                        if (dias_restantes($solicitud["FechaEntrada"]) > 0) {
+                          $diasrestantes = dias_restantes($solicitud["FechaEntrada"]);
+                          echo  "Quedan $diasrestantes días para la fecha de ingreso";
+                        } elseif (dias_restantes($solicitud["FechaSalida"]) > 0) {
+                          $diasrestantes = dias_restantes($solicitud["FechaSalida"]);
+                          echo "Quedan $diasrestantes días para la fecha de salida";
+                        } else {
+                          $diasrestantes = abs(dias_restantes($solicitud["FechaSalida"]));
+                          echo "Han pasado $diasrestantes días desde la fecha de salida  ";
+                        ?>
+                      </p>
+
+                      <div class="col ">
+
+                        <form method="POST" action="./Backend/enviarcomentario.php">
+                          <div class="form-group">
+                            <div class="input-group input-group-sm mb-3">
+                              <input type = "hidden" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="nombre" type="text" id="nombre" value="<?php echo $nombrePersona ?>" required readonly>
+                            </div>
+                            <div class="input-group input-group-sm mb-3">
+                              <input type = "hidden" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="idcabana" type="text" id="idcabana" value="<?php echo $solicitud["Cabana_idCabana"] ?>" required readonly>
+                            </div>
+
+                            <input type="hidden" name="idArriendo" value="<?php echo $solicitud["idArriendo"] ?>" />
+                          </div>
+                          <br>
+                          <div class="form-group">
+                            <label for="comentario" class="form-label ">Comentario:</label>
+                            <textarea class="form-control" name="comentario" cols="30" rows="5" type="text" id="comentario" placeholder="Escribe tu comentario......"></textarea>
+                          </div>
+                          <br>
+
+                          <input class="btn btn-primary" type="submit" value="Enviar Comentario">
+                        </form>
+
+                        <input class="m-1 btn btn-secondary btn-lg btn-danger" onclick="location.href='Backend/Eliminararriendo.php?idArriendo=<?php echo $solicitud['idArriendo'] ?>'" value="Eliminar">
+
+                      </div>
+                    <?php
+                        }
+                    ?>
+
+                    </div>
+                  </div>
+
+                  <hr size="2px" color="black" />
+
+
                 </div>
-              </div><br>
-            <?php
+              <?php
             }
-            ?>
+              ?>
+              </div>
+
           </div>
-        </div>
+
       </main>
     </div>
   </div>
-
 
   <!--Fontawesome-->
   <script src="https://kit.fontawesome.com/1e5f0e0661.js" crossorigin="anonymous"></script>
