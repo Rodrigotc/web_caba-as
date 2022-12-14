@@ -12,7 +12,7 @@ $solicitudes = mysqli_query(
   $enlace,
   "SELECT *, arriendo.Estado AS estadoArriendo FROM nuevocabanasdb.arriendo
 INNER JOIN nuevocabanasdb.cabana ON arriendo.Cabana_idCabana = cabana.idCabana
-WHERE arriendo.Persona_idPersona = 39 AND arriendo.Estado != 'Aceptado'"
+WHERE arriendo.Persona_idPersona = $idPersona AND arriendo.Estado != 'Aceptado'"
 );
 mysqli_close($enlace);
 
@@ -83,8 +83,7 @@ function iconoVerificado($cabana)
                 <div class="card">
                   <div class="solicitudesCard card-body">
                     <!-- Título -->
-                    <div class="tituloIzquierdo"><?php echo ($cabana['Titulo']) ?>
-                    </div>
+                    <div class="tituloIzquierdo"><?php echo ($cabana['Titulo']) ?></div>
 
                     <div class="tituloDerecho"></div><br>
 

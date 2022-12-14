@@ -12,11 +12,13 @@ $Cabanas = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT * FROM nuevocabanasd
 $CananasMasVistas = mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE Persona_idPersona = '$idPersona' AND Estado = '1' ORDER BY Visitas desc Limit 5");
 $cantCabanasPublicadas = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT COUNT(*) FROM nuevocabanasdb.cabana WHERE Estado = '1' AND Persona_idPersona = '$idPersona';"));
 $cantCabanasPendientes = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT COUNT(*) FROM nuevocabanasdb.cabana WHERE Estado = '0' AND Persona_idPersona = '$idPersona';"));
-$ultimasSolicitudes = mysqli_query($enlace, 
-"SELECT arriendo.*, cabana.Persona_idPersona as idArrendador FROM nuevocabanasdb.arriendo 
+$ultimasSolicitudes = mysqli_query(
+  $enlace,
+  "SELECT *, cabana.Persona_idPersona as idArrendador FROM nuevocabanasdb.arriendo 
 INNER JOIN nuevocabanasdb.cabana ON arriendo.Cabana_idCabana = cabana.idCabana
 WHERE arriendo.Estado = 'En Solicitud' AND cabana.Persona_idPersona = '$idPersona'
-LIMIT 5;");
+LIMIT 5;"
+);
 mysqli_close($enlace);
 ?>
 
@@ -96,66 +98,70 @@ mysqli_close($enlace);
               </div>
             </div><br>
 
-            <!-- Card Solicitudes -->
-            <div class="card-group">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Últimas Solicitudes</h5>
-                  <?php
-                  while ($cabana = mysqli_fetch_array($ultimasSolicitudes)) {
-                  ?>
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">
-                        <div class="row g-0">
-                          <div class="col-md-4">
-                            <img src=<?php echo "Fotos_Cabanas/" . $cabana["Cabana_idCabana"] . ".jpg"; ?> class="img-fluid" alt="...">
-                          </div>
-                          <div class="col-md-8">
-                            <div class="card-body">
-                              <h5 class="card-title"><?php echo ($cabana['Titulo']) ?> </h5>
-                              <p class="card-text"><i class="fa-regular fa-eye"></i><?php echo (" " . $cabana['Visitas']) ?></p>
+            <div class="row">
+              <div class="col">
+                <!-- Card Solicitudes -->
+                <div class="card-group">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Últimas Solicitudes</h5>
+                      <?php
+                      while ($cabana = mysqli_fetch_array($ultimasSolicitudes)) {
+                      ?>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">
+                            <div class="row g-0">
+                              <div class="col-md-4">
+                                <img src=<?php echo "Fotos_Cabanas/" . $cabana["Cabana_idCabana"] . ".jpg"; ?> class="imagenResumen img-fluid" alt="...">
+                              </div>
+                              <div class="col-md-8">
+                                <div class="card-body">
+                                  <h5 class="card-title"><?php echo ($cabana['Titulo']) ?> </h5>
+                                  <p class="card-text"><i class="fa-regular fa-eye"></i><?php echo (" " . $cabana['Visitas']) ?></p>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  <?php
-                  }
-                  ?>
+                          </li>
+                        </ul>
+                      <?php
+                      }
+                      ?>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div><br>
-
-            <!-- Card Cabañas más Visitadas -->
-            <div class="card-group">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Cabañas más Visitadas</h5>
-                  <?php
-                  while ($cabana = mysqli_fetch_array($CananasMasVistas)) {
-                  ?>
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">
-                        <div class="row g-0">
-                          <div class="col-md-4">
-                            <img src=<?php echo "Fotos_Cabanas/" . $cabana["idCabana"] . ".jpg"; ?> class="img-fluid" alt="...">
-                          </div>
-                          <div class="col-md-8">
-                            <div class="card-body">
-                              <h5 class="card-title"><?php echo ($cabana['Titulo']) ?> </h5>
-                              <p class="card-text"><i class="fa-regular fa-eye"></i><?php echo (" " . $cabana['Visitas']) ?></p>
+              <div class="col">
+                <!-- Card Cabañas más Visitadas -->
+                <div class="card-group">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Cabañas más Visitadas</h5>
+                      <?php
+                      while ($cabana = mysqli_fetch_array($CananasMasVistas)) {
+                      ?>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">
+                            <div class="row g-0">
+                              <div class="col-md-4">
+                                <img src=<?php echo "Fotos_Cabanas/" . $cabana["idCabana"] . ".jpg"; ?> class="imagenResumen img-fluid" alt="...">
+                              </div>
+                              <div class="col-md-8">
+                                <div class="card-body">
+                                  <h5 class="card-title"><?php echo ($cabana['Titulo']) ?> </h5>
+                                  <p class="card-text"><i class="fa-regular fa-eye"></i><?php echo (" " . $cabana['Visitas']) ?></p>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  <?php
-                  }
-                  ?>
+                          </li>
+                        </ul>
+                      <?php
+                      }
+                      ?>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </main>

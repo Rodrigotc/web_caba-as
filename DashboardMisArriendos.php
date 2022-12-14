@@ -8,7 +8,12 @@ include("Backend/VerificarSesionIniciada.php");
 /////Recuperar datos de Cabañas/////
 include("Backend\conection.php");
 $idPersona = $_SESSION['id'];
-$solicitudes = mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.arriendo WHERE Persona_idPersona = $idPersona AND Estado = 'Aceptado'");
+$solicitudes = mysqli_query(
+  $enlace,
+  "SELECT *, arriendo.Estado AS estadoArriendo FROM nuevocabanasdb.arriendo
+INNER JOIN nuevocabanasdb.cabana ON arriendo.Cabana_idCabana = cabana.idCabana
+WHERE arriendo.Persona_idPersona = $idPersona AND arriendo.Estado = 'Aceptado'"
+);
 mysqli_close($enlace);
 
 /////Funciones/////
@@ -85,52 +90,56 @@ function dias_restantes($fecha_final)
             ?>
               <div class="card-group">
                 <div class="card">
-                  <div class="card-body">
-
-
+                  <div class="solicitudesCard card-body">
+                    <!-- Título -->
+                    <div class="tituloIzquierdo"><?php echo ($solicitud['Titulo']) ?></div><br>
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item">
                         <div class="row g-0">
                           <div class="col-md-4">
-                            <img src=<?php echo "Fotos_Cabanas/" . $solicitud["Cabana_idCabana"] . ".jpg"; ?> class="img-fluid" alt="...">
+                            <a href="zdetalle.php?idCabana=<?php echo $solicitud['idCabana'] ?>"><img src=<?php echo "Fotos_Cabanas/" . $solicitud["idCabana"] . ".jpg"; ?> class="imgCabana" alt="Cabaña"></a>
                           </div>
                           <div class="col-md-8">
                             <div class="card-body">
-                              <?php echo $solicitud["Mensaje"] ?><br>
-                              <?php
+                              <p class="titulo">Mensaje: <?php echo $solicitud["Mensaje"] ?></p>
+                              <p class="titulo"> Fecha de Entrada: <?php echo ($solicitud['FechaEntrada']) ?></p>
+                              <p class="titulo">Fecha de Salida: <?php echo ($solicitud['FechaSalida']) ?></p>
+                              <p class="titulo">
+                                <?php
+                                //Calcular en que fase del arriendo estamos
+                                if (dias_restantes($solicitud["FechaEntrada"]) == 0) {
+                                  $diasrestantes = dias_restantes($solicitud["FechaEntrada"]);
+                                  echo "Hoy es la fecha de entrada.";
+                                } elseif (dias_restantes($solicitud["FechaEntrada"]) > 0) {
+                                  $diasrestantes = dias_restantes($solicitud["FechaEntrada"]);
+                                  echo "Quedan $diasrestantes días para la fecha de entrada.";
+                                } elseif (dias_restantes($solicitud["FechaSalida"]) > 0) {
+                                  $diasrestantes = dias_restantes($solicitud["FechaSalida"]);
+                                  echo "Quedan $diasrestantes días para la fecha de salida";
+                                } else {
+                                  $diasrestantes = abs(dias_restantes($solicitud["FechaSalida"]));
+                                  echo "Han pasado $diasrestantes días desde la fecha de salida";
+                                }
+                                ?><br>
+                              </p>
 
-                              //Calcular en que fase del arriendo estamos
-                              if (dias_restantes($solicitud["FechaEntrada"]) > 0) {
-                                $diasrestantes = dias_restantes($solicitud["FechaEntrada"]);
-                                echo "Quedan $diasrestantes días para la fecha de ingreso";
-                              } elseif (dias_restantes($solicitud["FechaSalida"]) > 0) {
-                                $diasrestantes = dias_restantes($solicitud["FechaSalida"]);
-                                echo "Quedan $diasrestantes días para la fecha de salida";
-                              } else {
-                                $diasrestantes = abs(dias_restantes($solicitud["FechaSalida"]));
-                                echo "Han pasado $diasrestantes días desde la fecha de salida";
-                              }
-                              ?><br>
-                              
                             </div>
                           </div>
                         </div>
                       </li>
                     </ul>
-
                   </div>
                 </div>
               </div><br>
             <?php
             }
             ?>
-
           </div>
         </div>
-
       </main>
     </div>
   </div>
+
 
   <!--Fontawesome-->
   <script src="https://kit.fontawesome.com/1e5f0e0661.js" crossorigin="anonymous"></script>
