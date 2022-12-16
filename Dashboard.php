@@ -9,7 +9,7 @@ include("Backend/VerificarSesionIniciada.php");
 include("Backend\conection.php");
 $idPersona = $_SESSION['id'];
 $Cabanas = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE Persona_idPersona = '$idPersona'"));
-$CananasMasVistas = mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE Persona_idPersona = '$idPersona' AND Estado = '1' ORDER BY Visitas desc Limit 5");
+$CananasMasVistas = mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE Persona_idPersona = '$idPersona' AND Estado = '1' ORDER BY Visitas desc Limit 3");
 $cantCabanasPublicadas = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT COUNT(*) FROM nuevocabanasdb.cabana WHERE Estado = '1' AND Persona_idPersona = '$idPersona';"));
 $cantCabanasPendientes = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT COUNT(*) FROM nuevocabanasdb.cabana WHERE Estado = '0' AND Persona_idPersona = '$idPersona';"));
 $ultimasSolicitudes = mysqli_query(
@@ -17,7 +17,7 @@ $ultimasSolicitudes = mysqli_query(
   "SELECT *, cabana.Persona_idPersona as idArrendador FROM nuevocabanasdb.arriendo 
 INNER JOIN nuevocabanasdb.cabana ON arriendo.Cabana_idCabana = cabana.idCabana
 WHERE arriendo.Estado = 'En Solicitud' AND cabana.Persona_idPersona = '$idPersona'
-LIMIT 5;"
+LIMIT 3;"
 );
 mysqli_close($enlace);
 ?>

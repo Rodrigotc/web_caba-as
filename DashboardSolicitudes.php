@@ -14,7 +14,7 @@ $CabanasEnSolicitud = mysqli_query(
 FROM nuevocabanasdb.arriendo 
 INNER JOIN nuevocabanasdb.cabana ON arriendo.Cabana_idCabana = cabana.idCabana
 INNER JOIN nuevocabanasdb.persona ON arriendo.Persona_idPersona = persona.idPersona
-WHERE cabana.Persona_idPersona = $idPersona AND arriendo.Estado = 'En Solicitud' OR arriendo.Estado = 'Esperando Pago';"
+WHERE cabana.Persona_idPersona = $idPersona AND arriendo.Estado != 'Aceptado';"
 );
 mysqli_close($enlace);
 
