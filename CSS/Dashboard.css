@@ -5,7 +5,7 @@ header {
 }
 
 .barra-lateral {
-    background: #252121;
+    background: #c4841b;
     color: #fff;
     min-width: 350px;
     min-height: 100vh;
@@ -30,12 +30,13 @@ header {
 }
 
 .barra-lateral .menu a:hover {
-    background-color: #003c5d;
+    background-color: #a14713;
+    color: #fff;
     text-decoration: none;
 }
 
 .active {
-    background-color: #003c5d;
+    background-color: #a14713;
 }
 
 .barra-lateral .menu {
@@ -61,7 +62,7 @@ header {
 
 img.imagenResumen{
     border-radius: 10px;
-    height: 100px;
+    height: 130px;
     width: 200px;
 }
 
@@ -82,6 +83,13 @@ div.tituloIzquierdo {
 div.tituloDerecho {
     position: absolute;
     right: 24px;
+}
+
+img.Icono{
+    height: 16px;
+    position: relative;
+    right: 1px;
+    bottom: 1px;
 }
 
 img.imgCabana {
@@ -130,6 +138,36 @@ input.btnEliminar {
     position: absolute;
     right: 0px;
     bottom: -70px;
+}
+
+/*Card Mis Arriendos*/
+.cartaMisArriendos {
+    height: auto !important;
+}
+
+img.imgCabanaMisArriendos {
+    height: 250px;
+    width: 376px;
+    border-radius: 10px;
+    position: absolute;
+    left: 16px;
+}
+
+.comentarios{
+    position: relative;
+    bottom: 31px;
+}
+
+label.titulo{
+    font-weight: 700;
+    font-size: larger;
+    position: relative;
+    right: 150px;
+}
+
+textarea{
+    height: 160px;
+    resize:none !important;
 }
 
 /*MEDIAQUERYS*/

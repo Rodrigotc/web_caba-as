@@ -22,6 +22,18 @@ function iconoVerificado($cabana)
   if ($cabana['Verificado'] == '1') {
 ?>
     <i class="fa-solid fa-circle-check fa-xs"></i>
+  <?php
+  }
+}
+function iconoEstado($cabana)
+{
+  if ($cabana['estadoArriendo'] == 'En Solicitud') {
+  ?>
+    <img class='Icono' src='Imagenes\Estado_Rojo.png'>
+  <?php
+  } else {
+  ?>
+    <img class='Icono' src='Imagenes\Estado_Verde.png'>
 <?php
   }
 }
@@ -98,7 +110,7 @@ function iconoVerificado($cabana)
                             <div class="card-body">
                               <div class="row">
                                 <div class="col">
-                                  <p class="titulo">Estado: <?php echo $cabana["estadoArriendo"] ?></p>
+                                  <p class="titulo">Estado: <?php echo $cabana["estadoArriendo"] ?> <?php echo iconoEstado($cabana) ?></p>
                                   <p class="titulo">Mensaje: <?php echo $cabana["Mensaje"] ?></p>
                                 </div>
                                 <div class="col">

@@ -107,12 +107,12 @@ function iconoVerificado($cabana)
                               <div class="row">
                                 <div class="col">
                                   <p class="titulo">
-                                    Estado:
+                                    Estado:                                    
                                     <?php
                                     if ($cabana['Estado'] == 1) {
-                                      echo "Publicado";
+                                      echo "Publicado <img class = 'Icono' src='Imagenes\Estado_Verde.png'>";
                                     } else {
-                                      echo "En Revisión";
+                                      echo "En Revisión <img class = 'Icono' src='Imagenes\Estado_Rojo.png'>";
                                     }
                                     ?>
                                   </p>

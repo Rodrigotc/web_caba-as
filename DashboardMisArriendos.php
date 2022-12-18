@@ -9,7 +9,9 @@ include("Backend/VerificarSesionIniciada.php");
 include("Backend\conection.php");
 $idPersona = $_SESSION['id'];
 $nombrePersona = $_SESSION['nombre'];
-$solicitudes = mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.arriendo WHERE Persona_idPersona = $idPersona AND Estado = 'Aceptado'");
+$solicitudes = mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.arriendo 
+INNER JOIN cabana ON arriendo.Cabana_idCabana = cabana.idCabana
+WHERE arriendo.Persona_idPersona = $idPersona AND arriendo.Estado = 'Aceptado'");
 mysqli_close($enlace);
 
 /////Funciones/////
@@ -84,79 +86,103 @@ function dias_restantes($fecha_final)
             <?php
             while ($solicitud = mysqli_fetch_array($solicitudes)) {
             ?>
+              <div class="card-group">
+                <div class="cartaMisArriendos card">
+                  <div class="solicitudesCard card-body">
+                    <!-- Título -->
+                    <div class="tituloIzquierdo"><?php echo ($solicitud['Titulo']) ?></div>
 
+                    <div class="tituloDerecho"></div><br>
+                    <div class="container text-center">
+                      <div class="row">
+                        <div class="col">
+                          <img src=<?php echo "Fotos_Cabanas/" . $solicitud["Cabana_idCabana"] . ".jpg"; ?> class="imgCabanaMisArriendos img-fluid" alt="...">
+                        </div>
+                        <div class="col">
+                          <div class="row">
+                            <p class="titulo">Mensaje: <?php echo $solicitud["Mensaje"] ?> </p>
+                            <p class="titulo">
+                              <?php
+                              //Calcular en que fase del arriendo estamos
+                              if (dias_restantes($solicitud["FechaEntrada"]) > 0) {
+                                $diasrestantes = dias_restantes($solicitud["FechaEntrada"]);
+                                echo  "Quedan $diasrestantes días para la fecha de ingreso";
+                              } elseif (dias_restantes($solicitud["FechaSalida"]) > 0) {
+                                $diasrestantes = dias_restantes($solicitud["FechaSalida"]);
+                                echo "Quedan $diasrestantes días para la fecha de salida";
+                              } else {
+                                $diasrestantes = abs(dias_restantes($solicitud["FechaSalida"]));
+                                echo "Han pasado $diasrestantes días desde la fecha de salida  ";
+                              ?>
 
-
-              <div class="container text-center">
-                <div class="row align-items-start">
-                  <div class="col">
-
-                    <img src=<?php echo "Fotos_Cabanas/" . $solicitud["Cabana_idCabana"] . ".jpg"; ?> class="img-fluid" alt="...">
-
-                  </div>
-                  <div class="col-4 ">
-
-                    <div class="card-body p-3">
-                      <p class="fst-italic">Mensaje: <?php echo $solicitud["Mensaje"] ?> </p>
-                      <p class="fw-light">
-                        <?php
-                        //Calcular en que fase del arriendo estamos
-                        if (dias_restantes($solicitud["FechaEntrada"]) > 0) {
-                          $diasrestantes = dias_restantes($solicitud["FechaEntrada"]);
-                          echo  "Quedan $diasrestantes días para la fecha de ingreso";
-                        } elseif (dias_restantes($solicitud["FechaSalida"]) > 0) {
-                          $diasrestantes = dias_restantes($solicitud["FechaSalida"]);
-                          echo "Quedan $diasrestantes días para la fecha de salida";
-                        } else {
-                          $diasrestantes = abs(dias_restantes($solicitud["FechaSalida"]));
-                          echo "Han pasado $diasrestantes días desde la fecha de salida  ";
-                        ?>
-                      </p>
-
-                      <div class="col ">
-
-                        <form method="POST" action="./Backend/enviarcomentario.php">
-                          <div class="form-group">
-                            <div class="input-group input-group-sm mb-3">
-                              <input type = "hidden" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="nombre" type="text" id="nombre" value="<?php echo $nombrePersona ?>" required readonly>
-                            </div>
-                            <div class="input-group input-group-sm mb-3">
-                              <input type = "hidden" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="idcabana" type="text" id="idcabana" value="<?php echo $solicitud["Cabana_idCabana"] ?>" required readonly>
-                            </div>
-
-                            <input type="hidden" name="idArriendo" value="<?php echo $solicitud["idArriendo"] ?>" />
+                              <?php
+                              }
+                              ?>
+                            </p>
                           </div>
-                          <br>
-                          <div class="form-group">
-                            <label for="comentario" class="form-label ">Comentario:</label>
-                            <textarea class="form-control" name="comentario" cols="30" rows="5" type="text" id="comentario" placeholder="Escribe tu comentario......"></textarea>
-                          </div>
-                          <br>
+                        </div>
 
-                          <input class="btn btn-primary" type="submit" value="Enviar Comentario">
-                        </form>
 
-                        <input class="m-1 btn btn-secondary btn-lg btn-danger" onclick="location.href='Backend/Eliminararriendo.php?idArriendo=<?php echo $solicitud['idArriendo'] ?>'" value="Eliminar">
+                        <!-- Mostrar comentario solo si se superó la fecha de salida -->
+                        <div class="comentarios col">
+                          <?php
+                          if (dias_restantes($solicitud["FechaSalida"]) < 0) {
+                          ?>
+                            <form method="POST" action="./Backend/enviarcomentario.php">
+
+                              <div class="input-group input-group-sm mb-3">
+                                <input type="hidden" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="nombre" type="text" id="nombre" value="<?php echo $nombrePersona ?>" required readonly>
+                              </div>
+                              <div class="input-group input-group-sm mb-3">
+                                <input type="hidden" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="idcabana" type="text" id="idcabana" value="<?php echo $solicitud["Cabana_idCabana"] ?>" required readonly>
+                              </div>
+
+                              <input type="hidden" name="idArriendo" value="<?php echo $solicitud["idArriendo"] ?>" />
+
+
+                              <label for="comentario" class="titulo form-label ">Comentario:</label>
+                              <textarea class="form-control" name="comentario" cols="30" rows="5" type="text" id="comentario" placeholder="Escribe tu comentario..."></textarea>
+                              <br>
+                              <input class="btn btn-primary" type="submit" value="Enviar Comentario">
+                              <input class="m-1 btn btn-secondary btn-danger" onclick="location.href='Backend/Eliminararriendo.php?idArriendo=<?php echo $solicitud['idArriendo'] ?>'" value="Eliminar">
+                            </form>
+
+                          <?php
+                          } else {
+                          ?>
+                            <form method="POST">
+                              <div class="input-group input-group-sm mb-3">
+                                <input type="hidden" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="nombre" type="text" id="nombre" value="<?php echo $nombrePersona ?>" required readonly>
+                              </div>
+                              <div class="input-group input-group-sm mb-3">
+                                <input type="hidden" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="idcabana" type="text" id="idcabana" value="<?php echo $solicitud["Cabana_idCabana"] ?>" required readonly>
+                              </div>
+
+                              <input type="hidden" name="idArriendo" value="<?php echo $solicitud["idArriendo"] ?>" />
+
+
+                              <label for="comentario" class="titulo form-label ">Comentario:</label>
+                              <textarea readonly class="form-control" name="comentario" cols="30" rows="5" type="text" id="comentario" placeholder="Escribe tu comentario..."></textarea>
+                              <br>
+                              <input class="btn btn-primary" type="submit" value="Enviar Comentario" disabled>
+                              <input class="m-1 btn btn-secondary btn-danger" onclick="location.href='Backend/Eliminararriendo.php?idArriendo=<?php echo $solicitud['idArriendo'] ?>'" value="Eliminar" disabled>
+                            </form>
+                          <?php
+                          }
+                          ?>
+                        </div>
+
 
                       </div>
-                    <?php
-                        }
-                    ?>
-
                     </div>
                   </div>
-
-                  <hr size="2px" color="black" />
-
-
                 </div>
-              <?php
+              </div><br>
+            <?php
             }
-              ?>
-              </div>
-
+            ?>
           </div>
-
+        </div>
       </main>
     </div>
   </div>

@@ -26,7 +26,7 @@ mysqli_close($enlace);
   <title>Página Administrador</title>
 </head>
 
-<body style="background-image: url('Imagenes/fondo_azul.jpg');">
+<body>
   <!-- NavBar -->
   <?php
   include("Colecciones/NavBar.php");
