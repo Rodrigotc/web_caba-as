@@ -9,9 +9,16 @@ include("Backend/VerificarSesionIniciada.php");
 include("Backend\conection.php");
 $idPersona = $_SESSION['id'];
 $Cabanas = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE Persona_idPersona = '$idPersona'"));
-$CananasMasVistas = mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE Persona_idPersona = '$idPersona' AND Estado = '1' ORDER BY Visitas desc Limit 5");
+$CananasMasVistas = mysqli_query($enlace, "SELECT * FROM nuevocabanasdb.cabana WHERE Persona_idPersona = '$idPersona' AND Estado = '1' ORDER BY Visitas desc Limit 3");
 $cantCabanasPublicadas = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT COUNT(*) FROM nuevocabanasdb.cabana WHERE Estado = '1' AND Persona_idPersona = '$idPersona';"));
 $cantCabanasPendientes = mysqli_fetch_assoc(mysqli_query($enlace, "SELECT COUNT(*) FROM nuevocabanasdb.cabana WHERE Estado = '0' AND Persona_idPersona = '$idPersona';"));
+$ultimasSolicitudes = mysqli_query(
+  $enlace,
+  "SELECT *, cabana.Persona_idPersona as idArrendador FROM nuevocabanasdb.arriendo 
+INNER JOIN nuevocabanasdb.cabana ON arriendo.Cabana_idCabana = cabana.idCabana
+WHERE arriendo.Estado = 'En Solicitud' AND cabana.Persona_idPersona = '$idPersona'
+LIMIT 3;"
+);
 mysqli_close($enlace);
 ?>
 
@@ -24,6 +31,8 @@ mysqli_close($enlace);
   <link rel="stylesheet" href="CSS/Dashboard.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <!--Fontawesome-->
+  <script src="https://kit.fontawesome.com/1e5f0e0661.js" crossorigin="anonymous"></script>
   <!--Title e ícono-->
   <link rel="shortcut icon" href="Imagenes/Marcador.png">
   <title>Dashboard</title>
@@ -37,15 +46,21 @@ mysqli_close($enlace);
     ?>
   </header>
 
-  <!-- Barra lateral -->
+
   <div class="container-fluid">
+    <!-- Barra lateral -->
     <div class="row">
       <div class="barra-lateral col-12 col-sm-auto">
+        Arrendador
         <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
           <a class="active" href="Dashboard.php"><i class="fa-solid fa-gauge"></i><span>Resumen</span></a>
-          <a href="DashboardSolicitudes.php"><i class="fa-solid fa-envelope"></i><span>Solicitudes</span></a>
+          <a href="DashboardSolicitudes.php"><i class="fa-solid fa-bell"></i><span>Solicitudes</span></a>
           <a href="DashboardCabanas.php"><i class="fa-solid fa-house-circle-check"></i><span>Mis Cabañas</span></a>
-          <a href="DashboardMisSolicitudes.php"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis solicitudes</span></a>
+        </nav>
+        Arrendatario
+        <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
+          <a href="DashboardMisSolicitudes.php"><i class="fa-solid fa-envelope"></i><span>Mis solicitudes</span></a>
+          <a href="DashboardMisArriendos.php"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis Arriendos</span></a>
         </nav>
       </div>
 
@@ -83,54 +98,76 @@ mysqli_close($enlace);
               </div>
             </div><br>
 
-            <!-- Card Solicitudes -->
-            <div class="card-group">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Últimas Solicitudes</h5>
-                  <p class="card-text">Primera<br>Segunda<br>Tercera<br>Cuarta<br>Quinta</p>
+            <div class="row">
+              <div class="col">
+                <!-- Card Solicitudes -->
+                <div class="card-group">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Últimas Solicitudes</h5>
+                      <?php
+                      while ($cabana = mysqli_fetch_array($ultimasSolicitudes)) {
+                      ?>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">
+                            <div class="row g-0">
+                              <div class="col-md-4">
+                                <img src=<?php echo "Fotos_Cabanas/" . $cabana["Cabana_idCabana"] . ".jpg"; ?> class="imagenResumen img-fluid" alt="...">
+                              </div>
+                              <div class="col-md-8">
+                                <div class="card-body">
+                                  <h5 class="card-title"><?php echo ($cabana['Titulo']) ?> </h5>
+                                  <p class="card-text"><i class="fa-regular fa-eye"></i><?php echo (" " . $cabana['Visitas']) ?></p>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      <?php
+                      }
+                      ?>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div><br>
-
-            <!-- Card Cabañas más Visitadas -->
-            <div class="card-group">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Cabañas más Visitadas</h5>
-                  <?php
-                  while ($cabana = mysqli_fetch_array($CananasMasVistas)) {
-                  ?>
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">
-                        <div class="row g-0">
-                          <div class="col-md-4">
-                            <img src=<?php echo "Fotos_Cabanas/" . $cabana["idCabana"] . ".jpg"; ?> class="img-fluid" alt="...">
-                          </div>
-                          <div class="col-md-8">
-                            <div class="card-body">
-                              <h5 class="card-title"><?php echo ($cabana['Titulo']) ?> </h5>
-                              <p class="card-text"><i class="fa-regular fa-eye"></i><?php echo (" " . $cabana['Visitas']) ?></p>
+              <div class="col">
+                <!-- Card Cabañas más Visitadas -->
+                <div class="card-group">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Cabañas más Visitadas</h5>
+                      <?php
+                      while ($cabana = mysqli_fetch_array($CananasMasVistas)) {
+                      ?>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">
+                            <div class="row g-0">
+                              <div class="col-md-4">
+                                <img src=<?php echo "Fotos_Cabanas/" . $cabana["idCabana"] . ".jpg"; ?> class="imagenResumen img-fluid" alt="...">
+                              </div>
+                              <div class="col-md-8">
+                                <div class="card-body">
+                                  <h5 class="card-title"><?php echo ($cabana['Titulo']) ?> </h5>
+                                  <p class="card-text"><i class="fa-regular fa-eye"></i><?php echo (" " . $cabana['Visitas']) ?></p>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  <?php
-                  }
-                  ?>
+                          </li>
+                        </ul>
+                      <?php
+                      }
+                      ?>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </main>
     </div>
   </div>
 
-  <!--Fontawesome-->
-  <script src="https://kit.fontawesome.com/1e5f0e0661.js" crossorigin="anonymous"></script>
   <!--Boostrap-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>

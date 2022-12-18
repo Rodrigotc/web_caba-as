@@ -8,12 +8,7 @@
         <ul class="navbar-nav">
           
        
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="Registro.php">Crear Cuenta</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="InicioSesion.php">Iniciar Sesión</a>
-            </li>
+           
             
       </div>
     </div>

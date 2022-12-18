@@ -22,8 +22,6 @@ function iconoVerificado($cabana)
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -44,17 +42,22 @@ function iconoVerificado($cabana)
     <?php
     include("Colecciones/NavBar.php");
     ?>
-    
+  </header>
 
-  <!-- Barra lateral -->
   <div class="container-fluid">
-  <div class="row">
+    <!-- Barra lateral -->
+    <div class="row">
       <div class="barra-lateral col-12 col-sm-auto">
+        Arrendador
         <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
           <a href="Dashboard.php"><i class="fa-solid fa-gauge"></i><span>Resumen</span></a>
-          <a href="DashboardSolicitudes.php"><i class="fa-solid fa-envelope"></i><span>Solicitudes</span></a>
+          <a href="DashboardSolicitudes.php"><i class="fa-solid fa-bell"></i><span>Solicitudes</span></a>
           <a class="active" href="DashboardCabanas.php"><i class="fa-solid fa-house-circle-check"></i><span>Mis Cabañas</span></a>
-          <a href="DashboardMisSolicitudes.php"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis solicitudes</span></a>
+        </nav>
+        Arrendatario
+        <nav class="menu d-flex d-sm-block justify-content-center flex-wrap">
+          <a href="DashboardMisSolicitudes.php"><i class="fa-solid fa-envelope"></i><span>Mis solicitudes</span></a>
+          <a href="DashboardMisArriendos.php"><i class="fa-sharp fa-solid fa-house-circle-exclamation"></i><span>Mis Arriendos</span></a>
         </nav>
       </div>
 
@@ -66,36 +69,64 @@ function iconoVerificado($cabana)
 
             <!-- Card cabañas -->
             <?php
+            include("Backend\conection.php");
             while ($cabana = mysqli_fetch_array($Cabanas)) {
+              //Consultas MYSQL
+              $idCabana = $cabana['idCabana'];
+              $CantidadSolicitudes = mysqli_fetch_assoc(mysqli_query(
+                $enlace,
+                "SELECT COUNT(*) FROM arriendo
+                INNER JOIN cabana ON arriendo.Cabana_idCabana = cabana.idCabana
+                WHERE cabana.Persona_idPersona = $idPersona AND Cabana_idCabana = $idCabana AND arriendo.Estado != 'Aceptado';"
+              ));
+              $CantidadSolicitudesAceptadas = mysqli_fetch_assoc(mysqli_query(
+                $enlace,
+                "SELECT COUNT(*) FROM arriendo
+              INNER JOIN cabana ON arriendo.Cabana_idCabana = cabana.idCabana
+              WHERE cabana.Persona_idPersona = $idPersona AND Cabana_idCabana = $idCabana AND arriendo.Estado = 'Aceptado';"
+              ));
             ?>
               <div class="card-group">
-                <div class="card">
+                <div class="cabanaCard card">
                   <div class="card-body">
 
-                    <h5 class="card-title">
-                      <a href="zdetalle.php?idCabana=<?php echo $cabana['idCabana'] ?>">
-                        <?php
-                        echo ($cabana['Titulo'])
-                        ?>
-                      </a>
-                      
-                    </h5>
+                    <!-- Título -->
+                    <div class="tituloIzquierdo"><?php echo ($cabana['Titulo']) ?></div>
+                    <div class="tituloDerecho"><?php echo ($cabana['Ciudad']) ?></div><br>
 
+                    <!-- Cuerpo -->
                     <ul class="list-group list-group-flush">
-                      <li class="list-group-item">
+                      <li class="lista list-group-item">
                         <div class="row g-0">
                           <div class="col-md-4">
-                            <img src=<?php echo "Fotos_Cabanas/" . $cabana["idCabana"] . ".jpg"; ?> class="img-fluid" alt="...">
+                            <a href="zdetalle.php?idCabana=<?php echo $cabana['idCabana'] ?>"><img src=<?php echo "Fotos_Cabanas/" . $cabana["idCabana"] . ".jpg"; ?> class="imgCabana" alt="Cabaña"></a>
                           </div>
+
                           <div class="col-md-8">
-                            <div class="card-body">
-                              Estado: <?php 
-                              if($cabana['Estado'] == 1){
-                                echo "Publicado";
-                              }else{
-                                echo "En Revisión";
-                              }
-                              ?>
+                            <div class="cuerpo card-body">
+                              <div class="row">
+                                <div class="col">
+                                  <p class="titulo">
+                                    Estado:                                    
+                                    <?php
+                                    if ($cabana['Estado'] == 1) {
+                                      echo "Publicado <img class = 'Icono' src='Imagenes\Estado_Verde.png'>";
+                                    } else {
+                                      echo "En Revisión <img class = 'Icono' src='Imagenes\Estado_Rojo.png'>";
+                                    }
+                                    ?>
+                                  </p>
+                                  <p class="titulo">Valor por día: $<?php echo (number_format($cabana['Precio'])) ?></p>
+                                  <p class="titulo">Vistas: <?php echo ($cabana['Visitas']) ?></p>
+                                </div>
+                                <div class="col">
+                                  <p class="titulo">Solicitudes Pendientes: <?php echo ($CantidadSolicitudes['COUNT(*)']) ?></p>
+                                  <p class="titulo">Solicitudes Confirmadas: <?php echo ($CantidadSolicitudesAceptadas['COUNT(*)']) ?></p>
+                                </div>
+                              </div>
+
+                              <!--Eliminar Cabania-->
+                              <input class="btnEliminar btn btn-secondary btn-lg btn-danger" onclick="location.href='Backend/EliminarCabania.php?idCabania=<?php echo $cabana['idCabana'] ?>'" value="Eliminar Cabaña">
                             </div>
                           </div>
                         </div>
@@ -105,8 +136,9 @@ function iconoVerificado($cabana)
                   </div>
                 </div>
               </div><br>
-              <?php
+            <?php
             }
+            mysqli_close($enlace);
             ?>
 
           </div>

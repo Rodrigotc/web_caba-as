@@ -150,7 +150,7 @@ function agregarMarcadores()
   <title>Búsqueda</title>
 </head>
 
-<body style="background-image: url('Imagenes/fondo_azul.jpg');">
+<body style="background-image: url('Imagenes/Fondo.png');">
   <!-- NavBar -->
   <?php
   include("Colecciones/NavBar.php");

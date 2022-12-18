@@ -5,45 +5,77 @@
 }
 
 body {
-    background-image: url('../Imagenes/fondo_azul.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    margin: 0;
-    height: 100vh;
+    background-image: url('../Imagenes/Fondo_sesion.jpg');
+    background-size: 100% 100%;
+}
+
+.izq {
+    margin-top: 100px !important;
+    color: black;
+    padding-left: 20px;
+}
+
+
+body h1 {
+    color: white;
+}
+
+body p {
+    color: white;
+    font-size: x-large;
 }
 
 .form-register {
-    width: 400px;
-    background: #24303c;
+    width: 500px;
+    background: white;
     padding: 30px;
     margin: auto;
     margin-top: 100px;
-    border-radius: 4px;
+    border-radius: 15px;
     font-family: 'calibri';
     color: rgb(255, 255, 255);
     box-shadow: 7px 13px 37px black;
 }
 
+body h4 {
+    color: black;
+}
+
+
 .controls {
     width: 100%;
-    background: #24303c;
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 16px;
-    border: 1px solid #1f53c5;
+    border: 1px solid black;
     font-family: 'calibri';
     font-size: 18px;
-    color: white
+    color: black
 }
 
 .boton {
     width: 100%;
-    background: #1f53c5;
+    background: #f8b46c;
     border: none;
     padding: 12px;
-    color: white;
+    color: black;
+    border-color: black;
+    border-radius: 4px;
 }
 
-.img-cabana {
-    width: 1%
+.alerta {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+}
+
+.alerta {
+    margin-bottom: 0px !important;
+}
+
+footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: auto;
 }
