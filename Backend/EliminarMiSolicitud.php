@@ -11,4 +11,4 @@ mysqli_query($enlace, $eliminar);
 mysqli_close($enlace);
 
 //Cerrar conección
-header("location:..\DashboardMisArriendos.php");
+header("location:..\DashboardMisSolicitudes.php");

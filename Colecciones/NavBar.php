@@ -26,6 +26,8 @@
                   ?>
                     <!--Página Administrador-->
                     <li><a class="dropdown-item" href="PaginaAdministrador.php">Página Administrador</a></li>
+                      <!--Página Administrador-->
+                      <li><a class="dropdown-item" href="AdminSolicitudesVerificados.php">Verificar cuentas [adm]</a></li>
                   <?php
                   }
                   ?>

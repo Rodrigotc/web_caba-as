@@ -5,7 +5,8 @@
 }
 
 body {
-    background-color: #2596be !important;
+    background-image: url('../Imagenes/Fondo_sesion.jpg');
+    background-size: 100% 100%;
 }
 
 .izq {
@@ -63,12 +64,12 @@ body h4 {
 }
 
 .alerta {
-    position:fixed;
-    left:0px;
-    bottom:0px;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
 }
 
-.alerta{
+.alerta {
     margin-bottom: 0px !important;
 }
 
@@ -77,4 +78,4 @@ footer {
     bottom: 0px;
     width: 100%;
     height: auto;
-  }
+}

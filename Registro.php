@@ -23,7 +23,8 @@ function ComprobarPost($campo)
 
 <!--HTML-->
 <!DOCTYPE html>
-<html lang="es">
+<html style="background-image: url('../Imagenes/Fondo_sesion.jpg');
+    background-size: 100% 100%;" lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -36,7 +37,9 @@ function ComprobarPost($campo)
     <title>Crear cuenta</title>
 </head>
 
-<body>
+<body style="
+    height: 100vh;
+">
     <?php
     include("Colecciones/NavbarLogin.php");
     ?>
@@ -78,7 +81,7 @@ function ComprobarPost($campo)
                             <div class="row">
                                 <div class="col">
                                     Teléfono
-                                    <input class="controls" type="text" name="telefono" id="telefono" placeholder="12345678" value="<?php echo $telefono; ?>">
+                                    <input class="controls" type="text" name="telefono" id="telefono" placeholder="+56912345678" value="<?php echo $telefono; ?>">
                                 </div>
                                 <div class="col">
                                     Contraseña
@@ -93,76 +96,76 @@ function ComprobarPost($campo)
         </div>
     </div>
 
-   
-</body>
-<footer>
-     <!--Validación-->
-     <?php
-    if (isset($_POST['nombres'])) {
-        //Arreglo
-        $errores = array();
+    <footer>
+        <!--Validación-->
+        <?php
+        if (isset($_POST['nombres'])) {
+            //Arreglo
+            $errores = array();
 
-        //Verificación de errores
-        //Campos vacíos
-        if ($nombres == "" || $apellidos == "" || $rut == "" || $correo == "" || $telefono == "" || $contrasena == "") {
-            array_push($errores, "Debe rellenar todos los datos.");
-        }
+            //Verificación de errores
+            //Campos vacíos
+            if ($nombres == "" || $apellidos == "" || $rut == "" || $correo == "" || $telefono == "" || $contrasena == "") {
+                array_push($errores, "Debe rellenar todos los datos.");
+            }
 
-        //Rut
-        if ((preg_match("/^[0-9]+-[0-9kK]{1}$/", $rut) == 0) && ($rut != "")) {
-            array_push($errores, "Debe ingresar un rut válido.");
-        }
+            //Rut
+            if ((preg_match("/^[0-9]+-[0-9kK]{1}$/", $rut) == 0) && ($rut != "")) {
+                array_push($errores, "Debe ingresar un rut válido.");
+            }
 
-        //Correo
-        if ((!filter_var($correo, FILTER_VALIDATE_EMAIL)) && ($correo != "")) {
-            array_push($errores, "Debe ingresar un correo válido.");
-        }
+            //Correo
+            if ((!filter_var($correo, FILTER_VALIDATE_EMAIL)) && ($correo != "")) {
+                array_push($errores, "Debe ingresar un correo válido.");
+            }
 
-        //Telefono
-        if ((preg_match("/[0-9]{9}/", $telefono) == 0) && ($telefono != "")) {
-            array_push($errores, "Debe ingresar un telefono válido.");
-        }
+            //Telefono
+            if ((preg_match("/[0-9]{9}/", $telefono) == 0) && ($telefono != "")) {
+                array_push($errores, "Debe ingresar un telefono válido.");
+            }
 
-        //Rut ya existente
-        include("Backend\conection.php");
-        $consulta = "SELECT * FROM nuevocabanasdb.persona WHERE rut = '$rut'";
-        $resultado = mysqli_num_rows(mysqli_query($enlace, $consulta));
-        if ($resultado) {
-            array_push($errores, "Ya existe una cuenta con ese rut.");
-        }
-
-        //Correo ya existente
-        $consulta = "SELECT * FROM nuevocabanasdb.persona WHERE correo = '$correo'";
-        $resultado = mysqli_num_rows(mysqli_query($enlace, $consulta));
-        mysqli_close($enlace);
-        if ($resultado) {
-            array_push($errores, "Ya existe una cuenta con ese correo.");
-        }
-
-        //Resultado de POST
-        //Si existen errores
-        if (count($errores) > 0) {
-    ?>
-            <div class="alerta alert alert-danger">
-                <?php
-                foreach ($errores as $i => $value) {
-                    echo $value . "</br>";
-                }
-
-                ?>
-            </div>
-    <?php
-            //Si los datos son ingresados correctamente  
-        } else {
+            //Rut ya existente
             include("Backend\conection.php");
-            $insertar = "INSERT INTO `nuevocabanasdb`.`persona` (`Nombres`, `Apellidos`, `Correo`, `Contrasena`, `Rut`, `Telefono`) VALUES ('$nombres', '$apellidos', '$correo', '$contrasena', '$rut', '$telefono')";
-            mysqli_query($enlace, $insertar);
+            $consulta = "SELECT * FROM nuevocabanasdb.persona WHERE rut = '$rut'";
+            $resultado = mysqli_num_rows(mysqli_query($enlace, $consulta));
+            if ($resultado) {
+                array_push($errores, "Ya existe una cuenta con ese rut.");
+            }
+
+            //Correo ya existente
+            $consulta = "SELECT * FROM nuevocabanasdb.persona WHERE correo = '$correo'";
+            $resultado = mysqli_num_rows(mysqli_query($enlace, $consulta));
             mysqli_close($enlace);
-            session_start();
-            include("Backend\IniciarSesion.php");
+            if ($resultado) {
+                array_push($errores, "Ya existe una cuenta con ese correo.");
+            }
+
+            //Resultado de POST
+            //Si existen errores
+            if (count($errores) > 0) {
+        ?>
+                <div class="alerta alert alert-danger">
+                    <?php
+                    foreach ($errores as $i => $value) {
+                        echo $value . "</br>";
+                    }
+
+                    ?>
+                </div>
+        <?php
+                //Si los datos son ingresados correctamente  
+            } else {
+                include("Backend\conection.php");
+                $insertar = "INSERT INTO `nuevocabanasdb`.`persona` (`Nombres`, `Apellidos`, `Correo`, `Contrasena`, `Rut`, `Telefono`) VALUES ('$nombres', '$apellidos', '$correo', '$contrasena', '$rut', '$telefono')";
+                mysqli_query($enlace, $insertar);
+                mysqli_close($enlace);
+                session_start();
+                include("Backend\IniciarSesion.php");
+            }
         }
-    }
-    ?>
-</footer>
+        ?>
+    </footer>
+</body>
+
 
 </html>
